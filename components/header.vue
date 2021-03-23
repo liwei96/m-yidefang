@@ -1,6 +1,7 @@
 <template>
   <header id="hh">
     <img class="back" src="~/assets/goback.png" alt @click="back" />
+    <img src="~/assets/back-cls.png" alt="" class="cls" v-if="ispk" @click="gocontent">
     <img class="logo" src="~/assets/logo.png" alt />
     <div class="zixuns" @click="gotalk" v-if="kk">
       <img src="~/assets/header-talk.png" alt />
@@ -59,10 +60,14 @@ export default {
     return {
       list: false,
       kk: true,
-      host: 0
+      host: 0,
+      ispk: false
     };
   },
   methods: {
+    gocontent(){
+      this.$router.push('/'+this.jkl+'/content/'+sessionStorage.getItem('proid'))
+    },
     back() {
       // if(this.$route.path.indexOf('weike') !=-1 || this.$route.path.indexOf('infos') !=-1){
       //   this.$router.push('/'+this.jkl)
@@ -106,6 +111,10 @@ export default {
     }
   },
   mounted() {
+    console.log(this.$route.path)
+    if (this.$route.path.indexOf('pk')!==-1) {
+      this.ispk=true
+    }
     document.addEventListener("click", e => {
       if (this.$refs.showPanel) {
         let isSelf = this.$refs.showPanel.contains(e.target);
@@ -152,12 +161,18 @@ header {
   top: 0;
   z-index: 1000;
   border-bottom: 0.03125rem solid #f7f7f7;
+  position: relative;
   .back {
     width: 1.5rem;
     margin-left: 1rem;
   }
   .logo {
     width: 4.375rem;
+  }
+  .cls {
+    width: 1.1rem;
+    position: absolute;
+    left: 3.375rem;
   }
   .home {
     width: 1.25rem;

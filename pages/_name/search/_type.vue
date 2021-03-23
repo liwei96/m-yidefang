@@ -253,10 +253,9 @@
         <nuxt-link :to="'/' + jkl + '/content/' + item.id" :key="key">
           <div class="pro">
             <div class="left">
-              <div class="imgbox" v-if="item.allowance > 0">
+              <!-- <div class="imgbox" v-if="item.allowance > 0">
                 补贴<span>￥{{item.allowance}}</span>
-                <!-- <img src="~/assets/imgbox.png" alt=""> -->
-              </div>
+              </div> -->
               <img class="leftimg" :src="item.img" alt />
             </div>
             <div class="pro-msg">
