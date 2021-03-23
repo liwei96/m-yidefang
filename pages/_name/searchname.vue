@@ -15,7 +15,9 @@
             :to="'/' + jkl + '/content/' + item.id"
             v-if="key < 5"
           > -->
-            <span @click="go(item.id, item.name)" :key="key" v-if="key<5">{{ item.name }}</span>
+          <span @click="go(item.id, item.name)" :key="key" v-if="key < 5">{{
+            item.name
+          }}</span>
           <!-- </nuxt-link> -->
         </template>
       </p>
@@ -51,15 +53,15 @@
 </template>
 <script>
 import { souname } from "@/api/api";
-import '@/static/css/foot.css'
-var that
+import "@/static/css/foot.css";
+var that;
 export default {
   async asyncData(context) {
     let city = context.store.state.city;
     let token = context.store.state.cookie.token;
     let jkl = context.params.name;
     let other = context.query.other;
-    let [res,res1] = await Promise.all([
+    let [res, res1] = await Promise.all([
       context.$axios
         .get("/jy/us/search", {
           params: {
@@ -86,9 +88,9 @@ export default {
     return {
       jkl: jkl,
       hots: res.hot_search,
-      title:res1.common.header.title,
-      description:res1.common.header.description,
-      keywords:res1.common.header.keywords
+      title: res1.common.header.title,
+      description: res1.common.header.description,
+      keywords: res1.common.header.keywords,
     };
   },
   head() {
@@ -113,7 +115,7 @@ export default {
       name: "",
       ll: false,
       isok: true,
-      page:2
+      page: 2,
     };
   },
   methods: {
@@ -125,8 +127,8 @@ export default {
         this.ll = false;
       } else {
         this.ll = true;
-        let city = localStorage.getItem('cityname')
-        souname(name,1,city).then((res) => {
+        let city = localStorage.getItem("cityname");
+        souname(name, 1, city).then((res) => {
           for (let val of res.data.data) {
             var text = val.where.replace(/<[^<>]+>/g, "");
             if (text == val.name) {
@@ -147,16 +149,44 @@ export default {
     },
     go(id, name) {
       if (sessionStorage.getItem("order")) {
+        let reg = /[\u4e00-\u9fa5]/g;
+        let names = name.match(reg);
+        name = names.join("")
         sessionStorage.setItem("ordername", name);
+        sessionStorage.setItem('orderonce',1)
         sessionStorage.removeItem("order");
         this.$router.push("/" + this.jkl + "/order");
+      } else if (sessionStorage.getItem("pk")) {
+        sessionStorage.setItem("ordername", name);
+        sessionStorage.removeItem("pk");
+        let arr = $cookies.get("ids");
+        sessionStorage.setItem("pktype", 1);
+        if (!arr) {
+          arr = id;
+          $cookies.set("ids", arr);
+          this.$router.push("/" + this.jkl + "/pk/" + id);
+        } else {
+          let k = arr.split(",");
+          k.unshift(id);
+          let kk = [];
+          for (let val of k) {
+            if (kk.indexOf(String(val)) == -1) {
+              kk.push(val);
+            }
+          }
+          kk = kk.slice(0, 4);
+          arr = kk.join(",");
+          $cookies.set("ids", arr);
+          // 7982,7989,7998,7999
+          this.$router.push("/" + this.jkl + "/pk/" + arr);
+        }
       } else {
         this.$router.push("/" + this.jkl + "/content/" + id);
       }
     },
-    ss(){
-      this.$router.push('/'+this.jkl+'/search')
-    }
+    ss() {
+      this.$router.push("/" + this.jkl + "/search");
+    },
   },
   mounted() {
     // let that = this;
@@ -186,8 +216,8 @@ export default {
     //     }
     //   }
     // });
-    that =this
-    document.getElementById('foott').style.display = 'none'
+    that = this;
+    document.getElementById("foott").style.display = "none";
   },
   watch: {
     name(val) {
@@ -195,7 +225,7 @@ export default {
     },
   },
   beforeDestroy() {
-    document.getElementById('foott').style.display = 'block'
+    document.getElementById("foott").style.display = "block";
   },
 };
 </script>
@@ -343,9 +373,9 @@ header {
       .kk {
         float: right;
         padding: 0.1875rem 0.4375rem;
-        color: #20c657;
+        color: #b68826;
         font-size: 0.6875rem;
-        background-color: #ebf7f0;
+        background-color: #f8efdc;
         border-radius: 0.125rem;
       }
       i {

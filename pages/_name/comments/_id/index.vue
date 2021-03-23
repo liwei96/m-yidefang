@@ -29,13 +29,13 @@
             <p class="btn">
               <span
                 :class="item.my_like == 1 ? 'active' : ''"
-                @click="like(item.id)"
+                @click="like(item.id,key)"
               >
                 <img :src="item.my_like == 1 ? img1 : img" alt />
                 {{ item.like_num }}
               </span>
               <span @click="talk(item.id)">
-                <img src="~/assets/zixun.png" alt />
+                <img :src="item.children.length==0?zx1:zx" alt />
                 {{ item.children.length }}
               </span>
             </p>
@@ -133,6 +133,8 @@ export default {
       img: require("~/assets/noclick.png"),
       img1: require("~/assets/checked.png"),
       proname: "",
+      zx: require("~/assets/zixun.png"),
+      zx1: require("~/assets/zixuned.png"),
     };
   },
   methods: {
@@ -193,12 +195,19 @@ export default {
         this.$router.push("/" + this.jkl + "/login");
       }
     },
-    like(id) {
+    like(id,key) {
       let token = $cookies.get("token");
       if (token) {
         likecomm({ token: token, id: id }).then((res) => {
           if (res.data.code == 200) {
-            this.$router.go(0);
+            // this.$router.go(0);
+            if(this.lists[key].my_like==1) {
+              this.lists[key].my_like=0
+              this.lists[key].like_num=this.lists[key].like_num-1
+            }else{
+              this.lists[key].my_like=1
+              this.lists[key].like_num=this.lists[key].like_num+1
+            }
           } else {
             let url = this.$route.path;
             sessionStorage.setItem("path", url);

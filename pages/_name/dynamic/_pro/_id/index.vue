@@ -453,7 +453,6 @@ header {
     button {
       margin-left: auto;
       background: linear-gradient(270deg, #D1A23D, #EBBF5F);;
-      box-shadow: 0.03125rem 0.15625rem 0.3125rem 0px rgba(44, 204, 128, 0.2);
       border-radius: 0.8125rem;
       text-align: center;
       line-height: 1.625rem;
@@ -489,7 +488,7 @@ header {
       .left {
         width: 6.875rem;
         height: 5rem;
-        border-radius: 0.1875rem;
+        border-radius: .375rem;
         background-color: #f5f5f5;
         text-align: center;
         img {

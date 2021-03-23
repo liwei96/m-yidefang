@@ -69,11 +69,11 @@
           </p>
         </div>
         <div class="top-right" @click="pk">
-          <img src="~/assets/content-pk.png" alt="" />
+          <img src="~/assets/content-pk.gif" alt="" />
           加入对比
         </div>
       </div>
-      <div class="intro-fx" @click="pop('预售咨询', 119, '详情页+预售咨询')">
+      <div class="intro-fx" @click="pop('预约咨询', 119, '详情页+预约咨询')">
         <p>预约咨询<img src="~/assets/content-more.png" alt="" /></p>
       </div>
       <div class="intro-con">
@@ -537,7 +537,7 @@
             </div>
             <div
               :class="item.my_like == 1 ? 'top-right active' : 'top-right'"
-              @click="like(item.id)"
+              @click="like(item.id,key)"
             >
               <img :src="item.my_like == 1 ? img1 : img" alt />
               赞({{ item.like_num }})
@@ -1070,12 +1070,19 @@ export default {
         this.$router.push("/" + this.jkl + "/login");
       }
     },
-    like(id) {
+    like(id,key) {
       let token = $cookies.get("token");
       if (token) {
         likecomm({ token: token, id: id }).then((res) => {
           if (res.data.code == 200) {
-            this.$router.go(0);
+            // this.$router.go(0);
+            if(this.comments[key].my_like==1) {
+              this.comments[key].my_like=0
+              this.comments[key].like_num=this.comments[key].like_num-1
+            }else{
+              this.comments[key].my_like=1
+              this.comments[key].like_num=this.comments[key].like_num+1
+            }
           } else {
             let url = this.$route.path;
             sessionStorage.setItem("path", url);
@@ -2129,7 +2136,7 @@ export default {
     .hu-top {
       background-color: #f7f7f7;
       overflow: hidden;
-      border-radius: 0.375rem 0.375rem 0 0;
+      border-radius: 0.375rem;
       height: 6.25rem;
       display: flex;
       justify-content: center;
@@ -2779,9 +2786,9 @@ export default {
           color: #b68826;
           font-size: 0.6875rem;
           float: right;
-          padding: 0.1875rem 0.375rem;
+          padding: .125rem 0.375rem 0.1875rem 0.375rem;
           background-color: #f8efdc;
-          border-radius: 0.125rem;
+          border-radius: .1875rem;
           font-weight: 400;
         }
       }
@@ -2812,13 +2819,13 @@ export default {
           padding: 0.1875rem 0.375rem;
           background-color: #ebf8ff;
           margin-right: 0.375rem;
-          border-radius: 0.125rem;
+          border-radius: .1875rem;
         }
         .pro-icon-type {
           color: #888a8f;
           font-size: 0.6875rem;
           padding: 0.1875rem 0.375rem;
-          border-radius: 0.125rem;
+          border-radius: .1875rem;
           background-color: #f7f8fa;
           margin-right: 0.375rem;
         }

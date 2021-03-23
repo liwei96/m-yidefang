@@ -1,9 +1,7 @@
 <template>
   <div id="PK">
     <top-view :jkl="jkl"></top-view>
-    <nuxt-link :to="'/' + jkl + '/addpro'">
-      <button class="add">添加楼盘</button>
-    </nuxt-link>
+      <button class="add" @click="gosea">添加楼盘</button>
     <div class="isnull" v-if="list.length == 0">
       <img src="~/assets/pk-null.png" alt />
       <h5>您尚未添加楼盘</h5>
@@ -13,7 +11,7 @@
       <van-checkbox-group v-model="result" :max="2">
         <template v-for="(item, key) in list">
           <van-swipe-cell :key="key">
-            <van-checkbox :name="item.id" checked-color="#B68826">
+            <van-checkbox :name="item.id" checked-color="#B68826" @click="show">
               <div class="pro">
                 <div class="left">
                   <img :src="item.img" alt />
@@ -135,9 +133,25 @@ export default {
       isadd: false,
       list: [],
       isok: false,
+      showtype: true
     };
   },
   methods: {
+    gosea(){
+      sessionStorage.setItem('pk',1)
+      this.$router.push('/'+this.jkl+'/searchname')
+    },
+    show() {
+      if(this.result.length==2) {
+        if(this.showtype){
+          this.toast('只能选择两个楼盘')
+        }else{
+          this.showtype=true
+        }
+      }else{
+        this.showtype = false
+      }
+    },
     gopk() {
       let that = this;
       if (this.result.length == 2) {
@@ -156,6 +170,11 @@ export default {
     },
     del(id) {
       let ids = $cookies.get("ids").split(",");
+      console.log(ids)
+      if (ids.length==1) {
+        this.toast('最少保留一个')
+        return
+      }
       let kk = ids.splice(ids.indexOf(String(id)), 1);
       $cookies.set("ids", ids);
       let k = ids.join(",");
@@ -240,7 +259,7 @@ header {
   width: 92%;
   height: 3rem;
   border-radius: 0.25rem;
-  border: 0.03125rem solid #B68826;
+  border: .0625rem solid #B68826;
   background-color: #F8EFDC;
   color: #B68826;
   font-size: 0.9375rem;

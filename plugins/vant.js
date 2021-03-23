@@ -14,7 +14,8 @@ import {
   ImagePreview,
   Swipe,
   SwipeItem,
-  picker
+  picker,
+  Slider
 } from 'vant';
 
 Vue.use(Button);
@@ -32,3 +33,4 @@ Vue.use(ImagePreview);
 Vue.use(Swipe);
 Vue.use(SwipeItem);
 Vue.use(picker);
+Vue.use(Slider);

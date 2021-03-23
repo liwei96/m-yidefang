@@ -156,7 +156,7 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <img src="~/assets/index-bei.jpg" alt="" class="bei" />
-            <img :src="rigid_demands[0].img" alt="" class="hot-bg" />
+            <img :src="rigid_demands[0].img" alt="" class="hot-bg"  v-if="rigid_demands.length"/>
             <h4>刚需楼盘榜</h4>
             <p class="time">更新于{{ time }}</p>
             <ul>
@@ -182,7 +182,7 @@
           </div>
           <div class="swiper-slide">
             <img src="~/assets/index-bei.jpg" alt="" class="bei" />
-            <img :src="investments[0].img" alt="" class="hot-bg" />
+            <img :src="investments[0].img" alt="" class="hot-bg" v-if="investments.length"/>
             <h4>投资楼盘榜</h4>
             <p class="time">更新于{{ time }}</p>
             <ul>
@@ -208,7 +208,7 @@
           </div>
           <div class="swiper-slide">
             <img src="~/assets/index-bei.jpg" alt="" class="bei" />
-            <img :src="improvements[0].img" alt="" class="hot-bg" />
+            <img :src="improvements[0].img" alt="" class="hot-bg" v-if="improvements.length"/>
             <h4>改善楼盘榜</h4>
             <p class="time">更新于{{ time }}</p>
             <ul>
@@ -234,7 +234,7 @@
           </div>
           <div class="swiper-slide">
             <img src="~/assets/index-bei.jpg" alt="" class="bei" />
-            <img :src="existing_houses[0].img" alt="" class="hot-bg" />
+            <img :src="existing_houses[0].img" alt="" class="hot-bg"  v-if="existing_houses.length"/>
             <h4>现房楼盘榜</h4>
             <p class="time">更新于{{ time }}</p>
             <ul>
@@ -736,7 +736,7 @@ header {
       }
     }
     .swipe-logo {
-      margin-left: 0.625rem;
+      margin-left: .9375rem;
       width: 3.75rem;
     }
   }

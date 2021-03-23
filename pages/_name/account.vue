@@ -62,7 +62,7 @@ export default {
   },
   data() {
     return {
-      imgs: "http://test.jy8006.com/_nuxt/img/4525797.png",
+      imgs: "http://testmobile.edefang.net/_nuxt/img/serve.c07e957.jpg",
       jkl: "",
     };
   },

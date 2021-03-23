@@ -445,14 +445,21 @@ export default {
       this.$router.push("/" + this.jkl + "/imgs/" + this.$route.params.id);
     },
     gotalk() {
-      let url = window.location.href;
-      let newurl = url.split("?")[0];
-      let id = this.$route.params.id;
-      let name = sessionStorage.getItem("buildname");
-      newurl += `?proid=${id}&name=${name}`;
-      newurl = encodeURIComponent(newurl);
-      window.location.href =
-        "http://www.jy1980.com:9191/hangzhou/talk?reconnect=" + newurl;
+      let urlid = sessionStorage.getItem("proid");
+      let id = sessionStorage.getItem(urlid);
+      if (id) {
+        sessionStorage.setItem("staffid", id);
+        let n = parseInt(sessionStorage.getItem(id));
+        let total = parseInt(sessionStorage.getItem("total"));
+        total = total - n;
+        if (total != 0) {
+          sessionStorage.setItem("total", total);
+        } else {
+          sessionStorage.removeItem("total");
+        }
+        sessionStorage.removeItem(id);
+      }
+      this.$router.push("/" + this.jkl + "/talk/" + urlid);
     },
   },
   mounted() {

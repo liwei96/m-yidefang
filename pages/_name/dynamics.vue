@@ -175,6 +175,7 @@ export default {
         // console.log(res);
         that.lists = that.lists.concat(res.data.data);
         that.ting = true;
+        that.page=that.page+1
       });
     },
     cli(e) {
@@ -195,7 +196,7 @@ export default {
       }
     },
     search() {
-      this.$router.push("/" + this.jkl + "/search");
+      this.$router.push("/" + this.jkl + "/searchname");
     },
     pop(name, position, txt,id) {
       this.name = name;

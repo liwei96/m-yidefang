@@ -89,7 +89,7 @@ export default {
         }).then((res) => {
           if (res.data.code == 200) {
             that.toast("回复成功");
-            that.$router.go(-1);
+            this.$router.push("/" + this.jkl + "/commentdetail/"+that.$route.params.pro+'/'+that.question.id);
           }
         });
       } else {

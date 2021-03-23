@@ -165,14 +165,14 @@
         <tr class="hu">
           <td>楼盘户型</td>
           <td>
-            <span>1室、2室</span>
+            <span>{{one.departments.join('、')}}</span>
             <p class="more">
               更多户型
               <img src="~/assets/j-more.png" alt />
             </p>
           </td>
           <td>
-            <span>1室、2室</span>
+            <span>{{two.departments.join('、')}}</span>
             <p class="more">
               更多户型
               <img src="~/assets/j-more.png" alt />
@@ -558,7 +558,6 @@ export default {
           font-size: 0.75rem;
           border: 0;
           background: linear-gradient(90deg, #D1A23D, #E9D28B);
-          box-shadow: 0px 0.15625rem 0.3125rem 0px rgba(44, 203, 128, 0.2);
         }
       }
       td:nth-of-type(3) {
@@ -576,7 +575,6 @@ export default {
           font-size: 0.75rem;
           border: 0;
           background: linear-gradient(90deg, #D1A23D, #E9D28B);
-          box-shadow: 0px 0.15625rem 0.3125rem 0px rgba(44, 203, 128, 0.2);
         }
       }
     }

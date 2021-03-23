@@ -204,6 +204,7 @@ header {
       margin-right: 0.75rem;
       background-color: #f5f5f5;
       text-align: center;
+      border-radius: .375rem;
       img {
         height: 100%;
         max-width: 100%;

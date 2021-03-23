@@ -7,19 +7,7 @@
       <div class="sliderbox">
         <p class="start">{{start}}万</p>
         <p class="end">{{end}}万</p>
-        <input
-          id="ex2"
-          type="text"
-          class="span2"
-          value
-          data-slider-min="10"
-          data-slider-max="1000"
-          data-slider-step="10"
-          data-slider-value="[200,800]"
-          tooltip="show"
-          :tooltip_split="true"
-          tooltip_position="top"
-        />
+       <van-slider v-model="value" range @input="onChange" :min="0" :max="1000" active-color="#B68826"/>
       </div>
       <p class="tit tit1">您意向购买哪种户型？</p>
       <div class="type">
@@ -74,12 +62,12 @@
           <input class="txt" type="text" placeholder="请输入手机号" v-model="tel" />
           <p class="xiyi">
             <input type="checkbox" v-model="check" />我已阅读并同意
-            <nuxt-link :to="'/'">《家有用户协议》</nuxt-link>
+            <nuxt-link :to="'/wuxi/protocol'">《易得房用户协议》</nuxt-link>
           </p>
           <button @click="sendmsg">确定</button>
         </div>
         <div class="two" v-if="isok">
-          <p class="msg">验证码已发送到187****4376 请注意查看</p>
+          <p class="msg">验证码已发送到{{telmsg}} 请注意查看</p>
           <input class="txt" type="text" placeholder="请输入验证码" v-model="code" />
           <span @click="sendmsg">{{msg}}</span>
           <button @click="sure">确定</button>
@@ -156,6 +144,7 @@ export default {
   },
   data() {
     return {
+       value: [200, 800],
       start: 200,
       end: 800,
       show: false,
@@ -173,9 +162,14 @@ export default {
       tel: "",
       code: "",
       isnull: true,
+      telmsg: ''
     };
   },
   methods: {
+     onChange(value) {
+      this.start = value[0]
+      this.end = value[1]
+    },
     goback() {
       this.$router.go(-1);
     },
@@ -240,6 +234,7 @@ export default {
           that.isok = true;
           let num = 60;
           that.isnull = false;
+          this.telmsg = that.tel.substr(0,3)+'****'+that.tel.substr(7)
           let time = setInterval(() => {
             num--;
             if (num <= 0) {
@@ -276,12 +271,14 @@ export default {
             if (!$cookies.get("token")) {
               $cookies.set("phone", that.tel);
               $cookies.set("token", res.data.token);
-              let tel = that.tel.substr(0, 3) + "****" + that.tel.substr(8);
+              let tel = that.tel.substr(0, 3) + "****" + that.tel.substr(7);
               $cookies.set("username", tel);
             }
             that.toast("提交成功");
             that.show1 = false;
             that.isok = false;
+          }else {
+            that.toast(res.data.message||res.data.msg);
           }
         }
       );
@@ -292,17 +289,14 @@ export default {
     },
   },
   mounted() {
-    var slider = new Slider("#ex2", {});
+    // var slider = new Slider("#ex2", {});
     let that = this;
-    $("#ex2").on("slide", function () {
-      var start = $(".min-slider-handle").attr("aria-valuenow");
-      var end = $(".max-slider-handle").attr("aria-valuenow");
-      // console.log(start, end);
-      that.start = start;
-      that.end = end;
-      // console.log(that.start);
-      // console.log(end);
-    });
+    // $("#ex2").on("slide", function () {
+    //   var start = $(".min-slider-handle").attr("aria-valuenow");
+    //   var end = $(".max-slider-handle").attr("aria-valuenow");
+    //   that.start = start;
+    //   that.end = end;
+    // });
 
     
   },
@@ -393,7 +387,7 @@ export default {
       margin-right: 0;
     }
     .active {
-      background: linear-gradient(-270deg, #B68826, #3fd6a7);
+      background: linear-gradient(270deg, #D1A23D, #EBBF5F);
       color: #fff;
     }
   }

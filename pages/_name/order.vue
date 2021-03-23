@@ -67,12 +67,12 @@
           <input class="txt" type="text" placeholder="请输入手机号" v-model="tel" />
           <p class="xiyi">
             <input type="checkbox" v-model="check" />我已阅读并同意
-            <nuxt-link :to="'/'">《家有用户协议》</nuxt-link>
+            <nuxt-link :to="'/wuxi/protocol'">《易得房用户协议》</nuxt-link>
           </p>
           <button @click="sendmsg">确定</button>
         </div>
         <div class="two" v-if="isok">
-          <p class="msg">验证码已发送到187****4376 请注意查看</p>
+          <p class="msg">验证码已发送到{{telmsg}} 请注意查看</p>
           <input class="txt" type="text" placeholder="请输入验证码" v-model="code" />
           <span @click="sendmsg">{{msg}}</span>
           <button @click="sure">确定</button>
@@ -150,7 +150,8 @@ export default {
       isok:false,
       show1:false,
       isnull:true,
-      msg:'获取验证码'
+      msg:'获取验证码',
+      telmsg:""
     };
   },
   methods:{
@@ -216,6 +217,7 @@ export default {
           that.isok = true;
           let num = 60;
           that.isnull = false;
+          this.telmsg = that.tel.substr(0,3)+'****'+that.tel.substr(7)
           let time = setInterval(() => {
             num--;
             if (num <= 0) {
@@ -258,17 +260,26 @@ export default {
             that.toast("预约成功，咨询师会主动联系你");
             that.show1 = false;
             that.isok = false;
+          }else {
+            that.toast(res.data.message||res.data.msg);
           }
         }
       );
     },
   },
   mounted(){
-    this.name = sessionStorage.getItem('ordername')
+    if(sessionStorage.getItem('orderonce')){
+      this.name = sessionStorage.getItem('ordername')
+    }else{
+      sessionStorage.setItem('orderonce',1)
+    }
     this.date = sessionStorage.getItem('ordertime')
     if($cookies.get('phone')){
       this.tel = $cookies.get('phone')
     }
+  },
+  beforeDestroy(){
+    sessionStorage.removeItem('orderonce')
   }
 };
 </script>

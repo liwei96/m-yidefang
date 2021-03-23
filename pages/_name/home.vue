@@ -12,13 +12,13 @@
       <ul class="li">
         <li @click="viewed">
           <div>
-            <p class="num">{{ viewednum }}</p>
+            <p class="num">{{ listtotal }}</p>
             <p class="msg">浏览足迹</p>
           </div>
         </li>
         <li @click="collection">
           <div>
-            <p class="num">{{ collnum }}</p>
+            <p class="num">{{ collstotal }}</p>
             <p class="msg">我的收藏</p>
           </div>
         </li>
@@ -215,7 +215,9 @@ export default {
       jkl: jkl,
       tel: res.common.phone,
       list: res1.data,
+      listtotal: res1.total,
       colls: res2.data,
+      collstotal: res2.total,
       title:res.common.header.title,
       description:res.common.header.description,
       keywords:res.common.header.keywords,
@@ -276,6 +278,10 @@ export default {
       }
     },
     viewed() {
+      if (!this.listtotal){
+        this.toast('暂无足迹')
+        return
+      }
       if ($cookies.get("token")) {
         this.$router.push("/" + this.jkl + "/viewed");
       } else {
@@ -283,6 +289,10 @@ export default {
       }
     },
     collection() {
+      if (!this.collstotal){
+        this.toast('暂无收藏')
+        return
+      }
       if ($cookies.get("token")) {
         this.$router.push("/" + this.jkl + "/collection");
       } else {

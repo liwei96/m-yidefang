@@ -25,7 +25,7 @@
             :to="
               id
                 ? '/' + jkl + '/answer/' + item.id + '/' + id
-                : '/' + jkl + '/answer/' + item.id
+                : '/' + jkl + '/answer/' + item.id + '/' + item.bid
             "
           >
             <p class="msg">
@@ -167,6 +167,7 @@ export default {
   methods: {
     getmore() {
       var scrollTop = window.scrollY;
+      let city = localStorage.getItem('city')
       var scrollHeight = window.screen.availHeight;
       var windowHeight = document.body.scrollHeight;
       if (scrollTop + scrollHeight >= windowHeight) {
@@ -176,6 +177,7 @@ export default {
           let token = $cookies.get("token");
           questions({
             project: that.id,
+            city: city,
             page: that.page,
             limit: 10,
             other: that.$route.query.other,

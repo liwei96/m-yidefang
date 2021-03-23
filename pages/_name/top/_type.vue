@@ -3,7 +3,7 @@
       <top-view :jkl="jkl"></top-view>
     <div class="topimg">
       <img src="~/assets/top-top.jpg" alt="" class="bg" />
-      <div class="city" @click="gocity">杭州<img src="~/assets/top-down.png" alt="" /></div>
+      <div class="city" @click="gocity">{{cityname}}<img src="~/assets/top-down.png" alt="" /></div>
     </div>
     <div class="nav">
       <p :class="num == 0 ? 'active' : ''" @click="setnum(0)">刚需楼盘<span></span></p>
@@ -35,7 +35,7 @@
         <div class="bom">
           <img src="~/assets/top-bei.png" alt="" />
           人气榜第{{key+1}}名
-          <button>查底价</button>
+          <button @click="pop('查询最底价', 34, '楼盘榜页+查询最底价',top.id)">查底价</button>
         </div>
       </div>
     </div>
@@ -63,7 +63,7 @@
         <div class="bom">
           <img src="~/assets/top-bei.png" alt="" />
           人气榜第{{key+1}}名
-          <button>查底价</button>
+          <button @click="pop('查询最底价', 34, '楼盘榜页+查询最底价',top.id)">查底价</button>
         </div>
       </div>
     </div>
@@ -91,7 +91,7 @@
         <div class="bom">
           <img src="~/assets/top-bei.png" alt="" />
           人气榜第{{key+1}}名
-          <button>查底价</button>
+          <button @click="pop('查询最底价', 34, '楼盘榜页+查询最底价',top.id)">查底价</button>
         </div>
       </div>
     </div>
@@ -119,7 +119,7 @@
         <div class="bom">
           <img src="~/assets/top-bei.png" alt="" />
           人气榜第{{key+1}}名
-          <button>查底价</button>
+          <button @click="pop('查询最底价', 34, '楼盘榜页+查询最底价',top.id)">查底价</button>
         </div>
       </div>
     </div>
@@ -154,13 +154,30 @@
         </nuxt-link>
       </template>
     </div>
+    <van-popup
+      v-model="tan"
+      :style="{ background: 'rgba(0,0,0,0)' }"
+      @click-overlay="typebtn = 0"
+    >
+      <tan-view
+        :txt="remark"
+        :typenum="typenum"
+        :id="id"
+        :name="name"
+        @close="cli($event)"
+        :typebtn="typebtn"
+        :proname="proname"
+      ></tan-view>
+    </van-popup>
   </div>
 </template>
 <script>
 import topView from "@/components/header.vue";
+import tan from "@/components/tan.vue";
 export default {
      components: {
     "top-view": topView,
+    "tan-view": tan,
   },
     async asyncData (context) {
     let ip=context.store.state.cookie.ip;
@@ -232,10 +249,31 @@ export default {
   },
   data() {
     return {
-      type: 0
+      type: 0,
+      cityname:'',
+      tan: false,
+      typenum: 0,
+      typebtn: 1,
+      name: "",
+      remark: "",
+      id: 0,
+      proname:''
     };
   },
   methods:{
+    pop(name, position, txt, id, proname) {
+      console.log(88)
+      this.name = name;
+      this.typebtn = 1;
+      this.typenum = position;
+      this.tan = true;
+      this.remark = txt;
+      this.id = String(id);
+      this.proname = proname;
+    },
+    cli(e) {
+      this.tan = e;
+    },
       setnum(n) {
           this.num = n
       },
@@ -256,6 +294,7 @@ export default {
   },
   mounted(){
       window.addEventListener("scroll", this.getmore);
+      this.cityname = localStorage.getItem('cityname')
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.getmore);

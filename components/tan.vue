@@ -8,7 +8,7 @@
         <input type="tel" placeholder="请输入手机号" v-model="baoming" />
         <p class="xiyi">
           <input type="checkbox" v-model="checks" />我已阅读并同意
-          <a @click="goo">《家园用户协议》</a>
+          <a @click="goo">《易得房用户协议》</a>
         </p>
         <button @click="send">{{btnstr}}</button>
         <p class="bomm">获取后会有置业顾问致电联系您并提供服务</p>
@@ -105,6 +105,7 @@ export default {
         this.str = "一键订阅最新开盘通知，我们会第一时间通知,不再错过开盘时间";
       } else if (type == "预约看房") {
         this.str = "提前预约看房，我们将提供免费专车接送和专业楼盘讲解";
+        this.btnstr = "立即预约"
       } else if (type == "订阅实时动态") {
         this.str = "订阅最新动态，楼盘最新情报抢先知道，帮您找准买房好时机";
         this.btnstr = "立即订阅"
@@ -133,8 +134,9 @@ export default {
         this.str = "好楼盘户型是关键，咨询户型底价，安安心心买房";
       } else if (type == "咨询服务") {
         this.str = "立即报名，专业人员为你解惑!";
-      } else if (type == "预售咨询") {
-        this.str = "立即报名，专业人员为你解惑!";
+      } else if (type == "预约咨询") {
+        this.str = "20分内回应，一对一专属于服务，了解更多有关房源信息";
+        this.btnstr = "立即预约"
       } else if (type == "领取完整分析报告") {
         this.str =
           "最新楼盘分析资料，看看房产专家对楼盘的投资分析和宜居分析解读";
@@ -272,14 +274,14 @@ export default {
                 if (that.lucktype == 1) {
                   $cookies.set("token", res.data.token, 21600);
                   $cookies.set("phone", phone, 21600);
-                  let tel = phone.substr(0, 3) + "****" + phone.substr(8);
+                  let tel = phone.substr(0, 3) + "****" + phone.substr(7);
                   $cookies.set("username", tel);
                   this.$store.dispatch("setoken", res.data.token);
                 } else {
                   if (!$cookies.get("token")) {
                     $cookies.set("token", res.data.token, 21600);
                     $cookies.set("phone", phone, 21600);
-                    let tel = phone.substr(0, 3) + "****" + phone.substr(8);
+                    let tel = phone.substr(0, 3) + "****" + phone.substr(7);
                     $cookies.set("username", tel);
                     this.$store.dispatch("setoken", res.data.token);
                   }
@@ -294,14 +296,14 @@ export default {
               if (that.lucktype == 1) {
                 $cookies.set("token", res.data.token, 21600);
                 $cookies.set("phone", phone, 21600);
-                let tel = phone.substr(0, 3) + "****" + phone.substr(8);
+                let tel = phone.substr(0, 3) + "****" + phone.substr(7);
                 $cookies.set("username", tel);
                 this.$store.dispatch("setoken", res.data.token);
               } else {
                 if (!$cookies.get("token")) {
                   $cookies.set("token", res.data.token, 21600);
                   $cookies.set("phone", phone, 21600);
-                  let tel = phone.substr(0, 3) + "****" + phone.substr(8);
+                  let tel = phone.substr(0, 3) + "****" + phone.substr(7);
                   $cookies.set("username", tel);
                   this.$store.dispatch("setoken", res.data.token);
                 }
@@ -347,12 +349,14 @@ export default {
       this.str =
         "价格变动这么快？订阅楼盘变价通知，楼盘变价我们将第一时间通知您";
       this.btnstr = "立即订阅"
-    } else if (type == "预售咨询") {
-        this.str = "立即报名，专业人员为你解惑!";
+    } else if (type == "预约咨询") {
+        this.str = "20分内回应，一对一专属于服务，了解更多有关房源信息";
+        this.btnstr = "立即预约"
       } else if (type == "开盘提醒我") {
       this.str = "一键订阅最新开盘通知，我们会第一时间通知,不再错过开盘时间";
     } else if (type == "预约看房") {
       this.str = "提前预约看房，我们将提供免费专车接送和专业楼盘讲解";
+      this.btnstr = "立即预约"
     } else if (type == "订阅实时动态") {
       this.str = "订阅最新动态，楼盘最新情报抢先知道，帮您找准买房好时机";
       this.btnstr = "立即订阅"

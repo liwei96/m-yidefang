@@ -64,9 +64,9 @@ export default {
   },
   data() {
     return {
-      imgs: "http://test.jy8006.com/_nuxt/img/4525797.png",
+      imgs: "http://testmobile.edefang.net/_nuxt/img/fllow1.4a70a3c.jpg",
       jkl: "",
-      txt:'家园'
+      txt:'易得房'
     };
   },
   components: {
@@ -79,13 +79,6 @@ export default {
       alink.download = "pic"; //图片名
       alink.click();
     },
-  },
-  mounted(){
-    if(this.host == 0) {
-      this.txt = '家园'
-    }else {
-      this.txt = '易得房'
-    }
   }
 };
 </script>

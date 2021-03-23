@@ -36,8 +36,8 @@
         </div>
       </nuxt-link>
     </div>
-    <div class="answer" v-if="staff">
-      <div class="top">
+    <div class="answer">
+      <div class="top" v-if="staff">
         <img src="~/assets/people.png" alt />
         <div class="promsg">
           <h5>
@@ -145,7 +145,7 @@
       <tan-view
         :txt="remark"
         :typenum="typenum"
-        :id="id"
+        :id="bid"
         :name="name"
         @close="cli($event)"
         :typebtn="typebtn"
@@ -169,7 +169,7 @@ export default {
     let host = context.store.state.host
     let other = context.store.state.cookie.other;
     let jkl = context.params.name;
-    let id = context.params.id;
+    let id = context.params.aid;
     let token = context.store.state.cookie.token;
     let [res] = await Promise.all([
       context.$axios
@@ -234,7 +234,8 @@ export default {
       id: "0",
       img: require("~/assets/noclick.png"),
       img1: require("~/assets/checked.png"),
-      txt: '易得房'
+      txt: '易得房',
+      bid: 0
     };
   },
   methods: {
@@ -278,6 +279,8 @@ export default {
     },
   },
   mounted(){
+    this.bid=String(this.building.id)
+    sessionStorage.setItem('proid',this.bid)
     if(this.host == 0) {
       this.txt = '家园'
     }else {

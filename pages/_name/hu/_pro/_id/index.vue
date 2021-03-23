@@ -425,6 +425,8 @@ header {
       border-radius: 0.125rem;
       margin-left: 0.625rem;
       font-weight: 400;
+      position: relative;
+      top: -0.125rem;
     }
   }
   .pri {
@@ -485,7 +487,7 @@ header {
     button {
       width: 10.4375rem;
       height: 2.25rem;
-      border-radius: 0.125rem;
+      border-radius: .375rem;
       background-color: #F8EFDC;
       text-align: center;
       line-height: 2.25rem;
@@ -753,12 +755,12 @@ header {
       width: 6.875rem;
       height: 5rem;
       margin-right: 0.75rem;
-      border-radius: 0.1875rem;
+      border-radius: .375rem;
     }
     .pro-msg {
       flex: 1;
       h5 {
-        color: #5c5c5c;
+        color: #323233;
         font-size: 1rem;
         font-weight: bold;
         margin-top: -0.25rem;
@@ -767,7 +769,7 @@ header {
           color: #B68826;
           font-size: 0.6875rem;
           float: right;
-          padding: 0.1875rem 0.375rem;
+          padding: .15625rem 0.375rem 0.1875rem 0.375rem;
           background-color: #F8EFDC;
           border-radius: 0.125rem;
           font-weight: 400;
@@ -779,7 +781,7 @@ header {
         margin-bottom: 0.1875rem;
         span {
           color: #FF5454;
-          font-size: 0.9375rem;
+          font-size: 1rem;
           font-weight: bold;
         }
         i {

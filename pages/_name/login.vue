@@ -128,7 +128,7 @@ export default {
             $cookies.set("token", res.data.token);
             this.$store.dispatch("setoken", res.data.token);
             // localStorage.setItem('phone',that.tel)
-            let tel = that.tel.substr(0, 3) + "****" + that.tel.substr(8);
+            let tel = that.tel.substr(0, 3) + "****" + that.tel.substr(7);
             $cookies.set("username", tel);
             // localStorage.setItem('username',tel)
             if (sessionStorage.getItem("path")) {
@@ -170,7 +170,7 @@ header {
     margin-right: 8.25rem;
   }
   .logo {
-    width: 3.125rem;
+    width: 4.375rem;
   }
 }
 .con {
@@ -210,14 +210,15 @@ header {
   .input {
     position: relative;
     p {
-      padding: 0.4375rem 0.75rem;
+      padding: .375rem .9375rem;
       color: #D1A23D;
       font-size: 0.75rem;
-      border: 0.03125rem solid #D1A23D;
+      border: .0625rem solid #D1A23D;
       position: absolute;
       right: 0;
       border-radius: 0.125rem;
       bottom: 1.875rem;
+      border-radius: .25rem;
     }
   }
   button {
