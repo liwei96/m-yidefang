@@ -161,7 +161,6 @@ header {
   top: 0;
   z-index: 1000;
   border-bottom: 0.03125rem solid #f7f7f7;
-  position: relative;
   .back {
     width: 1.5rem;
     margin-left: 1rem;
@@ -170,9 +169,9 @@ header {
     width: 4.375rem;
   }
   .cls {
-    width: 1.1rem;
+    width: 1.125rem;
     position: absolute;
-    left: 3.375rem;
+    left: 3.6875rem;
   }
   .home {
     width: 1.25rem;

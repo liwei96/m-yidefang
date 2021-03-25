@@ -24,7 +24,7 @@
     <div class="dynamic" v-if="navnum == 0">
       <ul>
         <template v-for="(item, key) in dynamics">
-          <li :key="key" v-if="key == 0&&item.add_push=='否'">
+          <li :key="'dynamic'+key" v-if="key == 0&&item.add_push=='否'">
             <p class="time">{{ item.time }}</p>
             <div class="con">
               <nuxt-link :to="'/' + jkl + '/dynamic/' + item.id">
@@ -288,7 +288,9 @@ export default {
     }
   },
   mounted() {
-    this.navnum = this.$route.params.type
+    if (this.$route.params.type) {
+      this.navnum = this.$route.params.type
+    }
     window.addEventListener("scroll", this.getmore);
     document.getElementById("foott").style.display = "none";
     sessionStorage.setItem('proid',this.id)

@@ -121,7 +121,8 @@ export default {
         this.str =
           "最新楼盘分析资料，看看房产专家对楼盘的投资分析和宜居分析解读";
       } else if (type == "咨询特价房") {
-        this.str = "一键预约看房免费小车上门接送，可带家人一起参观多个热门楼盘";
+        this.str = "享受底价购房，特价房源不错过";
+        this.btnstr="立即咨询"
       } else if (type == "领取优惠") {
         this.str = "专享限时优惠折扣，易得房专场推出，早抢早优惠";
         this.btnstr = "立即领取"
@@ -371,7 +372,7 @@ export default {
     } else if (type == "领取分析资料") {
       this.str = "最新楼盘分析资料，看看房产专家对楼盘的投资分析和宜居分析解读";
     } else if (type == "咨询特价房") {
-      this.str = "一键预约看房免费小车上门接送，可带家人一起参观多个热门楼盘";
+      this.str = "享受底价购房，特价房源不错过";
       this.btnstr="立即咨询"
     } else if (type == "领取优惠") {
       this.str = "专享限时优惠折扣，家园专场推出，早抢早优惠";
@@ -402,7 +403,10 @@ export default {
     } else if (type == "查询最底价") {
       this.str = "咨询楼盘最底价，享受底价购房，特价房源不错过";
       this.btnstr = '立即查询'
-    }
+    } else if (type == "抢特价房") {
+        this.str = "享受底价购房，特价房源不错过";
+        this.btnstr = '立即抢购'
+      }
     console.log(this.name);
   },
   watch: {
