@@ -165,10 +165,6 @@ export default {
           id: "52",
           name: "土拍成交",
         },
-        {
-          id: "52",
-          name: "楼盘动态",
-        },
       ],
       lists: [],
       page: 2,

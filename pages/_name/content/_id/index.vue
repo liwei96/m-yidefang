@@ -778,6 +778,13 @@ export default {
     let token = context.store.state.cookie.token || "";
     let jkl = context.params.name;
     let other = context.query.other;
+    if (other) {
+      context.store.state.other = other
+    }else {
+      if (context.store.state.other) {
+        other = context.store.state.other
+      }
+    }
     let kid = context.query.kid;
     let [res] = await Promise.all([
       context.$axios

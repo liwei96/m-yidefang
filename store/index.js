@@ -18,7 +18,8 @@ const store = () => new Vuex.Store({
     proid: '',
     uuid: '',
     host: 0,
-    hostname: ''
+    hostname: '',
+    other: ''
   },
   mutations: {
     setip(state, data) {
@@ -59,6 +60,9 @@ const store = () => new Vuex.Store({
     },
     sethostname(state, type) {
       state.hostname = type
+    },
+    setother(state, type) {
+      state.other = type
     }
   },
   actions: {
