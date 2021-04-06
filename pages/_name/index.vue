@@ -1,11 +1,7 @@
 <template>
   <div id="home">
     <header class="headernav">
-      <img
-        src="~/assets/logo.png"
-        alt
-        class="logo"
-      />
+      <img src="~/assets/logo.png" alt class="logo" />
       <div class="input">
         <p @click="goadd">
           {{ cityname }}
@@ -18,8 +14,8 @@
         </nuxt-link>
       </div>
       <nuxt-link :to="'/' + jkl + '/home'">
-        <img src="~/assets/index-peo.png" alt class="peo" v-if="isw"/>
-        <img src="~/assets/index-peoed.png" alt class="peo" v-if="!isw"/>
+        <img src="~/assets/index-peo.png" alt class="peo" v-if="isw" />
+        <img src="~/assets/index-peoed.png" alt class="peo" v-if="!isw" />
       </nuxt-link>
     </header>
     <div class="headerbox">
@@ -85,7 +81,7 @@
             <p>新盘动态</p>
           </li>
           <li @click="zhaopin">
-              <img src="~/assets/index-zhao.png" alt />
+            <img src="~/assets/index-zhao.png" alt />
             <p>招聘英才</p>
           </li>
         </ul>
@@ -132,10 +128,10 @@
                 <h6>{{ item.name }}</h6>
                 <div class="te-bbom">
                   <p>
-                  25000
-                  <span>元/m²</span>
-                </p>
-                <i>{{ item.country }}</i>
+                    25000
+                    <span>元/m²</span>
+                  </p>
+                  <i>{{ item.country }}</i>
                 </div>
               </div>
             </nuxt-link>
@@ -149,14 +145,19 @@
         <img src="~/assets/index-hot.jpg" alt="" class="hot" />
         每周热榜
         <nuxt-link :to="'/' + jkl + '/top/0'">
-        <span>全部榜单<img src="~/assets/j-more.png" alt=""/></span>
+          <span>全部榜单<img src="~/assets/j-more.png" alt="" /></span>
         </nuxt-link>
       </h2>
       <div class="swiper-hot">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <img src="~/assets/index-bei.jpg" alt="" class="bei" />
-            <img :src="rigid_demands[0].img" alt="" class="hot-bg"  v-if="rigid_demands.length"/>
+            <img
+              :src="rigid_demands[0].img"
+              alt=""
+              class="hot-bg"
+              v-if="rigid_demands.length"
+            />
             <h4>刚需楼盘榜</h4>
             <p class="time">更新于{{ time }}</p>
             <ul>
@@ -182,7 +183,12 @@
           </div>
           <div class="swiper-slide">
             <img src="~/assets/index-bei.jpg" alt="" class="bei" />
-            <img :src="investments[0].img" alt="" class="hot-bg" v-if="investments.length"/>
+            <img
+              :src="investments[0].img"
+              alt=""
+              class="hot-bg"
+              v-if="investments.length"
+            />
             <h4>投资楼盘榜</h4>
             <p class="time">更新于{{ time }}</p>
             <ul>
@@ -208,7 +214,12 @@
           </div>
           <div class="swiper-slide">
             <img src="~/assets/index-bei.jpg" alt="" class="bei" />
-            <img :src="improvements[0].img" alt="" class="hot-bg" v-if="improvements.length"/>
+            <img
+              :src="improvements[0].img"
+              alt=""
+              class="hot-bg"
+              v-if="improvements.length"
+            />
             <h4>改善楼盘榜</h4>
             <p class="time">更新于{{ time }}</p>
             <ul>
@@ -234,7 +245,12 @@
           </div>
           <div class="swiper-slide">
             <img src="~/assets/index-bei.jpg" alt="" class="bei" />
-            <img :src="existing_houses[0].img" alt="" class="hot-bg"  v-if="existing_houses.length"/>
+            <img
+              :src="existing_houses[0].img"
+              alt=""
+              class="hot-bg"
+              v-if="existing_houses.length"
+            />
             <h4>现房楼盘榜</h4>
             <p class="time">更新于{{ time }}</p>
             <ul>
@@ -377,7 +393,9 @@
       </template>
     </div>
     <nuxt-link :to="'/' + jkl + '/search'">
-      <button class="morebtn">更多楼盘<img src="~/assets/index-more.png" alt=""></button>
+      <button class="morebtn">
+        更多楼盘<img src="~/assets/index-more.png" alt="" />
+      </button>
     </nuxt-link>
   </div>
 </template>
@@ -390,49 +408,52 @@ export default {
   components: {
     NoticeBar,
     Swipe,
-    SwipeItem
+    SwipeItem,
   },
   async asyncData(context) {
-    //   console.log(context.$axios)
-    let city = context.store.state.city;
-    let host = context.store.state.host;
-    // let token = context.store.state.cookie.token;
-    let jkl = context.params.name;
-    let [res] = await Promise.all([
-      context.$axios
-        .get("/edefang/mobile", {
-          params: {
-            city: city
-          }
-        })
-        .then(resp => {
-          let data = resp.data.data;
-          // console.log(data)
-          // console.log(host);
-          return data;
-        })
-    ]);
-    return {
-      tops: res.tops,
-      stricts: res.stricts,
-      finishes: res.finishes,
-      articles: res.guides,
-      recommends: res.recommend,
-      discounts: res.hot_deals,
-      dynamics: res.dynamics,
-      jkl: jkl,
-      cityname: res.current_city.name,
-      city: city,
-      title: res.common.header.title,
-      description: res.common.header.description,
-      keywords: res.common.header.keywords,
-      host: host,
-      banner: res.banner,
-      rigid_demands: res.characteristics.rigid_demands,
-      improvements: res.characteristics.improvements,
-      investments: res.characteristics.investments,
-      existing_houses: res.characteristics.existing_houses
-    };
+    try {
+      let city = context.store.state.city;
+      let host = context.store.state.host;
+      let jkl = context.params.name;
+      let [res] = await Promise.all([
+        context.$axios
+          .get("/edefang/mobile", {
+            params: {
+              city: city,
+            },
+          })
+          .then((resp) => {
+            let data = resp.data.data;
+            // console.log(data)
+            // console.log(host);
+            return data;
+          }),
+      ]);
+      return {
+        tops: res.tops,
+        stricts: res.stricts,
+        finishes: res.finishes,
+        articles: res.guides,
+        recommends: res.recommend,
+        discounts: res.hot_deals,
+        dynamics: res.dynamics,
+        jkl: jkl,
+        cityname: res.current_city.name,
+        city: city,
+        title: res.common.header.title,
+        description: res.common.header.description,
+        keywords: res.common.header.keywords,
+        host: host,
+        banner: res.banner,
+        rigid_demands: res.characteristics.rigid_demands,
+        improvements: res.characteristics.improvements,
+        investments: res.characteristics.investments,
+        existing_houses: res.characteristics.existing_houses,
+      };
+    } catch (err) {
+      console.log("errConsole========:", err);
+      context.error({ statusCode: 404, message: "页面未找到或无数据" });
+    }
   },
   head() {
     return {
@@ -440,13 +461,13 @@ export default {
       meta: [
         {
           name: "description",
-          content: this.description || "易得房"
+          content: this.description || "易得房",
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房"
-        }
-      ]
+          content: this.keywords || "易得房",
+        },
+      ],
     };
   },
   data() {
@@ -463,12 +484,13 @@ export default {
       host: 0,
       txt: "家园",
       time: "",
-      isw: true
+      isw: true,
     };
   },
   methods: {
-    zhaopin(){
-      window.location.href="http://recruit.jy1980.com?type=1&city="+localStorage.getItem('city')
+    zhaopin() {
+      window.location.href =
+        "http://recruit.jy1980.com?type=1&city=" + localStorage.getItem("city");
     },
     goback() {
       window.location.href = this.banner.url;
@@ -487,12 +509,12 @@ export default {
       // console.log(scrollTop)
       if (scrollTop >= 10) {
         $(".headernav").css({ background: "rgba(255,255,255,1)" });
-        this.isw = false
+        this.isw = false;
       } else {
         $(".headernav").css({ background: "rgba(0,0,0,0)" });
-        this.isw = true
+        this.isw = true;
       }
-    }
+    },
   },
   mounted() {
     let date = new Date();
@@ -520,8 +542,8 @@ export default {
       slidesOffsetAfter: 0,
       slidesOffsetBefore: 0,
       pagination: {
-        el: ".swiper-pagination1"
-      }
+        el: ".swiper-pagination1",
+      },
     });
     var swiper08 = new Swiper(".swiper-dynamic", {
       slidesPerView: 1,
@@ -529,25 +551,25 @@ export default {
       slidesOffsetAfter: 0,
       slidesOffsetBefore: 0,
       pagination: {
-        el: ".swiper-pagination"
-      }
+        el: ".swiper-pagination",
+      },
     });
     var swiper09 = new Swiper(".swiper-te", {
       slidesPerView: 2.32,
       spaceBetween: 10,
       slidesOffsetAfter: 14,
-      slidesOffsetBefore: 15
+      slidesOffsetBefore: 15,
     });
     var swiper10 = new Swiper(".swiper-hot", {
       slidesPerView: 1.45,
       spaceBetween: 15,
       slidesOffsetAfter: 20,
-      slidesOffsetBefore: 15
+      slidesOffsetBefore: 15,
     });
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.settop);
-  }
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -592,10 +614,10 @@ header {
       }
     }
     .sou {
-        width: 1rem;
-        height: 1rem;
-        margin-left: 0.25rem;
-      }
+      width: 1rem;
+      height: 1rem;
+      margin-left: 0.25rem;
+    }
   }
   input {
     width: 6.25rem;
@@ -643,7 +665,7 @@ header {
     padding: 0 1rem;
     display: flex;
     justify-content: space-between;
-    padding-top: .1875rem;
+    padding-top: 0.1875rem;
     li {
       // width: 20%;
       width: 3.1rem;
@@ -684,26 +706,26 @@ header {
     margin-bottom: 0.625rem;
   }
   .b1 {
-    margin-bottom: .4375rem;
+    margin-bottom: 0.4375rem;
     li {
       img {
-        margin-bottom: .5625rem;
+        margin-bottom: 0.5625rem;
       }
     }
   }
   .b2 {
-    padding-bottom: .4375rem;
+    padding-bottom: 0.4375rem;
     li {
       img {
         width: 1.5rem;
         height: 1.5rem;
-        margin-bottom: .5625rem;
+        margin-bottom: 0.5625rem;
       }
     }
   }
   .line {
     background: #ededed;
-    height: .0625rem;
+    height: 0.0625rem;
     width: 19.6875rem;
     margin-left: 0.9375rem;
   }
@@ -736,7 +758,7 @@ header {
       }
     }
     .swipe-logo {
-      margin-left: .9375rem;
+      margin-left: 0.9375rem;
       width: 3.75rem;
     }
   }
@@ -770,11 +792,11 @@ header {
   margin: 0 4%;
   height: 13rem;
   margin-bottom: 0.625rem;
-  border-radius: .75rem;
+  border-radius: 0.75rem;
   background-color: #fff;
   .top {
     padding-top: 1.0625rem;
-    margin-bottom: .875rem;
+    margin-bottom: 0.875rem;
     padding-left: 0.9375rem;
     font-size: 1rem;
     color: #17181a;
@@ -783,7 +805,7 @@ header {
     align-items: center;
     a {
       margin-left: auto;
-      margin-right: .875rem;
+      margin-right: 0.875rem;
     }
     span {
       color: #7d7f80;
@@ -801,7 +823,7 @@ header {
     .swiper-slide {
       border: 0.03125rem solid #f0f1f5;
       box-shadow: 0.03125rem 0.15625rem 0.625rem 0px rgba(0, 0, 0, 0.05);
-      border-radius: .375rem;
+      border-radius: 0.375rem;
       height: 8.375rem;
       overflow: hidden;
       img {
@@ -813,7 +835,7 @@ header {
         h6 {
           color: #4d4d4d;
           font-size: 0.875rem;
-          margin-top: .1875rem;
+          margin-top: 0.1875rem;
           margin-bottom: 0;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -881,7 +903,7 @@ header {
     overflow: hidden;
     .swiper-slide {
       height: 12.5rem;
-      border-radius: .375rem;
+      border-radius: 0.375rem;
       background: #f5f7f7;
       position: relative;
       .bei {
@@ -903,8 +925,8 @@ header {
         color: #af772d;
         font-size: 0.875rem;
         padding-left: 2.25rem;
-        padding-top: .625rem;
-        margin-bottom: .5rem;
+        padding-top: 0.625rem;
+        margin-bottom: 0.5rem;
       }
       .time {
         color: #646466;
@@ -971,7 +993,7 @@ header {
   margin: 0 0.9375rem;
   border-radius: 0.75rem;
   background-color: #fff;
-  padding: 0 0.9375rem .625rem 0.9375rem;
+  padding: 0 0.9375rem 0.625rem 0.9375rem;
   h2 {
     padding-top: 1.125rem;
     color: #17181a;
@@ -1090,7 +1112,7 @@ header {
 }
 .guide {
   margin: 0 0.9375rem;
-  padding: 1.1rem 0.9375rem .625rem 0.9375rem;
+  padding: 1.1rem 0.9375rem 0.625rem 0.9375rem;
   border-radius: 0.75rem;
   background-color: #fff;
   margin-top: 10px;
@@ -1119,7 +1141,7 @@ header {
         position: relative;
         .tit {
           color: #323333;
-          font-size: .9375rem;
+          font-size: 0.9375rem;
           line-height: 1.25rem;
           margin-bottom: 0.75rem;
           display: -webkit-box;
@@ -1145,7 +1167,7 @@ header {
         height: 4.375rem;
         border: 0.1875rem;
         margin-left: 1.25rem;
-        border-radius: .375rem;
+        border-radius: 0.375rem;
       }
     }
   }
@@ -1158,9 +1180,9 @@ header {
   background-color: #fff;
   margin-top: 10px;
   h1 {
-    color: #17181A;
+    color: #17181a;
     font-size: 1rem;
-    margin-bottom: .9375rem;
+    margin-bottom: 0.9375rem;
   }
   .pro {
     margin-bottom: 1.875rem;
@@ -1171,7 +1193,7 @@ header {
       width: 6.875rem;
       height: 5rem;
       margin-right: 0.75rem;
-      border-radius: .375rem;
+      border-radius: 0.375rem;
     }
     .pro-msg {
       flex: 1;
@@ -1245,7 +1267,7 @@ header {
   width: 92%;
   margin-left: 4%;
   height: 2.875rem;
-  border-radius: .75rem;
+  border-radius: 0.75rem;
   text-align: center;
   line-height: 2.875rem;
   background-color: #ffe3a9;
@@ -1254,8 +1276,8 @@ header {
   color: #b68826;
   font-size: 0.875rem;
   img {
-    width: .75rem;
-    margin-left: .25rem;
+    width: 0.75rem;
+    margin-left: 0.25rem;
     margin-bottom: -0.0625rem;
   }
 }

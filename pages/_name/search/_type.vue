@@ -17,8 +17,14 @@
         <span> <img src="~/assets/dian.png" />地图 </span>
       </nuxt-link>
     </header>
-    <img :src="banner.img" alt="" class="backhome" v-if="banner.length!=0" @click="goback">
-    <div :class="banner.length == 0 ?'input':'input input1'">
+    <img
+      :src="banner.img"
+      alt=""
+      class="backhome"
+      v-if="banner.length != 0"
+      @click="goback"
+    />
+    <div :class="banner.length == 0 ? 'input' : 'input input1'">
       <nuxt-link :to="'/' + jkl + '/searchname'">
         <input type="text" placeholder="请输入楼盘名称" />
       </nuxt-link>
@@ -28,23 +34,43 @@
       <ul class="nn">
         <li @click="showarea">
           区域
-          <img :class="type==1&&showtype?'active':''" src="~/assets/down1.png" alt />
+          <img
+            :class="type == 1 && showtype ? 'active' : ''"
+            src="~/assets/down1.png"
+            alt
+          />
         </li>
         <li @click="showpri">
           价格
-          <img :class="type==2&&showtype?'active':''" src="~/assets/down1.png" alt />
+          <img
+            :class="type == 2 && showtype ? 'active' : ''"
+            src="~/assets/down1.png"
+            alt
+          />
         </li>
         <li @click="showhu">
           户型
-          <img :class="type==3&&showtype?'active':''" src="~/assets/down1.png" alt />
+          <img
+            :class="type == 3 && showtype ? 'active' : ''"
+            src="~/assets/down1.png"
+            alt
+          />
         </li>
         <li @click="showmore">
           更多
-          <img :class="type==4&&showtype?'active':''" src="~/assets/down1.png" alt />
+          <img
+            :class="type == 4 && showtype ? 'active' : ''"
+            src="~/assets/down1.png"
+            alt
+          />
         </li>
         <li @click="showorder">
           排序
-          <img :class="type==5&&showtype?'active':''" src="~/assets/down1.png" alt />
+          <img
+            :class="type == 5 && showtype ? 'active' : ''"
+            src="~/assets/down1.png"
+            alt
+          />
         </li>
       </ul>
       <div class="area">
@@ -346,177 +372,182 @@ import { pros } from "@/api/api";
 import "@/static/css/foot.css";
 export default {
   async asyncData(context) {
-    let city = context.store.state.city;
-    let token = context.store.state.cookie.token;
-    let jkl = context.params.name;
-    let area1 = 0;
-    let price1 = 0;
-    let type1 = 0;
-    let typenum = 0;
-    let shai1 = 0;
-    let area = [];
-    let railway = [];
-    let total = 0;
-    let price = 0;
-    let feature = [];
-    let husid = [];
-    let options = {
-      city: city,
-      phone: 1,
-      page: 1,
-      limit: 10,
-    };
-    let ordernum = 0;
-    let region = 0;
-    let isnull = false;
-    let special_discount = "";
-    let near_railway = "";
-    if (context.route.path.split("/").length == 4) {
-      let arr = context.route.path.split("/")[3].split("+");
-      for (let val of arr) {
-        let ll = val.split("-");
-        switch (ll[0]) {
-          case "country":
-            area1 = 1;
-            area = ll[1].split(",");
-            break;
-          case "railway":
-            area1 = 1;
-            railway = ll[1].split(",");
-            break;
-          case "total_price":
-            price1 = 1;
-            total = ll[1];
-            break;
-          case "single_price":
-            price1 = 1;
-            price = ll[1];
-            break;
-          case "house_type":
-            typenum = 1;
-            husid = ll[1].split(",");
-            break;
-          case "type":
-            shai1 = 1;
-            if (ll[1] == "公寓") {
-              type1 = "公寓";
-            } else if (ll[1] == "写字楼") {
-              type1 = "写字楼";
-            } else if (ll[1] == "住宅") {
-              type1 = "住宅";
-            } else if (ll[1] == "商铺") {
-              type1 = "商铺";
-            }
-            break;
-          case "feature":
-            shai1 = 1;
-            feature = ll[1].split(",");
-            break;
-          case "order":
-            shai1 = 1;
-            ordernum = ll[1];
-            break;
-          case "area":
-            shai1 = 1;
-            region = ll[1];
-            break;
-          case "special_discount":
-            special_discount = 1;
-            break;
-          case "near_railway":
-            near_railway = 1;
-            break;
+    try {
+      let city = context.store.state.city;
+      let token = context.store.state.cookie.token;
+      let jkl = context.params.name;
+      let area1 = 0;
+      let price1 = 0;
+      let type1 = 0;
+      let typenum = 0;
+      let shai1 = 0;
+      let area = [];
+      let railway = [];
+      let total = 0;
+      let price = 0;
+      let feature = [];
+      let husid = [];
+      let options = {
+        city: city,
+        phone: 1,
+        page: 1,
+        limit: 10,
+      };
+      let ordernum = 0;
+      let region = 0;
+      let isnull = false;
+      let special_discount = "";
+      let near_railway = "";
+      if (context.route.path.split("/").length == 4) {
+        let arr = context.route.path.split("/")[3].split("+");
+        for (let val of arr) {
+          let ll = val.split("-");
+          switch (ll[0]) {
+            case "country":
+              area1 = 1;
+              area = ll[1].split(",");
+              break;
+            case "railway":
+              area1 = 1;
+              railway = ll[1].split(",");
+              break;
+            case "total_price":
+              price1 = 1;
+              total = ll[1];
+              break;
+            case "single_price":
+              price1 = 1;
+              price = ll[1];
+              break;
+            case "house_type":
+              typenum = 1;
+              husid = ll[1].split(",");
+              break;
+            case "type":
+              shai1 = 1;
+              if (ll[1] == "公寓") {
+                type1 = "公寓";
+              } else if (ll[1] == "写字楼") {
+                type1 = "写字楼";
+              } else if (ll[1] == "住宅") {
+                type1 = "住宅";
+              } else if (ll[1] == "商铺") {
+                type1 = "商铺";
+              }
+              break;
+            case "feature":
+              shai1 = 1;
+              feature = ll[1].split(",");
+              break;
+            case "order":
+              shai1 = 1;
+              ordernum = ll[1];
+              break;
+            case "area":
+              shai1 = 1;
+              region = ll[1];
+              break;
+            case "special_discount":
+              special_discount = 1;
+              break;
+            case "near_railway":
+              near_railway = 1;
+              break;
+          }
+          options[ll[0]] = ll[1];
         }
-        options[ll[0]] = ll[1];
       }
+      let [res, res1, res2] = await Promise.all([
+        context.$axios
+          .get("/jy/phone/search/conditions", {
+            params: {
+              city: city,
+              token: token,
+            },
+          })
+          .then((resp) => {
+            let data = resp.data;
+            for (let val of data.conditions.countries) {
+              val.btn = 0;
+              for (let v of area) {
+                if (val.id == v) {
+                  val.btn = 1;
+                }
+              }
+            }
+            for (let val of data.conditions.railways) {
+              val.btn = 0;
+              for (let v of railway) {
+                if (val.id == v) {
+                  val.btn = 1;
+                }
+              }
+            }
+            for (let val of data.conditions.features) {
+              val.btn = 0;
+              for (let v of feature) {
+                if (val.id == v) {
+                  val.btn = 1;
+                }
+              }
+            }
+            //   console.log(data)
+            return data;
+          }),
+        context.$axios
+          .get("/jy/search/info", {
+            params: options,
+          })
+          .then((resp) => {
+            let data = resp.data.info;
+            if (data.length == 0) {
+              isnull = true;
+            }
+            //   console.log(data)
+            return resp.data;
+          }),
+        context.$axios
+          .get("/jy/recommend", {
+            params: { city: city, count: 4 },
+          })
+          .then((res) => {
+            return res.data.recommends;
+          }),
+      ]);
+      return {
+        jkl: jkl,
+        citys: res.conditions.countries,
+        ties: res.conditions.railways,
+        hus: res.conditions.house_types,
+        single_prices: res.conditions.single_prices,
+        total_prices: res.conditions.total_prices,
+        areas: res.conditions.areas,
+        types: res.conditions.types,
+        features: res.conditions.features,
+        list: res1.info,
+        type1: type1, //类型
+        area: area, //区域
+        husid: husid, //户型
+        railway: railway, //地铁
+        feature: feature, //特色
+        ordernum: ordernum, //排序
+        price: price, //单价
+        total: total, //总价
+        region: region, //面积
+        other: res2,
+        isnull: isnull,
+        cityname: res.common.city_info.current.short,
+        special_discount: special_discount,
+        near_railway: near_railway,
+        title: res1.common.header.title,
+        description: res1.common.header.description,
+        keywords: res1.common.header.keywords,
+        banner: res.common.banner,
+      };
+    } catch (err) {
+      console.log("errConsole========:", err);
+      context.error({ statusCode: 404, message: "页面未找到或无数据" });
     }
-    let [res, res1, res2] = await Promise.all([
-      context.$axios
-        .get("/jy/phone/search/conditions", {
-          params: {
-            city: city,
-            token: token,
-          },
-        })
-        .then((resp) => {
-          let data = resp.data;
-          for (let val of data.conditions.countries) {
-            val.btn = 0;
-            for (let v of area) {
-              if (val.id == v) {
-                val.btn = 1;
-              }
-            }
-          }
-          for (let val of data.conditions.railways) {
-            val.btn = 0;
-            for (let v of railway) {
-              if (val.id == v) {
-                val.btn = 1;
-              }
-            }
-          }
-          for (let val of data.conditions.features) {
-            val.btn = 0;
-            for (let v of feature) {
-              if (val.id == v) {
-                val.btn = 1;
-              }
-            }
-          }
-          //   console.log(data)
-          return data;
-        }),
-      context.$axios
-        .get("/jy/search/info", {
-          params: options,
-        })
-        .then((resp) => {
-          let data = resp.data.info;
-          if (data.length == 0) {
-            isnull = true;
-          }
-          //   console.log(data)
-          return resp.data;
-        }),
-      context.$axios
-        .get("/jy/recommend", {
-          params: { city: city, count: 4 },
-        })
-        .then((res) => {
-          return res.data.recommends;
-        }),
-    ]);
-    return {
-      jkl: jkl,
-      citys: res.conditions.countries,
-      ties: res.conditions.railways,
-      hus: res.conditions.house_types,
-      single_prices: res.conditions.single_prices,
-      total_prices: res.conditions.total_prices,
-      areas: res.conditions.areas,
-      types: res.conditions.types,
-      features: res.conditions.features,
-      list: res1.info,
-      type1: type1, //类型
-      area: area, //区域
-      husid: husid, //户型
-      railway: railway, //地铁
-      feature: feature, //特色
-      ordernum: ordernum, //排序
-      price: price, //单价
-      total: total, //总价
-      region: region, //面积
-      other: res2,
-      isnull: isnull,
-      cityname: res.common.city_info.current.short,
-      special_discount: special_discount,
-      near_railway: near_railway,
-      title:res1.common.header.title,
-      description:res1.common.header.description,
-      keywords:res1.common.header.keywords,
-      banner: res.common.banner
-    };
   },
   head() {
     return {
@@ -572,8 +603,8 @@ export default {
   },
   methods: {
     goback() {
-      if(this.banner.url) {
-        window.location.href = this.banner.url
+      if (this.banner.url) {
+        window.location.href = this.banner.url;
       }
     },
     setnull() {
@@ -599,8 +630,8 @@ export default {
       if (this.showtype) {
         if (this.type == 1) {
           this.showtype = false;
-          this.type = 0
-          console.log(this.type)
+          this.type = 0;
+          console.log(this.type);
         }
       } else {
         this.showtype = true;
@@ -616,7 +647,7 @@ export default {
       if (this.showtype) {
         if (this.type == 2) {
           this.showtype = false;
-          this.type = 0
+          this.type = 0;
         }
       } else {
         this.showtype = true;
@@ -632,7 +663,7 @@ export default {
       if (this.showtype) {
         if (this.type == 3) {
           this.showtype = false;
-          this.type = 0
+          this.type = 0;
         }
       } else {
         this.showtype = true;
@@ -648,7 +679,7 @@ export default {
       if (this.showtype) {
         if (this.type == 4) {
           this.showtype = false;
-          this.type = 0
+          this.type = 0;
         }
       } else {
         this.showtype = true;
@@ -664,7 +695,7 @@ export default {
       if (this.showtype) {
         if (this.type == 5) {
           this.showtype = false;
-          this.type = 0
+          this.type = 0;
         }
       } else {
         this.showtype = true;
@@ -1180,7 +1211,7 @@ header {
   width: 92%;
   margin-left: 4%;
   margin-top: 2.75rem;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }
 .input {
   height: 2.5rem;
@@ -1287,9 +1318,9 @@ header {
             }
             .active {
               background-color: #fff;
-              color: #D1A23D;
+              color: #d1a23d;
               span {
-                border-left: 0.125rem solid #D1A23D;
+                border-left: 0.125rem solid #d1a23d;
                 padding-left: 0.4375rem;
               }
             }
@@ -1308,7 +1339,7 @@ header {
               margin-bottom: 2.125rem;
             }
             .active {
-              color: #D1A23D;
+              color: #d1a23d;
             }
           }
         }
@@ -1332,7 +1363,7 @@ header {
           font-size: 0.875rem;
         }
         .yes {
-          background-color: #D1A23D;
+          background-color: #d1a23d;
           margin-left: 0.625rem;
           color: #fff;
         }
@@ -1369,9 +1400,9 @@ header {
             }
             .active {
               background-color: #fff;
-              color: #D1A23D;
+              color: #d1a23d;
               span {
-                border-left: 0.125rem solid #D1A23D;
+                border-left: 0.125rem solid #d1a23d;
                 padding-left: 0.4375rem;
               }
             }
@@ -1390,7 +1421,7 @@ header {
               margin-bottom: 2.125rem;
             }
             .active {
-              color: #D1A23D;
+              color: #d1a23d;
             }
           }
         }
@@ -1414,7 +1445,7 @@ header {
           font-size: 0.875rem;
         }
         .yes {
-          background-color: #D1A23D;
+          background-color: #d1a23d;
           margin-left: 0.625rem;
           color: #fff;
         }
@@ -1484,7 +1515,7 @@ header {
         font-size: 0.875rem;
       }
       .yes {
-        background-color: #D1A23D;
+        background-color: #d1a23d;
         margin-left: 0.625rem;
         color: #fff;
       }
@@ -1556,7 +1587,7 @@ header {
         font-size: 0.875rem;
       }
       .yes {
-        background-color: #D1A23D;
+        background-color: #d1a23d;
         margin-left: 0.625rem;
         color: #fff;
       }
@@ -1580,7 +1611,7 @@ header {
         border-bottom: 0.03125rem solid rgba(247, 247, 247, 1);
       }
       .active {
-        color: #B68826;
+        color: #b68826;
       }
     }
   }
@@ -1619,7 +1650,7 @@ header {
       width: 6.875rem;
       height: 5rem;
       margin-right: 0.75rem;
-      border-radius: .375rem;
+      border-radius: 0.375rem;
     }
     .left {
       position: relative;
@@ -1629,16 +1660,16 @@ header {
         height: 1.25rem;
         left: -0.3125rem;
         text-align: center;
-        top: .5rem;
+        top: 0.5rem;
         background: url(~assets/imgbox.png);
         background-size: contain;
         color: #fff;
-        font-size: .625rem;
+        font-size: 0.625rem;
         line-height: 1.25rem;
         font-weight: bold;
         white-space: nowrap;
         span {
-          font-size: .6875rem;
+          font-size: 0.6875rem;
         }
       }
     }
@@ -1651,17 +1682,17 @@ header {
         margin-top: -0.1875rem;
         margin-bottom: 0.125rem;
         span {
-          color: #B68826;
+          color: #b68826;
           font-size: 0.6875rem;
           float: right;
-          padding: .15625rem 0.375rem;
-          background-color: #F8EFDC;
-          border-radius: .1875rem;
+          padding: 0.15625rem 0.375rem;
+          background-color: #f8efdc;
+          border-radius: 0.1875rem;
           font-weight: 400;
         }
         .active {
-          background-color: #EAF1F9;
-          color: #759ECB;
+          background-color: #eaf1f9;
+          color: #759ecb;
         }
       }
       .pro-price {
@@ -1689,14 +1720,14 @@ header {
           font-size: 0.6875rem;
           padding: 0.1875rem 0.375rem;
           background-color: #f0f5f9;
-          margin-right: .0625rem;
-          border-radius: .1875rem;
+          margin-right: 0.0625rem;
+          border-radius: 0.1875rem;
         }
         .pro-icon-type {
           color: #888a8f;
           font-size: 0.6875rem;
           padding: 0.1875rem 0.375rem;
-          border-radius: .1875rem;
+          border-radius: 0.1875rem;
           background-color: #f7f8fa;
           margin-right: 0.375rem;
         }
@@ -1728,7 +1759,7 @@ header {
     }
   }
   button {
-    background: linear-gradient(-270deg, #B68826, #3fd6a7);
+    background: linear-gradient(-270deg, #b68826, #3fd6a7);
     box-shadow: 0.03125rem 0.15625rem 0.3125rem 0px rgba(44, 204, 128, 0.2);
     border-radius: 0.25rem;
     width: 10rem;
@@ -1770,11 +1801,11 @@ header {
           margin-top: -0.25rem;
           margin-bottom: 0.125rem;
           span {
-            color: #B68826;
+            color: #b68826;
             font-size: 0.6875rem;
             float: right;
             padding: 0.1875rem 0.375rem;
-            background-color: #F8EFDC;
+            background-color: #f8efdc;
             border-radius: 0.125rem;
             font-weight: 400;
           }

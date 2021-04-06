@@ -265,7 +265,8 @@ export default {
     "tan-view": tan,
   },
   async asyncData(context) {
-    let id = context.params.id;
+    try{
+      let id = context.params.id;
     let token = context.store.state.cookie.token;
     let jkl = context.params.name;
     let other = context.query.other;
@@ -306,6 +307,10 @@ export default {
       description:res1.common.header.description,
       keywords:res1.common.header.keywords
     };
+    }catch(err){
+
+    }
+    
   },
   head() {
     return {

@@ -36,7 +36,7 @@
             </div>
           </div>
         </div>
-        <h3 v-if="specials.length !=0">今日特价房</h3>
+        <h3 v-if="specials.length != 0">今日特价房</h3>
         <ul class="pro">
           <li v-for="(item, key) in specials" :key="key">
             <nuxt-link :to="'/' + jkl + '/content/' + item.id">
@@ -111,7 +111,9 @@
           <img @click="huo = false" src="~/assets/w-del.png" alt />
           <div>
             <p>
-              1、本次团购活动以分档累计补发的方案执行，通过{{txt}}网站成交该项目具体团购费用如下所示：
+              1、本次团购活动以分档累计补发的方案执行，通过{{
+                txt
+              }}网站成交该项目具体团购费用如下所示：
             </p>
             <p>0-5套---------每套1000元</p>
             <p>6-10套--------每套2000元</p>
@@ -122,14 +124,18 @@
               2、结算时间：网签成功后次月20号发放。补发费用待该范围内的最后一套网签成功后次月20号发放
             </p>
             <p>
-              3、核算方式：由开发商或代理公司判定为{{txt}}平台客户即可享受这个优惠
+              3、核算方式：由开发商或代理公司判定为{{
+                txt
+              }}平台客户即可享受这个优惠
             </p>
             <p>
-              4、结算方式：提供已实名的支付宝账户给与您对接的{{txt}}咨询师，规定时间内会将优惠费用打至该账户
+              4、结算方式：提供已实名的支付宝账户给与您对接的{{
+                txt
+              }}咨询师，规定时间内会将优惠费用打至该账户
             </p>
             <p>
-              详细活动方案请致电{{txt}}客服电话：
-              <span>400-718-6686</span> 注：活动最终解释权归{{txt}}所有
+              详细活动方案请致电{{ txt }}客服电话：
+              <span>400-718-6686</span> 注：活动最终解释权归{{ txt }}所有
             </p>
           </div>
         </div>
@@ -147,33 +153,38 @@ export default {
     "tan-view": tan,
   },
   async asyncData(context) {
-    let host = context.store.state.host
-    let city = context.store.state.city;
-    let token = context.store.state.cookie.token;
-    let jkl = context.params.name;
-    let [res] = await Promise.all([
-      context.$axios
-        .get("/jy/special/mobile", {
-          params: {
-            city: city,
-            token: token,
-          },
-        })
-        .then((resp) => {
-          let data = resp.data;
-          //   console.log(data);
-          return data;
-        }),
-    ]);
-    return {
-      jkl: jkl,
-      specials: res.specials,
-      discounts: res.discounts,
-      title:res.common.header.title,
-      description:res.common.header.description,
-      keywords:res.common.header.keywords,
-      host:host
-    };
+    try {
+      let host = context.store.state.host;
+      let city = context.store.state.city;
+      let token = context.store.state.cookie.token;
+      let jkl = context.params.name;
+      let [res] = await Promise.all([
+        context.$axios
+          .get("/jy/special/mobile", {
+            params: {
+              city: city,
+              token: token,
+            },
+          })
+          .then((resp) => {
+            let data = resp.data;
+            //   console.log(data);
+            return data;
+          }),
+      ]);
+      return {
+        jkl: jkl,
+        specials: res.specials,
+        discounts: res.discounts,
+        title: res.common.header.title,
+        description: res.common.header.description,
+        keywords: res.common.header.keywords,
+        host: host,
+      };
+    } catch (err) {
+      console.log("errConsole========:", err);
+      context.error({ statusCode: 404, message: "页面未找到或无数据" });
+    }
   },
   head() {
     return {
@@ -202,7 +213,7 @@ export default {
       id: 0,
       proname: "",
       huo: false,
-      txt:'家园'
+      txt: "家园",
     };
   },
   methods: {
@@ -219,13 +230,13 @@ export default {
       this.tan = e;
     },
   },
-  mounted(){
-    if(this.host == 0) {
-      this.txt = '家园'
-    }else {
-      this.txt = '易得房'
+  mounted() {
+    if (this.host == 0) {
+      this.txt = "家园";
+    } else {
+      this.txt = "易得房";
     }
-  }
+  },
 };
 </script>
 <style lang="less" scoped>

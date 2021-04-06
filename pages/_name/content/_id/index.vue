@@ -166,8 +166,7 @@
             <p class="msg">
               房号-{{
                 item.number.split("-")[item.number.split("-").length - 1]
-              }}&nbsp;&nbsp;
-              面积-{{ parseInt(item.area) }}m²
+              }}&nbsp;&nbsp; 面积-{{ parseInt(item.area) }}m²
             </p>
             <div class="pri">
               <p class="tepri">
@@ -537,7 +536,7 @@
             </div>
             <div
               :class="item.my_like == 1 ? 'top-right active' : 'top-right'"
-              @click="like(item.id,key)"
+              @click="like(item.id, key)"
             >
               <img :src="item.my_like == 1 ? img1 : img" alt />
               赞({{ item.like_num }})
@@ -773,73 +772,78 @@ export default {
     "tan-view": tan,
   },
   async asyncData(context) {
-    let host = context.store.state.host;
-    let id = context.params.id;
-    let token = context.store.state.cookie.token || "";
-    let jkl = context.params.name;
-    let other = context.query.other;
-    if (other) {
-      context.store.state.other = other
-    }else {
-      if (context.store.state.other) {
-        other = context.store.state.other
+    try {
+      let host = context.store.state.host;
+      let id = context.params.id;
+      let token = context.store.state.cookie.token || "";
+      let jkl = context.params.name;
+      let other = context.query.other;
+      if (other) {
+        context.store.state.other = other;
+      } else {
+        if (context.store.state.other) {
+          other = context.store.state.other;
+        }
       }
+      let kid = context.query.kid;
+      let [res] = await Promise.all([
+        context.$axios
+          .get("/edefang/building/mobile", {
+            params: {
+              id: id,
+              token: token,
+              other: other,
+            },
+          })
+          .then((resp) => {
+            let data = resp.data.data;
+            // console.log(data)
+            data.prices = [];
+            for (let val in data.deal_prices) {
+              data.prices[val] = [
+                data.deal_prices[val].time.substr(5),
+                data.deal_prices[val].price,
+              ];
+            }
+            return data;
+          }),
+      ]);
+      return {
+        effects: res.img ? res.img.img.effect : [],
+        examples: res.img ? res.img.img.example : [],
+        traffics: res.img ? res.img.img.traffic : [],
+        imgnum: res.img ? res.img.count : 0,
+        abstract: res.abstract,
+        phone: res.common.phone,
+        scores: res.scores,
+        house_types: res.house,
+        dynamics: res.dynamics,
+        staffs: res.staffs,
+        analysis: res.analysis,
+        deal_prices: res.deal_prices,
+        prices: res.prices,
+        comments: res.comments,
+        questions: res.questions,
+        recommends: res.recommends,
+        jkl: jkl,
+        id: id,
+        specials: res.discount,
+        count: res.virtual_num,
+        collect: res.collect,
+        cityname: res.current_city.name,
+        othercode: other,
+        kidcode: kid,
+        title: res.common.header.title,
+        description: res.common.header.description,
+        keywords: res.common.header.keywords,
+        host: host,
+        infos: res.relevant,
+        relevant: res.relevant,
+      };
+    } catch (err) {
+      console.log("errConsole========:", err);
+      context.error({ statusCode: 404, message: "页面未找到或无数据" });
     }
-    let kid = context.query.kid;
-    let [res] = await Promise.all([
-      context.$axios
-        .get("/edefang/building/mobile", {
-          params: {
-            id: id,
-            token: token,
-            other: other,
-          },
-        })
-        .then((resp) => {
-          let data = resp.data.data;
-          // console.log(data)
-          data.prices = [];
-          for (let val in data.deal_prices) {
-            data.prices[val] = [
-              data.deal_prices[val].time.substr(5),
-              data.deal_prices[val].price,
-            ];
-          }
-          return data;
-        }),
-    ]);
-    return {
-      effects: res.img ? res.img.img.effect : [],
-      examples: res.img ? res.img.img.example : [],
-      traffics: res.img ? res.img.img.traffic : [],
-      imgnum: res.img ? res.img.count : 0,
-      abstract: res.abstract,
-      phone: res.common.phone,
-      scores: res.scores,
-      house_types: res.house,
-      dynamics: res.dynamics,
-      staffs: res.staffs,
-      analysis: res.analysis,
-      deal_prices: res.deal_prices,
-      prices: res.prices,
-      comments: res.comments,
-      questions: res.questions,
-      recommends: res.recommends,
-      jkl: jkl,
-      id: id,
-      specials: res.discount,
-      count: res.virtual_num,
-      collect: res.collect,
-      cityname: res.current_city.name,
-      othercode: other,
-      kidcode: kid,
-      title: res.common.header.title,
-      description: res.common.header.description,
-      keywords: res.common.header.keywords,
-      host: host,
-      infos: res.relevant,
-      relevant: res.relevant,
-    };
   },
   head() {
     return {
@@ -1077,18 +1081,18 @@ export default {
         this.$router.push("/" + this.jkl + "/login");
       }
     },
-    like(id,key) {
+    like(id, key) {
       let token = $cookies.get("token");
       if (token) {
         likecomm({ token: token, id: id }).then((res) => {
           if (res.data.code == 200) {
             // this.$router.go(0);
-            if(this.comments[key].my_like==1) {
-              this.comments[key].my_like=0
-              this.comments[key].like_num=this.comments[key].like_num-1
-            }else{
-              this.comments[key].my_like=1
-              this.comments[key].like_num=this.comments[key].like_num+1
+            if (this.comments[key].my_like == 1) {
+              this.comments[key].my_like = 0;
+              this.comments[key].like_num = this.comments[key].like_num - 1;
+            } else {
+              this.comments[key].my_like = 1;
+              this.comments[key].like_num = this.comments[key].like_num + 1;
             }
           } else {
             let url = this.$route.path;
@@ -1928,7 +1932,7 @@ export default {
     margin-bottom: 0.875rem;
     padding-top: 1rem;
     font-weight: bold;
-    padding-bottom: .8125rem;
+    padding-bottom: 0.8125rem;
     border-bottom: 0.03125rem solid #ededed;
     span {
       color: #969699;
@@ -1947,12 +1951,12 @@ export default {
     li {
       display: flex;
       align-items: center;
-      margin-bottom: .8125rem;
+      margin-bottom: 0.8125rem;
       .left {
         .msg {
           color: #333333;
           font-size: 0.9375rem;
-          margin-bottom: .1875rem;
+          margin-bottom: 0.1875rem;
         }
         .pri {
           display: flex;
@@ -1968,7 +1972,7 @@ export default {
           .oldpri {
             color: #949494;
             font-size: 0.75rem;
-            margin-top: .375rem;
+            margin-top: 0.375rem;
             span {
               text-decoration: line-through;
             }
@@ -2793,9 +2797,9 @@ export default {
           color: #b68826;
           font-size: 0.6875rem;
           float: right;
-          padding: .125rem 0.375rem 0.1875rem 0.375rem;
+          padding: 0.125rem 0.375rem 0.1875rem 0.375rem;
           background-color: #f8efdc;
-          border-radius: .1875rem;
+          border-radius: 0.1875rem;
           font-weight: 400;
         }
       }
@@ -2826,13 +2830,13 @@ export default {
           padding: 0.1875rem 0.375rem;
           background-color: #ebf8ff;
           margin-right: 0.375rem;
-          border-radius: .1875rem;
+          border-radius: 0.1875rem;
         }
         .pro-icon-type {
           color: #888a8f;
           font-size: 0.6875rem;
           padding: 0.1875rem 0.375rem;
-          border-radius: .1875rem;
+          border-radius: 0.1875rem;
           background-color: #f7f8fa;
           margin-right: 0.375rem;
         }
@@ -3176,9 +3180,9 @@ export default {
       color: #323233;
       font-size: 0.875rem;
       line-height: 1.3rem;
-      padding-bottom: .8125rem;
+      padding-bottom: 0.8125rem;
       border-bottom: 0.0625rem solid #f2f2f2;
-      margin-bottom: .875rem;
+      margin-bottom: 0.875rem;
     }
     li:before {
       content: "";

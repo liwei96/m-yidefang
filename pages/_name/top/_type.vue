@@ -180,6 +180,11 @@ export default {
     "tan-view": tan,
   },
     async asyncData (context) {
+      try {
+
+      }catch(err){
+        
+      }
     let ip=context.store.state.cookie.ip;
     let city = context.store.state.city;
     let token=context.store.state.cookie.token;

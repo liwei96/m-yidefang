@@ -1,7 +1,7 @@
 <template>
   <div id="PK">
     <top-view :jkl="jkl"></top-view>
-      <button class="add" @click="gosea">添加楼盘</button>
+    <button class="add" @click="gosea">添加楼盘</button>
     <div class="isnull" v-if="list.length == 0">
       <img src="~/assets/pk-null.png" alt />
       <h5>您尚未添加楼盘</h5>
@@ -61,55 +61,60 @@ export default {
     "top-view": top,
   },
   async asyncData(context) {
-    let id = context.params.id;
-    let token = context.store.state.cookie.token;
-    let jkl = context.params.name;
-    let other = context.query.other;
-    let city = context.store.state.city;
-    let res = {
-      data: [],
-    };
-    let res1 = {}
-    if (id) {
-      [res,res1] = await Promise.all([
-        context.$axios
-          .get("/jy/compare/cards", {
-            params: {
-              ids: id,
-              token: token,
-              city: city,
-            },
-          })
-          .then((resp) => {
-            let arr = id.split(",");
-            let data = resp.data;
-            let kk = [];
-            for (let val of arr) {
-            }
-            // console.log(data)
-            return data;
-          }),
-        context.$axios
-        .get("/jy/phone/head/foot", {
-          params: {
-            city: city,
-            token: token,
-          },
-        })
-        .then((resp) => {
-          let data = resp.data;
-          return data;
-        }),
-      ]);
+    try {
+      let id = context.params.id;
+      let token = context.store.state.cookie.token;
+      let jkl = context.params.name;
+      let other = context.query.other;
+      let city = context.store.state.city;
+      let res = {
+        data: [],
+      };
+      let res1 = {};
+      if (id) {
+        [res, res1] = await Promise.all([
+          context.$axios
+            .get("/jy/compare/cards", {
+              params: {
+                ids: id,
+                token: token,
+                city: city,
+              },
+            })
+            .then((resp) => {
+              let arr = id.split(",");
+              let data = resp.data;
+              let kk = [];
+              for (let val of arr) {
+              }
+              // console.log(data)
+              return data;
+            }),
+          context.$axios
+            .get("/jy/phone/head/foot", {
+              params: {
+                city: city,
+                token: token,
+              },
+            })
+            .then((resp) => {
+              let data = resp.data;
+              return data;
+            }),
+        ]);
+      }
+      return {
+        jkl: jkl,
+        id: id,
+        list: res.data,
+        title: res1.common.header.title,
+        description: res1.common.header.description,
+        keywords: res1.common.header.keywords,
+      };
+    } catch (err) {
+      console.log("errConsole========:", err);
+      context.error({ statusCode: 404, message: "页面未找到或无数据" });
     }
-    return {
-      jkl: jkl,
-      id: id,
-      list: res.data,
-      title:res1.common.header.title,
-      description:res1.common.header.description,
-      keywords:res1.common.header.keywords
-    };
   },
   head() {
     return {
@@ -133,23 +138,23 @@ export default {
       isadd: false,
       list: [],
       isok: false,
-      showtype: true
+      showtype: true,
     };
   },
   methods: {
-    gosea(){
-      sessionStorage.setItem('pk',1)
-      this.$router.push('/'+this.jkl+'/searchname')
+    gosea() {
+      sessionStorage.setItem("pk", 1);
+      this.$router.push("/" + this.jkl + "/searchname");
     },
     show() {
-      if(this.result.length==2) {
-        if(this.showtype){
-          this.toast('只能选择两个楼盘')
-        }else{
-          this.showtype=true
+      if (this.result.length == 2) {
+        if (this.showtype) {
+          this.toast("只能选择两个楼盘");
+        } else {
+          this.showtype = true;
         }
-      }else{
-        this.showtype = false
+      } else {
+        this.showtype = false;
       }
     },
     gopk() {
@@ -170,10 +175,10 @@ export default {
     },
     del(id) {
       let ids = $cookies.get("ids").split(",");
-      console.log(ids)
-      if (ids.length==1) {
-        this.toast('最少保留一个')
-        return
+      console.log(ids);
+      if (ids.length == 1) {
+        this.toast("最少保留一个");
+        return;
       }
       let kk = ids.splice(ids.indexOf(String(id)), 1);
       $cookies.set("ids", ids);
@@ -259,9 +264,9 @@ header {
   width: 92%;
   height: 3rem;
   border-radius: 0.25rem;
-  border: .0625rem solid #B68826;
-  background-color: #F8EFDC;
-  color: #B68826;
+  border: 0.0625rem solid #b68826;
+  background-color: #f8efdc;
+  color: #b68826;
   font-size: 0.9375rem;
   text-align: center;
   line-height: 3rem;
@@ -359,7 +364,7 @@ header {
     width: 92%;
     height: 2.5rem;
     border-radius: 0.25rem;
-    background-color: #D1A23D;
+    background-color: #d1a23d;
     text-align: center;
     line-height: 2.5rem;
     position: fixed;

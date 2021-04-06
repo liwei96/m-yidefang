@@ -29,13 +29,13 @@
             <p class="btn">
               <span
                 :class="item.my_like == 1 ? 'active' : ''"
-                @click="like(item.id,key)"
+                @click="like(item.id, key)"
               >
                 <img :src="item.my_like == 1 ? img1 : img" alt />
                 {{ item.like_num }}
               </span>
               <span @click="talk(item.id)">
-                <img :src="item.children.length==0?zx1:zx" alt />
+                <img :src="item.children.length == 0 ? zx1 : zx" alt />
                 {{ item.children.length }}
               </span>
             </p>
@@ -43,7 +43,12 @@
         </div>
       </li>
     </ul>
-      <img src="~/assets/comments-fixed.png" alt class="fixed" @click="gocomment"/>
+    <img
+      src="~/assets/comments-fixed.png"
+      alt
+      class="fixed"
+      @click="gocomment"
+    />
     <nav-view :phone="phone" @fot="chang($event)"></nav-view>
     <van-popup
       v-model="tan"
@@ -74,33 +79,38 @@ export default {
     "tan-view": tan,
   },
   async asyncData(context) {
-    let other = context.query.other;
-    let jkl = context.params.name;
-    let id = context.params.id;
-    let city = context.store.state.city;
-    let token = context.store.state.cookie.token;
-    let [res] = await Promise.all([
-      context.$axios
-        .get("/jy/comments/phone", {
-          params: {
-            id: id,
-            page: 1,
-            limit: 10,
-            token: token,
-          },
-        })
-        .then((resp) => {
-          let data = resp.data;
-          //   console.log(data);
-          return data;
-        }),
-    ]);
-    return {
-      jkl: jkl,
-      phone: res.common.phone,
-      lists: res.data,
-      id: id,
-    };
+    try {
+      let other = context.query.other;
+      let jkl = context.params.name;
+      let id = context.params.id;
+      let city = context.store.state.city;
+      let token = context.store.state.cookie.token;
+      let [res] = await Promise.all([
+        context.$axios
+          .get("/jy/comments/phone", {
+            params: {
+              id: id,
+              page: 1,
+              limit: 10,
+              token: token,
+            },
+          })
+          .then((resp) => {
+            let data = resp.data;
+            //   console.log(data);
+            return data;
+          }),
+      ]);
+      return {
+        jkl: jkl,
+        phone: res.common.phone,
+        lists: res.data,
+        id: id,
+      };
+    } catch (err) {
+      console.log("errConsole========:", err);
+      context.error({ statusCode: 404, message: "页面未找到或无数据" });
+    }
   },
   head() {
     return {
@@ -138,7 +148,7 @@ export default {
     };
   },
   methods: {
-    gocomment(){
+    gocomment() {
       let token = $cookies.get("token");
       if (token) {
         this.$router.push("/" + this.jkl + "/comment/" + this.id);
@@ -195,18 +205,18 @@ export default {
         this.$router.push("/" + this.jkl + "/login");
       }
     },
-    like(id,key) {
+    like(id, key) {
       let token = $cookies.get("token");
       if (token) {
         likecomm({ token: token, id: id }).then((res) => {
           if (res.data.code == 200) {
             // this.$router.go(0);
-            if(this.lists[key].my_like==1) {
-              this.lists[key].my_like=0
-              this.lists[key].like_num=this.lists[key].like_num-1
-            }else{
-              this.lists[key].my_like=1
-              this.lists[key].like_num=this.lists[key].like_num+1
+            if (this.lists[key].my_like == 1) {
+              this.lists[key].my_like = 0;
+              this.lists[key].like_num = this.lists[key].like_num - 1;
+            } else {
+              this.lists[key].my_like = 1;
+              this.lists[key].like_num = this.lists[key].like_num + 1;
             }
           } else {
             let url = this.$route.path;

@@ -6,7 +6,11 @@
         <nuxt-link :to="'/' + jkl + '/hu/' + id + '/' + item.id" :key="key">
           <div class="li">
             <div class="left">
-              <img :src="item.small" :alt="title+item.title" :title="title+item.title"/>
+              <img
+                :src="item.small"
+                :alt="title + item.title"
+                :title="title + item.title"
+              />
             </div>
             <div class="right">
               <h4>
@@ -47,7 +51,7 @@
         :name="name"
         @close="cli($event)"
         :typebtn="typebtn"
-        :proname='proname'
+        :proname="proname"
       ></tan-view>
     </van-popup>
   </div>
@@ -63,34 +67,39 @@ export default {
     "tan-view": tan,
   },
   async asyncData(context) {
-    let id = context.params.id;
-    let token = context.store.state.cookie.token;
-    let jkl = context.params.name;
-    let other = context.query.other;
-    let [res] = await Promise.all([
-      context.$axios
-        .get("/jy/room/list", {
-          params: {
-            id: id,
-            token: token,
-            other: other,
-          },
-        })
-        .then((resp) => {
-          let data = resp.data;
-          // console.log(data)
-          return data;
-        }),
-    ]);
-    return {
-      jkl: jkl,
-      other_rooms: res.other_rooms,
-      phone: res.common.phone,
-      id: id,
-      title:res.common.header.title,
-      description:res.common.header.description,
-      keywords:res.common.header.keywords
-    };
+    try {
+      let id = context.params.id;
+      let token = context.store.state.cookie.token;
+      let jkl = context.params.name;
+      let other = context.query.other;
+      let [res] = await Promise.all([
+        context.$axios
+          .get("/jy/room/list", {
+            params: {
+              id: id,
+              token: token,
+              other: other,
+            },
+          })
+          .then((resp) => {
+            let data = resp.data;
+            // console.log(data)
+            return data;
+          }),
+      ]);
+      return {
+        jkl: jkl,
+        other_rooms: res.other_rooms,
+        phone: res.common.phone,
+        id: id,
+        title: res.common.header.title,
+        description: res.common.header.description,
+        keywords: res.common.header.keywords,
+      };
+    } catch (err) {
+      console.log("errConsole========:", err);
+      context.error({ statusCode: 404, message: "页面未找到或无数据" });
+    }
   },
   head() {
     return {
@@ -98,14 +107,13 @@ export default {
       meta: [
         {
           name: "description",
-          content: this.description || 
-            "易得房"
+          content: this.description || "易得房",
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房"
-        }
-      ]
+          content: this.keywords || "易得房",
+        },
+      ],
     };
   },
   data() {
@@ -134,10 +142,10 @@ export default {
   },
   mounted() {
     this.proname = $cookies.get("proname");
-    document.getElementById('foott').style.display = 'none'
+    document.getElementById("foott").style.display = "none";
   },
   beforeDestroy() {
-    document.getElementById('foott').style.display = 'block'
+    document.getElementById("foott").style.display = "block";
   },
 };
 </script>
@@ -204,7 +212,7 @@ header {
       margin-right: 0.75rem;
       background-color: #f5f5f5;
       text-align: center;
-      border-radius: .375rem;
+      border-radius: 0.375rem;
       img {
         height: 100%;
         max-width: 100%;
@@ -223,7 +231,7 @@ header {
           float: right;
           padding: 0rem 0.375rem 0.1rem 0.375rem;
           border-radius: 0.125rem;
-          background-color: #D1A23D;
+          background-color: #d1a23d;
           color: #fff;
           font-size: 0.6875rem;
         }
@@ -249,7 +257,7 @@ header {
       }
     }
   }
-  a:last-child .li{
+  a:last-child .li {
     border: 0;
   }
 }
@@ -322,7 +330,7 @@ header {
   .nav-tel {
     margin-left: 0.625rem;
     color: #fff;
-    background: linear-gradient(270deg, #B68826, #3fd6a6);
+    background: linear-gradient(270deg, #b68826, #3fd6a6);
   }
 }
 </style>

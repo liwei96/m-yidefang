@@ -78,42 +78,47 @@
 <script>
 import top from "@/components/header.vue";
 import { aritles } from "@/api/api";
-import '@/static/css/foot.css'
+import "@/static/css/foot.css";
 export default {
   components: {
     "top-view": top,
   },
   async asyncData(context) {
-    let other = context.query.other;
-    let city = context.store.state.city;
-    let jkl = context.params.name;
-    let position = context.params.id;
-    let type = context.params.type;
-    let [res] = await Promise.all([
-      context.$axios
-        .get("/jy/article/info", {
-          params: {
-            city: city,
-            position: position,
-            page: 1,
-            limit: 10,
-          },
-        })
-        .then((resp) => {
-          let data = resp.data;
-          //   console.log(data)
-          return data;
-        }),
-    ]);
-    return {
-      jkl: jkl,
-      lists: res.data,
-      type: type,
-      position: position,
-      title:res.common.header.title,
-      description:res.common.header.description,
-      keywords:res.common.header.keywords
-    };
+    try {
+      let other = context.query.other;
+      let city = context.store.state.city;
+      let jkl = context.params.name;
+      let position = context.params.id;
+      let type = context.params.type;
+      let [res] = await Promise.all([
+        context.$axios
+          .get("/jy/article/info", {
+            params: {
+              city: city,
+              position: position,
+              page: 1,
+              limit: 10,
+            },
+          })
+          .then((resp) => {
+            let data = resp.data;
+            //   console.log(data)
+            return data;
+          }),
+      ]);
+      return {
+        jkl: jkl,
+        lists: res.data,
+        type: type,
+        position: position,
+        title: res.common.header.title,
+        description: res.common.header.description,
+        keywords: res.common.header.keywords,
+      };
+    } catch (err) {
+      console.log("errConsole========:", err);
+      context.error({ statusCode: 404, message: "页面未找到或无数据" });
+    }
   },
   head() {
     return {
@@ -259,10 +264,10 @@ export default {
         }
       }
     });
-    document.getElementById('foott').style.display = 'none'
+    document.getElementById("foott").style.display = "none";
   },
   beforeDestroy() {
-    document.getElementById('foott').style.display = 'block'
+    document.getElementById("foott").style.display = "block";
   },
 };
 </script>
@@ -394,7 +399,7 @@ li {
       }
       .active {
         background-color: #fff;
-        color: #B68826;
+        color: #b68826;
         font-weight: bold;
         span {
           display: inline-block;
@@ -407,8 +412,8 @@ li {
           display: block;
           width: 0.1875rem;
           height: 0.9375rem;
-          background-color: #D1A23D;
-          left:0
+          background-color: #d1a23d;
+          left: 0;
         }
       }
     }

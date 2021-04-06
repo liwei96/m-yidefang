@@ -156,7 +156,8 @@ export default {
     "tan-view": tan,
   },
   async asyncData(context) {
-    let other = context.store.state.cookie.other;
+    try{
+      let other = context.store.state.cookie.other;
     let jkl = context.params.name;
     let id = context.params.id;
     let token = context.store.state.cookie.token;
@@ -185,6 +186,11 @@ export default {
       cityname: res.common.city_info.current.city,
       phone: res.common.phone,
     };
+    }catch(err){
+      console.log("errConsole========:", err)
+      context.error({ statusCode: 404, message: '页面未找到或无数据' })
+    }
+    
   },
   head() {
     return {

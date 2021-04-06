@@ -1,68 +1,79 @@
 <template>
   <div id="Dyna">
     <header>
-      <img class="back" src="~/assets/goback.png" alt @click="back"/>
+      <img class="back" src="~/assets/goback.png" alt @click="back" />
       <img class="logo" src="~/assets/logo.png" alt />
-      <img src="~/assets/searchtop.png" alt class="search" @click="search"/>
-      <img src="~/assets/mapcai.png" alt class="list" @click="btns"/>
+      <img src="~/assets/searchtop.png" alt class="search" @click="search" />
+      <img src="~/assets/mapcai.png" alt class="list" @click="btns" />
       <ul class="cailist" v-if="list">
-      <li class="cmn">
-        <router-link :to="'/' + jkl">
-          <span></span>
-          <img src="~/assets/barhome.png" />
-          <p>首 页</p>
-        </router-link>
-      </li>
-      <li>
-        <router-link :to="'/' + jkl + '/search'">
-          <img src="~/assets/barsearch.png" />
-          <p>楼盘查询</p>
-        </router-link>
-      </li>
-      <li>
-        <router-link :to="'/' + jkl + '/home'">
-          <img src="~/assets/barsearch.png" />
-          <p>个人中心</p>
-        </router-link>
-      </li>
-      <li>
-        <router-link :to="'/' + jkl + '/weike/before/56'">
-          <img src="~/assets/barke.png" />
-          <p>买房百科</p>
-        </router-link>
-      </li>
-      <li>
-        <router-link :to="'/' + jkl + '/infos/46'">
-          <img src="~/assets/barxun.png" />
-          <p>房产资讯</p>
-        </router-link>
-      </li>
-    </ul>
+        <li class="cmn">
+          <router-link :to="'/' + jkl">
+            <span></span>
+            <img src="~/assets/barhome.png" />
+            <p>首 页</p>
+          </router-link>
+        </li>
+        <li>
+          <router-link :to="'/' + jkl + '/search'">
+            <img src="~/assets/barsearch.png" />
+            <p>楼盘查询</p>
+          </router-link>
+        </li>
+        <li>
+          <router-link :to="'/' + jkl + '/home'">
+            <img src="~/assets/barsearch.png" />
+            <p>个人中心</p>
+          </router-link>
+        </li>
+        <li>
+          <router-link :to="'/' + jkl + '/weike/before/56'">
+            <img src="~/assets/barke.png" />
+            <p>买房百科</p>
+          </router-link>
+        </li>
+        <li>
+          <router-link :to="'/' + jkl + '/infos/46'">
+            <img src="~/assets/barxun.png" />
+            <p>房产资讯</p>
+          </router-link>
+        </li>
+      </ul>
     </header>
     <div class="con">
-      <h5>{{info.title}}</h5>
-      <p class="txt">{{info.content}}</p>
-      <p class="time">{{info.time}}</p>
-      <button class="btn" @click="pop('订阅实时动态', 63, '动态页+订阅实时动态')">订阅实时动态</button>
-      <nuxt-link :to="'/'+jkl+'/content/'+building.id">
+      <h5>{{ info.title }}</h5>
+      <p class="txt">{{ info.content }}</p>
+      <p class="time">{{ info.time }}</p>
+      <button
+        class="btn"
+        @click="pop('订阅实时动态', 63, '动态页+订阅实时动态')"
+      >
+        订阅实时动态
+      </button>
+      <nuxt-link :to="'/' + jkl + '/content/' + building.id">
         <div class="ject-top">
           <div class="top-left">
             <img :src="building.img" alt />
           </div>
           <div class="top-right">
             <h4>
-              {{building.name}}
-              <span>{{building.state}}</span>
+              {{ building.name }}
+              <span>{{ building.state }}</span>
             </h4>
             <p class="pri">
-              <span>{{building.price}}</span>元/m²
+              <span>{{ building.price }}</span
+              >元/m²
             </p>
-            <p
-              class="typemsg"
-            >{{building.type}} | {{building.cityname}}-{{building.country.substr(0,2)}} | {{building.area}}m²</p>
+            <p class="typemsg">
+              {{ building.type }} | {{ building.cityname }}-{{
+                building.country.substr(0, 2)
+              }}
+              | {{ building.area }}m²
+            </p>
             <p class="icon">
-              <span class="zu">{{building.decorate}}</span>
-              <span v-for="(item,key) in building.features" :key="key">{{item}}</span>
+              <span class="zu">{{ building.decorate }}</span>
+              <span v-for="(item, key) in building.features" :key="key">{{
+                item
+              }}</span>
             </p>
           </div>
         </div>
@@ -71,42 +82,45 @@
         <img :src="staff.head_img" alt />
         <div class="peomsg">
           <h6>
-            {{staff.name}}
+            {{ staff.name }}
             <span>满意度5分</span>
           </h6>
           <p>为客户提供专业的购房建议</p>
         </div>
-        <button @click="pop('免费咨询', 104, '动态页+免费咨询')">免费咨询</button>
+        <button @click="pop('免费咨询', 104, '动态页+免费咨询')">
+          免费咨询
+        </button>
       </div>
     </div>
     <div class="line"></div>
     <div class="other">
       <h3>本楼盘户型</h3>
       <ul>
-        <template v-for="(item,key) in houses">
-          <nuxt-link :to="'/'+jkl+'/hu/'+item.id" :key="key">
+        <template v-for="(item, key) in houses">
+          <nuxt-link :to="'/' + jkl + '/hu/' + item.id" :key="key">
             <li>
               <div class="left">
                 <img :src="item.img" alt />
               </div>
               <div class="right">
                 <h5>
-                  {{item.title}}
-                  <span>{{item.status}}</span>
+                  {{ item.title }}
+                  <span>{{ item.status }}</span>
                 </h5>
                 <p>
                   建面：
-                  <span>{{item.area}}m²</span>
+                  <span>{{ item.area }}m²</span>
                 </p>
                 <p class="type">
                   类型：
-                  <span>{{item.type}}</span>
+                  <span>{{ item.type }}</span>
                 </p>
                 <p>
                   总价：
                   <span class="pri">
                     约
-                    <i>{{parseInt(item.price)}}</i>万/套
+                    <i>{{ parseInt(item.price) }}</i
+                    >万/套
                   </span>
                 </p>
               </div>
@@ -139,56 +153,60 @@ import tan from "@/components/tan.vue";
 export default {
   components: {
     "nav-view": nav,
-    'tan-view':tan
+    "tan-view": tan,
   },
   async asyncData(context) {
-    let other = context.query.other;
-    let city = context.store.state.city;
-    let token = context.store.state.cookie.token;
-    let jkl = context.params.name;
-    let id = context.params.id;
-    let [res] = await Promise.all([
-      context.$axios
-        .get("/jy/dynamic/phone/detail", {
-          params: {
-            id: id,
-            other: other,
-            token: token,
-          },
-        })
-        .then((resp) => {
-          let data = resp.data;
-          //   console.log(data)
-          return data;
-        }),
-    ]);
-    return {
-      jkl: jkl,
-      info: res.info,
-      building: res.building,
-      staff: res.common.staffs.staff,
-      phone: res.common.phone,
-      houses: res.house_types,
-      id:'0',
-      title:res.common.header.title,
-      description:res.common.header.description,
-      keywords:res.common.header.keywords
-    };
+    try {
+      let other = context.query.other;
+      let city = context.store.state.city;
+      let token = context.store.state.cookie.token;
+      let jkl = context.params.name;
+      let id = context.params.id;
+      let [res] = await Promise.all([
+        context.$axios
+          .get("/jy/dynamic/phone/detail", {
+            params: {
+              id: id,
+              other: other,
+              token: token,
+            },
+          })
+          .then((resp) => {
+            let data = resp.data;
+            //   console.log(data)
+            return data;
+          }),
+      ]);
+      return {
+        jkl: jkl,
+        info: res.info,
+        building: res.building,
+        staff: res.common.staffs.staff,
+        phone: res.common.phone,
+        houses: res.house_types,
+        id: "0",
+        title: res.common.header.title,
+        description: res.common.header.description,
+        keywords: res.common.header.keywords,
+      };
+    } catch (err) {
+      console.log("errConsole========:", err);
+      context.error({ statusCode: 404, message: "页面未找到或无数据" });
+    }
   },
- head() {
+  head() {
     return {
       title: this.title || this.info.title,
       meta: [
         {
           name: "description",
-          content: this.description || 
-            "易得房"
+          content: this.description || "易得房",
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房"
-        }
-      ]
+          content: this.keywords || "易得房",
+        },
+      ],
     };
   },
   data() {
@@ -202,13 +220,13 @@ export default {
       typebtn: 1,
       name: "",
       remark: "",
-      id:'0',
-      list:false
+      id: "0",
+      list: false,
     };
   },
-  methods:{
-    back(){
-      this.$router.go(-1)
+  methods: {
+    back() {
+      this.$router.go(-1);
     },
     pop(name, position, txt) {
       this.name = name;
@@ -216,7 +234,7 @@ export default {
       this.typenum = position;
       this.tan = true;
       this.remark = txt;
-      this.id = String(this.building.id)
+      this.id = String(this.building.id);
     },
     cli(e) {
       this.tan = e;
@@ -227,19 +245,19 @@ export default {
       this.typebtn = 1;
       this.tan = true;
       this.remark = "动态页+预约看房";
-      this.id = String(this.building.id)
+      this.id = String(this.building.id);
     },
-    btns(){
-      if(this.list){
-        this.list=false
-      }else{
-        this.list= true
+    btns() {
+      if (this.list) {
+        this.list = false;
+      } else {
+        this.list = true;
       }
     },
-    search(){
-      this.$router.push('/'+this.jkl+'/searchname')
-    }
-  }
+    search() {
+      this.$router.push("/" + this.jkl + "/searchname");
+    },
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -345,10 +363,10 @@ header {
     height: 2.5rem;
     border: 0;
     border-radius: 0.25rem;
-    background-color: #F8EFDC;
+    background-color: #f8efdc;
     text-align: center;
     line-height: 2.5rem;
-    color: #B68826;
+    color: #b68826;
     font-size: 0.9375rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
@@ -374,18 +392,18 @@ header {
         font-size: 0.9375rem;
         margin-bottom: 0.175rem;
         position: relative;
-        top:-0.1875rem;
+        top: -0.1875rem;
         span {
           float: right;
           display: block;
           width: 2.25rem;
           height: 1.0625rem;
           border-radius: 0.125rem;
-          background-color: #F8EFDC;
+          background-color: #f8efdc;
           font-weight: 400;
           text-align: center;
           line-height: 1.0625rem;
-          color: #B68826;
+          color: #b68826;
           font-size: 0.6875rem;
         }
       }
@@ -452,7 +470,7 @@ header {
     }
     button {
       margin-left: auto;
-      background: linear-gradient(270deg, #D1A23D, #EBBF5F);;
+      background: linear-gradient(270deg, #d1a23d, #ebbf5f);
       border-radius: 0.8125rem;
       text-align: center;
       line-height: 1.625rem;
@@ -488,7 +506,7 @@ header {
       .left {
         width: 6.875rem;
         height: 5rem;
-        border-radius: .375rem;
+        border-radius: 0.375rem;
         background-color: #f5f5f5;
         text-align: center;
         img {
@@ -513,7 +531,7 @@ header {
             text-align: center;
             line-height: 1rem;
             border-radius: 0.125rem;
-            background-color: #D1A23D;
+            background-color: #d1a23d;
             color: #fff;
             font-size: 0.6875rem;
           }
@@ -526,7 +544,7 @@ header {
             font-size: 0.8125rem;
           }
           .pri {
-            color:#FF5454;
+            color: #ff5454;
             font-size: 0.625rem;
             i {
               font-style: normal;
@@ -539,7 +557,7 @@ header {
         }
       }
     }
-    a:nth-last-of-type(1) li{
+    a:nth-last-of-type(1) li {
       border: 0;
       margin-bottom: 0;
     }
@@ -614,7 +632,7 @@ header {
   .nav-tel {
     margin-left: 0.625rem;
     color: #fff;
-    background: linear-gradient(270deg, #B68826, #3fd6a6);
+    background: linear-gradient(270deg, #b68826, #3fd6a6);
   }
 }
 </style>

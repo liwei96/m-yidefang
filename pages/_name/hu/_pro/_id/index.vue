@@ -2,7 +2,7 @@
   <div id="hu">
     <top-view :jkl="jkl"></top-view>
     <div class="topimg" @click="big(now.small)">
-      <img :src="now.small" :alt="now.title" :title="title+now.title"/>
+      <img :src="now.small" :alt="now.title" :title="title + now.title" />
       <p>共1张</p>
     </div>
     <div class="msg">
@@ -49,13 +49,17 @@
         </p>
       </nuxt-link>
       <div class="btn">
-        <button  @click="pop('领取全部户型资料',56,'详情页+领取全部户型资料')">咨询详细户型</button>
-        <button  @click="pop('查询最底价',34,'详情页+查询最底价')">咨询楼盘底价</button>
+        <button @click="pop('领取全部户型资料', 56, '详情页+领取全部户型资料')">
+          咨询详细户型
+        </button>
+        <button @click="pop('查询最底价', 34, '详情页+查询最底价')">
+          咨询楼盘底价
+        </button>
       </div>
     </div>
     <div class="line"></div>
     <div class="ana">
-      <h3>{{txt}}咨询师</h3>
+      <h3>{{ txt }}咨询师</h3>
       <p class="xun-icon">
         <span> <img src="~/assets/save.png" alt />专业服务 </span>
         <span> <img src="~/assets/icon-path.png" alt />区域解读 </span>
@@ -74,7 +78,9 @@
             >人咨询
           </p>
         </div>
-        <button @click="pop('一键咨询',84,'详情页+一键咨询')">一键咨询</button>
+        <button @click="pop('一键咨询', 84, '详情页+一键咨询')">
+          一键咨询
+        </button>
       </div>
       <h4>户型分析</h4>
       <p class="analy" v-html="now.analysis"></p>
@@ -83,14 +89,20 @@
     <div class="hui">
       <h3>
         优惠信息
-        <span @click="huo=true"> <img src="~/assets/ques.png" alt /> 活动规则 </span>
+        <span @click="huo = true">
+          <img src="~/assets/ques.png" alt /> 活动规则
+        </span>
       </h3>
       <div class="hui-con">
         <div class="hui-left">
-          <p>售楼处专供易得房客户<span>（{{ hui.dead_line }}截止）</span></p>
+          <p>
+            售楼处专供易得房客户<span>（{{ hui.dead_line }}截止）</span>
+          </p>
         </div>
         <div class="hui-right">
-          <button @click="pop('领取优惠',94,'详情页+领取优惠')">领取优惠</button>
+          <button @click="pop('领取优惠', 94, '详情页+领取优惠')">
+            领取优惠
+          </button>
           <p>
             <span>{{ hui.receive_num }}人</span>已领取
           </p>
@@ -99,13 +111,13 @@
       <div class="hui-con two">
         <div class="hui-left">
           <p>
-            免费专车1对1服务限时劵<span
-              >（剩余{{ hui.remain_num }}张）</span
-            >
+            免费专车1对1服务限时劵<span>（剩余{{ hui.remain_num }}张）</span>
           </p>
         </div>
         <div class="hui-right">
-          <button @click="pop('免费专车看房',86,'详情页+免费专车看房')">免费领取</button>
+          <button @click="pop('免费专车看房', 86, '详情页+免费专车看房')">
+            免费领取
+          </button>
           <p>
             <span>{{ hui.receive_num }}人</span>已领取
           </p>
@@ -119,7 +131,11 @@
         <nuxt-link :key="key" :to="'/' + jkl + '/hu/' + item.id">
           <div class="li">
             <div class="left">
-              <img :src="item.small" :alt="title+item.title" :title="title+item.title"/>
+              <img
+                :src="item.small"
+                :alt="title + item.title"
+                :title="title + item.title"
+              />
             </div>
             <div class="right">
               <h4>
@@ -153,7 +169,7 @@
       <template v-for="(item, key) in recommends">
         <nuxt-link :key="key" :to="'/' + jkl + '/content/' + item.id">
           <div class="pro">
-            <img :src="item.img" :alt="item.name" :title="item.name"/>
+            <img :src="item.img" :alt="item.name" :title="item.name" />
             <div class="pro-msg">
               <h5>
                 {{ item.name }}
@@ -223,7 +239,7 @@
   </div>
 </template>
 <script>
-import { ImagePreview } from 'vant'
+import { ImagePreview } from "vant";
 import topView from "@/components/header.vue";
 import nav from "@/components/nav.vue";
 import tan from "@/components/tan.vue";
@@ -235,56 +251,61 @@ export default {
     "tan-view": tan,
   },
   async asyncData(context) {
-    let host = context.store.state.host
-    let id = context.params.id;
-    let pro = context.params.pro;
-    let token = context.store.state.cookie.token;
-    let jkl = context.params.name;
-    let other = context.query.other;
-    let [res] = await Promise.all([
-      context.$axios
-        .get("/jy/room/single", {
-          params: {
-            id: id,
-            token: token,
-            other: other,
-          },
-        })
-        .then((resp) => {
-          let data = resp.data;
-          // console.log(data)
-          return data;
-        }),
-    ]);
-    return {
-      jkl: jkl,
-      now: res.one,
-      other: res.other_rooms,
-      recommends: res.recommends,
-      hui: res.num,
-      id: pro,
-      staff: res.common.staff,
-      phone: res.common.phone,
-      title:res.common.header.title,
-      description:res.common.header.description,
-      keywords:res.common.header.keywords,
-      host:host
-    };
+    try {
+      let host = context.store.state.host;
+      let id = context.params.id;
+      let pro = context.params.pro;
+      let token = context.store.state.cookie.token;
+      let jkl = context.params.name;
+      let other = context.query.other;
+      let [res] = await Promise.all([
+        context.$axios
+          .get("/jy/room/single", {
+            params: {
+              id: id,
+              token: token,
+              other: other,
+            },
+          })
+          .then((resp) => {
+            let data = resp.data;
+            // console.log(data)
+            return data;
+          }),
+      ]);
+      return {
+        jkl: jkl,
+        now: res.one,
+        other: res.other_rooms,
+        recommends: res.recommends,
+        hui: res.num,
+        id: pro,
+        staff: res.common.staff,
+        phone: res.common.phone,
+        title: res.common.header.title,
+        description: res.common.header.description,
+        keywords: res.common.header.keywords,
+        host: host,
+      };
+    } catch (err) {
+      console.log("errConsole========:", err);
+      context.error({ statusCode: 404, message: "页面未找到或无数据" });
+    }
   },
   head() {
     return {
-      title: this.title || "易得房-"+this.now.name+'-户型详情-'+this.now.title,
+      title:
+        this.title || "易得房-" + this.now.name + "-户型详情-" + this.now.title,
       meta: [
         {
           name: "description",
-          content:this.description ||
-            "易得房"
+          content: this.description || "易得房",
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房"
-        }
-      ]
+          content: this.keywords || "易得房",
+        },
+      ],
     };
   },
   data() {
@@ -300,8 +321,8 @@ export default {
       typebtn: 1,
       name: "",
       remark: "",
-      huo:false,
-      txt:''
+      huo: false,
+      txt: "",
     };
   },
   methods: {
@@ -310,32 +331,32 @@ export default {
       this.name = data.name;
       this.typebtn = 1;
       this.tan = true;
-      this.remark = "户型页+预约看房+"+this.now.title;
-      this.id = String(this.now.bid)
+      this.remark = "户型页+预约看房+" + this.now.title;
+      this.id = String(this.now.bid);
     },
     cli(e) {
       this.tan = e;
     },
-    pop(name,position,txt){
-      this.name = name
-      this.typebtn = 1
-      this.typenum = position
-      this.tan = true
-      this.remark=txt+'+'+this.now.title
-      this.id = String(this.now.bid)
+    pop(name, position, txt) {
+      this.name = name;
+      this.typebtn = 1;
+      this.typenum = position;
+      this.tan = true;
+      this.remark = txt + "+" + this.now.title;
+      this.id = String(this.now.bid);
     },
-    big(url){
-      let arr = [url]
+    big(url) {
+      let arr = [url];
       ImagePreview(arr);
-    }
+    },
   },
   mounted() {
-    if(this.host == 0) {
-      this.txt = '家园'
-    }else {
-      this.txt = '易得房'
+    if (this.host == 0) {
+      this.txt = "家园";
+    } else {
+      this.txt = "易得房";
     }
-  }
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -421,7 +442,7 @@ header {
       color: #fff;
       font-size: 0.75rem;
       padding: 0.125rem 0.25rem;
-      background-color: #D1A23D;
+      background-color: #d1a23d;
       border-radius: 0.125rem;
       margin-left: 0.625rem;
       font-weight: 400;
@@ -487,12 +508,12 @@ header {
     button {
       width: 10.4375rem;
       height: 2.25rem;
-      border-radius: .375rem;
-      background-color: #F8EFDC;
+      border-radius: 0.375rem;
+      background-color: #f8efdc;
       text-align: center;
       line-height: 2.25rem;
       border: 0;
-      color: #D1A23D;
+      color: #d1a23d;
       font-size: 0.9375rem;
       font-weight: bold;
       margin-right: 0.4rem;
@@ -567,12 +588,12 @@ header {
       width: 4.6875rem;
       height: 1.625rem;
       border-radius: 0.1875rem;
-      border: 0.03125rem solid #D1A23D;
+      border: 0.03125rem solid #d1a23d;
       text-align: center;
       line-height: 1.625rem;
-      color: #D1A23D;
+      color: #d1a23d;
       font-size: 0.75rem;
-      background-color: #F8EFDC;
+      background-color: #f8efdc;
       margin-left: auto;
     }
   }
@@ -707,7 +728,7 @@ header {
           float: right;
           padding: 0rem 0.375rem 0.1rem 0.375rem;
           border-radius: 0.125rem;
-          background-color: #D1A23D;
+          background-color: #d1a23d;
           color: #fff;
           font-size: 0.6875rem;
         }
@@ -733,7 +754,7 @@ header {
       }
     }
   }
-  a:last-child .li{
+  a:last-child .li {
     border: 0;
     margin-bottom: 0;
   }
@@ -755,7 +776,7 @@ header {
       width: 6.875rem;
       height: 5rem;
       margin-right: 0.75rem;
-      border-radius: .375rem;
+      border-radius: 0.375rem;
     }
     .pro-msg {
       flex: 1;
@@ -766,11 +787,11 @@ header {
         margin-top: -0.25rem;
         margin-bottom: 0.3rem;
         span {
-          color: #B68826;
+          color: #b68826;
           font-size: 0.6875rem;
           float: right;
-          padding: .15625rem 0.375rem 0.1875rem 0.375rem;
-          background-color: #F8EFDC;
+          padding: 0.15625rem 0.375rem 0.1875rem 0.375rem;
+          background-color: #f8efdc;
           border-radius: 0.125rem;
           font-weight: 400;
         }
@@ -780,13 +801,13 @@ header {
         font-size: 0.75rem;
         margin-bottom: 0.1875rem;
         span {
-          color: #FF5454;
+          color: #ff5454;
           font-size: 1rem;
           font-weight: bold;
         }
         i {
           font-style: normal;
-          color: #FF5454;
+          color: #ff5454;
         }
       }
       .attr {
@@ -884,7 +905,7 @@ header {
   .nav-tel {
     margin-left: 0.625rem;
     color: #fff;
-    background: linear-gradient(270deg, #B68826, #3fd6a6);
+    background: linear-gradient(270deg, #b68826, #3fd6a6);
   }
 }
 .huo-msg .msg-con {
