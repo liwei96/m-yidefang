@@ -341,7 +341,7 @@ export default {
     } else if (type == "抢特价房") {
       this.str = "享受底价购房，特价房源不错过";
       this.btnstr = "立即抢购";
-    } else if (type == "家园专享购房送手机") {
+    } else if (type == "易得房专享购房送手机") {
       this.str =
         "本平台成交项目即送苹果12 pro max一台，平台合计1000台手机送完为止";
       this.btnstr = "立即去抢";

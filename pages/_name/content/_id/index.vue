@@ -139,7 +139,7 @@
       <div class="phone-huo" v-if="participate!=0">
         <img src="~/assets/phone-huo.jpg" alt="">
         <p>{{participate}}人已领</p>
-        <button @click="pop('家园专享购房送手机', 121, '详情页+家园专享购房送手机')">立即抢</button>
+        <button @click="pop('易得房专享购房送手机', 121, '详情页+易得房专享购房送手机')">立即抢</button>
       </div>
       <div class="hui-con two">
         <div class="hui-left">
