@@ -128,7 +128,7 @@
     <div class="con" v-if="other.length">
       <h3>本楼盘其它户型</h3>
       <template v-for="(item, key) in other">
-        <nuxt-link :key="key" :to="'/' + jkl + '/hu/' + item.id">
+        <nuxt-link :key="key" :to="'/' + jkl + '/hu/' +$route.params.pro+'/'+ item.id">
           <div class="li">
             <div class="left">
               <img

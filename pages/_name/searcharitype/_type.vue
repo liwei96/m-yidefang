@@ -55,7 +55,7 @@
           <nuxt-link :to="'/' + jkl + '/aritle/' + item.id" :key="key">
             <div class="pro">
               <div class="left">
-                <h5 v-html="item.replace.title.indexOf('em')!=-1?item.replace.title:item.replace.description"></h5>
+                <h5 v-html="item.replace.title.indexOf('span')!=-1?item.replace.title:item.replace.description"></h5>
                 <p v-if="item.tags.length">
                     <span v-for="(val, k) in item.tags" :key="k">{{
                       val

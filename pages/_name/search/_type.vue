@@ -1563,8 +1563,8 @@ header {
           margin: 0;
         }
         .active {
-          background-color: #e1faec;
-          color: #3ecb7b;
+          background-color: #f8efdc;
+          color: #b68826;
         }
       }
     }

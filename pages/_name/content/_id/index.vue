@@ -118,9 +118,10 @@
     <div class="hui">
       <h3>
         优惠信息
-        <img src="~/assets/ques.png" alt @click="huo = true" />
+        <img src="~/assets/ques.png" alt @click="huo = true" v-if="participate==0"/>
+        <img src="~/assets/ques.png" alt @click="huo1 = true" v-if="participate!=0"/>
       </h3>
-      <div class="hui-con">
+      <div class="hui-con" v-if="participate==0">
         <div class="hui-left">
           <p>
             售楼处专供易得房客户<span>（{{ time }}截止）</span>
@@ -134,6 +135,11 @@
             <span>{{ count.sign_num + 100 }}人</span>已领取
           </p>
         </div>
+      </div>
+      <div class="phone-huo" v-if="participate!=0">
+        <img src="~/assets/phone-huo.jpg" alt="">
+        <p>{{participate}}人已领</p>
+        <button @click="pop('家园专享购房送手机', 121, '详情页+家园专享购房送手机')">立即抢</button>
       </div>
       <div class="hui-con two">
         <div class="hui-left">
@@ -173,7 +179,7 @@
                 特价<span>{{ (parseInt(item.total) / 10000).toFixed(1) }}</span
                 >万
               </p>
-              <p class="oldpri">原价<span>287</span>万</p>
+              <p class="oldpri">原价<span>{{ (parseInt(item.original_total) / 10000).toFixed(1) }}</span>万</p>
             </div>
           </div>
           <p class="right" @click="pop('抢特价房', 114, '详情页+抢特价房')">
@@ -213,7 +219,7 @@
             v-for="(item, key) in house_types"
             :key="key"
           >
-            <nuxt-link :to="'/' + jkl + '/hu/' + item.id">
+            <nuxt-link :to="'/' + jkl + '/hu/'+abstract.id+'/' + item.id">
               <div class="hu-top">
                 <img
                   :src="item.img"
@@ -396,7 +402,7 @@
           </span>
         </nuxt-link> -->
       </h4>
-      <p class="txt">位置：<span>浙江省杭州市临安区青山湖街道</span></p>
+      <p class="txt">位置：<span>{{abstract.address}}</span></p>
       <p class="txt">
         配套：<span
           class="talk"
@@ -562,7 +568,7 @@
       </h3>
       <ul v-if="questions.length">
         <template v-for="(item, key) in questions">
-          <nuxt-link :to="'/' + jkl + '/answer/' + item.id" :key="key">
+          <nuxt-link :to="'/' + jkl + '/answer/' + item.id+'/'+abstract.id" :key="key">
             <li>
               <p class="con">
                 <span>问</span>
@@ -742,6 +748,20 @@
         </div>
       </div>
     </van-popup>
+    <van-popup v-model="huo1" :style="{ background: 'rgba(0,0,0,0)' }">
+      <div class="huo-msg">
+        <div class="msg-con">
+          <h4>活动规则</h4>
+          <img @click="huo1 = false" src="~/assets/w-del.png" alt />
+          <div>
+            <p>
+              即日起，凡是通过本线上营销中心成交的本项目，即送苹果12 pro max一台，平台合计1000台手机送完为止。具体活动详情来电咨询
+            </p>
+            <p>注：活动最终解释权归易得房所有</p>
+          </div>
+        </div>
+      </div>
+    </van-popup>
     <van-popup v-model="show" :style="{ background: 'rgba(0,0,0,0)' }">
       <hong
         @close="close"
@@ -820,6 +840,7 @@ export default {
         dynamics: res.dynamics,
         staffs: res.staffs,
         analysis: res.analysis,
+        participate: res.participate,
         deal_prices: res.deal_prices,
         prices: res.prices,
         comments: res.comments,
@@ -862,6 +883,7 @@ export default {
   },
   data() {
     return {
+      huo1: false,
       nav: 0,
       show: false,
       talktype: false,
@@ -2109,6 +2131,35 @@ export default {
         color: #40a2f4;
         font-size: 0.75rem;
       }
+    }
+  }
+  .phone-huo {
+    position: relative;
+    margin-top: .875rem;
+    img {
+      width: 100%;
+    }
+    p {
+      position: absolute;
+      font-size: .75rem;
+      color: #fff;
+      right: 1.25rem;
+      bottom: .625rem;
+    }
+    button {
+      width: 4rem;
+      height: 1.5rem;
+      border-radius: .75rem;
+      background-color: #fff;
+      text-align: center;
+      line-height: 1.5rem;
+      border: 0;
+      outline: none;
+      position: absolute;
+      right: .9375rem;
+      top: 1.4375rem;
+      color: #153870;
+      font-size: .75rem;
     }
   }
 }

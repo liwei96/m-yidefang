@@ -128,7 +128,7 @@
                 <h6>{{ item.name }}</h6>
                 <div class="te-bbom">
                   <p>
-                    25000
+                    {{item.price}}
                     <span>元/m²</span>
                   </p>
                   <i>{{ item.country }}</i>
@@ -356,7 +356,7 @@
       </ul>
     </div>
     <div class="other">
-      <h1>为你推荐</h1>
+      <h1>推荐房源<nuxt-link :to="'/'+jkl+'/search'"><span>全部楼盘<img src="~/assets/content-join.png" alt=""></span></nuxt-link></h1>
       <template v-for="(item, key) in recommends">
         <nuxt-link :key="key" :to="'/' + jkl + '/content/' + item.id">
           <div class="pro">
@@ -1183,6 +1183,16 @@ header {
     color: #17181a;
     font-size: 1rem;
     margin-bottom: 0.9375rem;
+    span {
+      color: #7D7F80;
+      font-size: .75rem;
+      float: right;
+      img {
+        width: .75rem;
+        margin-left: .25rem;
+        margin-bottom: -0.125rem;
+      }
+    }
   }
   .pro {
     margin-bottom: 1.875rem;

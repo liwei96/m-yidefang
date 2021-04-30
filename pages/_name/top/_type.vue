@@ -289,7 +289,7 @@ export default {
           var scrollTop = window.scrollY;
           console.log(scrollTop)
             if (scrollTop >= 100) {
-                $(".nav").css({ position: "fixed", top: "44px" });
+                $(".nav").css({ position: "fixed", top: "43px" });
                 $(".topsbox").css({ marginTop: "44px" });
             } else {
                 $(".nav").css({ position: "relative", top: "0" });
@@ -348,14 +348,14 @@ export default {
     font-size: 0.9375rem;
   }
   .active {
-    color: #3eacf0;
+    color: #B68826;
     font-size: 1rem;
     font-weight: bold;
     position: relative;
     span {
       position: absolute;
       display: block;
-      background-color: #3eacf0;
+      background-color: #B68826;
       width: 1.5625rem;
       height: 0.15625rem;
       border-radius: 0.09375rem;

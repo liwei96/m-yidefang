@@ -42,7 +42,7 @@
     <img src="~/assets/dynamics.png" alt class="topimg" />
     <div class="con">
       <div class="con-li" v-for="(item, key) in lists" :key="key">
-        <nuxt-link :to="'/' + jkl + '/dynamic/' + item.id">
+        <nuxt-link :to="'/' + jkl + '/dynamic/'+item.bid+'/' + item.id">
           <div class="con-li-top">
             <img :src="item.img" alt />
             <h6>{{ item.name }}</h6>

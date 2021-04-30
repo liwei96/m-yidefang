@@ -10,7 +10,7 @@
           <input type="checkbox" v-model="checks" />我已阅读并同意
           <a @click="goo">《易得房用户协议》</a>
         </p>
-        <button @click="send">{{btnstr}}</button>
+        <button @click="send">{{ btnstr }}</button>
         <p class="bomm">获取后会有置业顾问致电联系您并提供服务</p>
       </div>
       <div class="two" v-show="type">
@@ -87,81 +87,16 @@ export default {
       IDcode: "",
       jkl: "",
       btnstr: "立即订阅",
-      interval: null
+      interval: null,
     };
   },
   methods: {
     setmsg() {
-      let type = this.name;
       if ($cookies.get("phone")) {
         this.baoming = $cookies.get("phone");
       }
-      if (type == "变价通知我") {
-        this.str =
-          "价格变动这么快？订阅楼盘变价通知，楼盘变价我们将第一时间通知您";
-        this.btnstr = "立即订阅"
-        console.log(555);
-      } else if (type == "开盘提醒我") {
-        this.str = "一键订阅最新开盘通知，我们会第一时间通知,不再错过开盘时间";
-      } else if (type == "预约看房") {
-        this.str = "提前预约看房，我们将提供免费专车接送和专业楼盘讲解";
-        this.btnstr = "立即预约"
-      } else if (type == "订阅实时动态") {
-        this.str = "订阅最新动态，楼盘最新情报抢先知道，帮您找准买房好时机";
-        this.btnstr = "立即订阅"
-      } else if (type == "获取周边5公里详细配套") {
-        this.str = "附近有学区或商业街？想了解更多周边配套信息？立即获取全面周边配套详解";
-        this.btnstr = "立即获取"
-      } else if (type == "查询最新成交价") {
-        this.str = "获取最新成交价格，看看房友都是什么价格买的房";
-        this.btnstr = "立即查询"
-      } else if (type == "咨询户型底价") {
-        this.str = "好楼盘户型是关键，咨询详细户型信息，安安心心买房";
-      } else if (type == "领取分析资料") {
-        this.str =
-          "最新楼盘分析资料，看看房产专家对楼盘的投资分析和宜居分析解读";
-      } else if (type == "咨询特价房") {
-        this.str = "享受底价购房，特价房源不错过";
-        this.btnstr="立即咨询"
-      } else if (type == "领取优惠") {
-        this.str = "专享限时优惠折扣，易得房专场推出，早抢早优惠";
-        this.btnstr = "立即领取"
-        $cookies.set("have", 1);
-      } else if (type == "免费领取") {
-        this.str = "精准匹配房源，免费接送一次看完好房";
-      } else if (type == "获取详细分析报告") {
-        this.str = "向允家咨询师免费领取分析报告,内附有购房流程全盘解读";
-      } else if (type == "咨询楼盘底价") {
-        this.str = "好楼盘户型是关键，咨询户型底价，安安心心买房";
-      } else if (type == "咨询服务") {
-        this.str = "立即报名，专业人员为你解惑!";
-      } else if (type == "预约咨询") {
-        this.str = "20分内回应，一对一专属于服务，了解更多有关房源信息";
-        this.btnstr = "立即预约"
-      } else if (type == "领取完整分析报告") {
-        this.str =
-          "最新楼盘分析资料，看看房产专家对楼盘的投资分析和宜居分析解读";
-        this.btnstr = "立即领取"
-      } else if (type == "一键咨询") {
-        this.str = "立即报名，专业人员为你解惑!";
-      } else if (type == "免费咨询") {
-        this.str = "立即报名，专业人员为你解惑!";
-      } else if (type == "咨询详细楼盘信息") {
-        this.str = "向家园咨询师免费领取楼盘资料,内附有购房流程全盘解读";
-      } else if (type == "免费专车看房") {
-        this.str = "免费专车看房，楼下接您随时出发，可带家人一起看楼盘";
-        this.btnstr = "立即预约"
-      } else if (type == "领取全部户型资料") {
-        this.str = "户型不够清晰？领取高清电子户型图，看清户型小细节";
-        this.btnstr = "立即领取"
-      } else if (type == "查询最底价") {
-        this.str = "咨询楼盘最底价，享受底价购房，特价房源不错过";
-        this.btnstr = '立即查询'
-      } else if (type == "抢特价房") {
-        this.str = "享受底价购房，特价房源不错过";
-        this.btnstr = '立即抢购'
-      }
-      console.log(this.name)
+      this.setmsg();
+      console.log(this.name);
     },
     goo() {
       let jkl = this.$route.params.name;
@@ -169,7 +104,7 @@ export default {
     },
     send() {
       let that = this;
-      clearInterval(that.interval)
+      clearInterval(that.interval);
       let checks = this.checks;
       if (!checks) {
         this.toast("请勾选用户协议");
@@ -349,34 +284,34 @@ export default {
     if (type == "变价通知我") {
       this.str =
         "价格变动这么快？订阅楼盘变价通知，楼盘变价我们将第一时间通知您";
-      this.btnstr = "立即订阅"
+      this.btnstr = "立即订阅";
     } else if (type == "预约咨询") {
-        this.str = "20分内回应，一对一专属于服务，了解更多有关房源信息";
-        this.btnstr = "立即预约"
-      } else if (type == "开盘提醒我") {
+      this.str = "20分内回应，一对一专属于服务，了解更多有关房源信息";
+      this.btnstr = "立即预约";
+    } else if (type == "开盘提醒我") {
       this.str = "一键订阅最新开盘通知，我们会第一时间通知,不再错过开盘时间";
     } else if (type == "预约看房") {
       this.str = "提前预约看房，我们将提供免费专车接送和专业楼盘讲解";
-      this.btnstr = "立即预约"
+      this.btnstr = "立即预约";
     } else if (type == "订阅实时动态") {
       this.str = "订阅最新动态，楼盘最新情报抢先知道，帮您找准买房好时机";
-      this.btnstr = "立即订阅"
+      this.btnstr = "立即订阅";
     } else if (type == "获取周边5公里详细配套") {
       this.str = "想了解更多周边配套信息？立即获取全面周边配套详解";
-      this.btnstr = "立即获取"
+      this.btnstr = "立即获取";
     } else if (type == "查询最新成交价") {
       this.str = "获取最新成交价格，看看房友都是什么价格买的房";
-      this.btnstr = "立即查询"
+      this.btnstr = "立即查询";
     } else if (type == "咨询户型底价") {
       this.str = "好楼盘户型是关键，咨询详细户型信息，安安心心买房";
     } else if (type == "领取分析资料") {
       this.str = "最新楼盘分析资料，看看房产专家对楼盘的投资分析和宜居分析解读";
     } else if (type == "咨询特价房") {
       this.str = "享受底价购房，特价房源不错过";
-      this.btnstr="立即咨询"
+      this.btnstr = "立即咨询";
     } else if (type == "领取优惠") {
       this.str = "专享限时优惠折扣，家园专场推出，早抢早优惠";
-       this.btnstr = "立即领取"
+      this.btnstr = "立即领取";
       $cookies.set("have", 1);
     } else if (type == "免费领取") {
       this.str = "精准匹配房源，免费接送一次看完好房";
@@ -386,7 +321,7 @@ export default {
       this.str = "好楼盘户型是关键，咨询户型底价，安安心心买房";
     } else if (type == "咨询服务") {
       this.str = "立即报名，专业人员为你解惑!";
-      this.btnstr = "立即预约"
+      this.btnstr = "立即预约";
     } else if (type == "领取分析资料") {
       this.str = "最新楼盘分析资料，看看房产专家对楼盘的投资分析和宜居分析解读";
     } else if (type == "一键咨询") {
@@ -399,14 +334,18 @@ export default {
       this.str = "免费专车看房，楼下接您随时出发，可带家人一起看楼盘";
     } else if (type == "领取全部户型资料") {
       this.str = "好楼盘户型是关键，咨询详细户型信息，安安心心买房";
-      this.btnstr = "立即领取"
+      this.btnstr = "立即领取";
     } else if (type == "查询最底价") {
       this.str = "咨询楼盘最底价，享受底价购房，特价房源不错过";
-      this.btnstr = '立即查询'
+      this.btnstr = "立即查询";
     } else if (type == "抢特价房") {
-        this.str = "享受底价购房，特价房源不错过";
-        this.btnstr = '立即抢购'
-      }
+      this.str = "享受底价购房，特价房源不错过";
+      this.btnstr = "立即抢购";
+    } else if (type == "家园专享购房送手机") {
+      this.str =
+        "本平台成交项目即送苹果12 pro max一台，平台合计1000台手机送完为止";
+      this.btnstr = "立即去抢";
+    }
     console.log(this.name);
   },
   watch: {
@@ -417,7 +356,7 @@ export default {
       }
     },
     name(val) {
-      this.setmsg()
+      this.setmsg();
     },
   },
 };
@@ -532,7 +471,7 @@ export default {
       color: #fff;
       font-size: 1rem;
       border: 0;
-      background: #B68826;
+      background: #b68826;
       margin-bottom: 0.625rem;
     }
   }

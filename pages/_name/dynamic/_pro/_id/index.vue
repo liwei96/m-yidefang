@@ -97,7 +97,7 @@
       <h3>本楼盘户型</h3>
       <ul>
         <template v-for="(item, key) in houses">
-          <nuxt-link :to="'/' + jkl + '/hu/' + item.id" :key="key">
+          <nuxt-link :to="'/' + jkl + '/hu/'+building.id+'/' + item.id" :key="key">
             <li>
               <div class="left">
                 <img :src="item.img" alt />

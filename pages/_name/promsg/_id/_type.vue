@@ -27,7 +27,7 @@
           <li :key="'dynamic' + key" v-if="key == 0 && item.add_push == '否'">
             <p class="time">{{ item.time }}</p>
             <div class="con">
-              <nuxt-link :to="'/' + jkl + '/dynamic/' + item.id">
+              <nuxt-link :to="'/' + jkl + '/dynamic/'+item.bid+'/' + item.id">
                 <h4>{{ item.title }}</h4>
                 <p>
                   {{ item.content.substr(0, 46)
@@ -45,7 +45,7 @@
           <li :key="key" v-if="key == 0">
             <p class="time">{{ item.time }}</p>
             <div class="con">
-              <nuxt-link :to="'/' + jkl + '/dynamic/' + item.id">
+              <nuxt-link :to="'/' + jkl + '/dynamic/'+item.bid+'/' + item.id">
                 <h4>{{ item.title }}</h4>
                 <p>
                   {{ item.content.substr(0, 46)
@@ -60,7 +60,7 @@
           <li :key="key" v-if="key > 0 && item.add_push == '否'">
             <p class="time">{{ item.time }}</p>
             <div class="con">
-              <nuxt-link :to="'/' + jkl + '/dynamic/' + item.id">
+              <nuxt-link :to="'/' + jkl + '/dynamic/'+item.bid+'/' + item.id">
                 <h4>{{ item.title }}</h4>
                 <p>
                   {{ item.content.substr(0, 46)
