@@ -131,6 +131,13 @@ export default ({
         $cookies.set('city', 191)
       }
       store.state.city = 191
+        break;
+      case 'kunming':
+      if (process.server == false) {
+        localStorage.setItem('city', 291)
+        $cookies.set('city', 291)
+      }
+      store.state.city = 291
       break;
     }
     // let city = localStorage.getItem('city')
