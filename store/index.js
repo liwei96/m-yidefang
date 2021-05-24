@@ -92,6 +92,9 @@ const store = () => new Vuex.Store({
       //   commit('setuuid', app.store.state.cookie.uuid)
       // }
       let name = req.url.split('/')[1].split('?')[0]
+      commit('setpinyin', {
+        'pinyin': name
+      })
       switch (name) {
         case 'xuzhou':
           if (process.server == false) {
@@ -225,7 +228,70 @@ const store = () => new Vuex.Store({
           $cookies.set('city', 291)
         }
         commit('setcity', 291)
-        break;
+          break;
+        case 'huangshan':
+        if (process.server == false) {
+          localStorage.setItem('city', 206)
+          $cookies.set('city', 206)
+        }
+        commit('setcity', 206)
+          break;
+        case 'suzhou':
+        if (process.server == false) {
+          localStorage.setItem('city', 262)
+          $cookies.set('city', 262)
+        }
+        commit('setcity', 262)
+          break;
+        case 'shanghai':
+        if (process.server == false) {
+          localStorage.setItem('city', 273)
+          $cookies.set('city', 273)
+        }
+        commit('setcity', 273)
+          break;
+        case 'xishuangbanna':
+        if (process.server == false) {
+          localStorage.setItem('city', 306)
+          $cookies.set('city', 306)
+        }
+        commit('setcity', 306)
+          break;
+        case 'yangjiang':
+        if (process.server == false) {
+          localStorage.setItem('city', 310)
+          $cookies.set('city', 310)
+        }
+        commit('setcity', 310)
+          break;
+        case 'qinzhou':
+        if (process.server == false) {
+          localStorage.setItem('city', 316)
+          $cookies.set('city', 316)
+        }
+        commit('setcity', 316)
+          break;
+        case 'huizhou':
+        if (process.server == false) {
+          localStorage.setItem('city', 321)
+          $cookies.set('city', 321)
+        }
+        commit('setcity', 321)
+          break;
+        case 'nanning':
+        if (process.server == false) {
+          localStorage.setItem('city', 327)
+          $cookies.set('city', 327)
+        }
+        commit('setcity', 327)
+          break;
+        // case 'wenchang':
+        // if (process.server == false) {
+        //   localStorage.setItem('city', 341)
+        //   $cookies.set('city', 341)
+        // }
+        // commit('setcity', 341)
+        // break;
       }
     },
     setoken(context, data) {

@@ -537,6 +537,7 @@ export default {
         other: res2,
         isnull: isnull,
         cityname: res.common.city_info.current.short,
+        cityid: res.common.city_info.current.area_id,
         special_discount: special_discount,
         near_railway: near_railway,
         title: res1.common.header.title,
@@ -1086,6 +1087,9 @@ export default {
     },
   },
   mounted() {
+    this.$store.commit('setcity', this.cityid)
+    $cookies.set("city",this.cityid);
+    localStorage.setItem("cityname", this.cityname);
     this.start();
     console.log(this.types);
     let url = window.location.href;

@@ -111,6 +111,8 @@ export default {
         title: res1.common.header.title,
         description: res1.common.header.description,
         keywords: res1.common.header.keywords,
+        cityid: res.common.current_city.id,
+        cityname: res.common.current_city.name,
       };
     } catch (err) {
       console.log("errConsole========:", err);
@@ -205,6 +207,9 @@ export default {
     },
   },
   mounted() {
+    this.$store.commit('setcity', this.cityid)
+    $cookies.set("city",this.cityid);
+    localStorage.setItem("cityname", this.cityname);
     let that = this;
     var mySwiper1 = new Swiper(".swiper-topimg", {
       slidesPerView: 1.3,

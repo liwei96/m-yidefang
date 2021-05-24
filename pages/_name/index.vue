@@ -299,7 +299,7 @@
           </div>
         </nuxt-link>
         <div class="right">
-          <nuxt-link :to="'/' + jkl + '/dynamic/' + dynamics[1].id">
+          <nuxt-link :to="'/' + jkl + '/dynamic/' + dynamics[1].id" v-if="dynamics[1]">
             <div class="top">
               <div class="msg">
                 <p>{{ dynamics[1].title }}</p>
@@ -310,7 +310,7 @@
               </div>
             </div>
           </nuxt-link>
-          <nuxt-link :to="'/' + jkl + '/dynamic/' + dynamics[2].id">
+          <nuxt-link :to="'/' + jkl + '/dynamic/' + dynamics[2].id" v-if="dynamics[2]">
             <div class="top">
               <div class="msg">
                 <p>{{ dynamics[2].title }}</p>
@@ -324,7 +324,7 @@
         </div>
       </div>
     </div>
-    <div class="guide">
+    <div class="guide" v-if="articles.length">
       <h3>
         楼盘导购
         <nuxt-link :to="'/' + jkl + '/infos/46'">
@@ -439,7 +439,7 @@ export default {
         dynamics: res.dynamics,
         jkl: jkl,
         cityname: res.current_city.name,
-        city: city,
+        city: res.current_city.id,
         title: res.common.header.title,
         description: res.common.header.description,
         keywords: res.common.header.keywords,
@@ -517,6 +517,9 @@ export default {
     },
   },
   mounted() {
+    this.$store.commit('setcity', this.city)
+    $cookies.set("city",this.city);
+    localStorage.setItem("cityname", this.cityname);
     let date = new Date();
     this.time =
       date.getFullYear() +

@@ -12,9 +12,10 @@
       <img src="~/assets/nav-yue.png" />预约看房
     </button>
     <a :href="'tel:' + phone">
-      <button class="nav-tel">
+      <img class="navtel" src="~/assets/navtel.gif" alt="">
+      <!-- <button class="nav-tel">
         <img src="~/assets/nav-tel.png" />电话咨询
-      </button>
+      </button> -->
     </a>
   </div>
 </template>
@@ -124,7 +125,7 @@ export default {
 .nav {
   position: fixed;
   width: 92%;
-  height: 3.75rem;
+  height: 4rem;
   background-color: #fff;
   padding: 0 4%;
   bottom: 0;
@@ -175,13 +176,19 @@ export default {
       font-size: 0.75rem;
     }
   }
+  .navtel {
+    width: 8rem;
+    display: block;
+    height: 2.75rem;
+    margin-left: 0.625rem;
+  }
   button {
     width: 8rem;
-    height: 2.5rem;
+    height: 2.75rem;
     border-radius: .375rem;
     background: linear-gradient(90deg, #F7D67E, #FEE9AD);
     text-align: center;
-    line-height: 2.5rem;
+    line-height: 2.75rem;
     color: #8B6232;
     font-size: 1rem;
     border: 0;
