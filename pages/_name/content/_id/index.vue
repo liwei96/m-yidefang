@@ -620,7 +620,7 @@
                 | {{ item.area }}m²
               </p>
               <p class="pro-icon">
-                <span class="pro-icon-zhuang">{{ item.decorate }}</span>
+                <span class="pro-icon-zhuang">{{ item.decorate.substr(0,2) }}</span>
                 <span
                   class="pro-icon-type"
                   v-for="(val, k) in item.features"
