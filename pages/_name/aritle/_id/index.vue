@@ -189,11 +189,11 @@ export default {
       meta: [
         {
           name: "description",
-          content: this.description || "易得房",
+          content: this.description || "<&&>",
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房",
+          content: this.keywords || "<&&>",
         },
       ],
     };
@@ -271,7 +271,7 @@ export default {
     if(this.host == 0) {
       this.txt = '家园'
     }else {
-      this.txt = '易得房'
+      this.txt = '<&&>'
     }
     if (this.article.my_like) {
       this.img = this.img2

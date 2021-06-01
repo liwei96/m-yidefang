@@ -30,16 +30,16 @@ export default {
   },
   head() {
     return {
-      title: "易得房-登录",
+      title: "<&&>-登录",
       meta: [
         {
           name: "description",
           content:
-            "易得房"
+            "<&&>"
         },
         {
           name: "Keywords",
-          content: "易得房"
+          content: "<&&>"
         }
       ]
     };
@@ -126,7 +126,10 @@ export default {
             // localStorage.setItem('token',res.data.token)
             $cookies.set("phone", that.tel);
             $cookies.set("token", res.data.token);
+            $cookies.set("userId", res.data.userId);
             this.$store.dispatch("setoken", res.data.token);
+            this.$store.dispatch("setuserid", res.data.userId);
+            this.$store.state.userId = res.data.userId
             // localStorage.setItem('phone',that.tel)
             let tel = that.tel.substr(0, 3) + "****" + that.tel.substr(7);
             $cookies.set("username", tel);

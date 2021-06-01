@@ -103,15 +103,15 @@ export default {
   },
   head() {
     return {
-      title: this.title || "易得房-户型列表",
+      title: this.title || "<&&>-户型列表",
       meta: [
         {
           name: "description",
-          content: this.description || "易得房",
+          content: this.description || "<&&>",
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房",
+          content: this.keywords || "<&&>",
         },
       ],
     };

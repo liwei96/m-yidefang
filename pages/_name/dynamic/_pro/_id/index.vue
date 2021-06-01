@@ -200,11 +200,11 @@ export default {
       meta: [
         {
           name: "description",
-          content: this.description || "易得房",
+          content: this.description || "<&&>",
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房",
+          content: this.keywords || "<&&>",
         },
       ],
     };

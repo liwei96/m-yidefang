@@ -313,15 +313,15 @@ export default {
   },
   head() {
     return {
-      title: this.title || "易得房-地图找房",
+      title: this.title || "<&&>-地图找房",
       meta: [
         {
           name: "description",
-          content: this.description || "易得房",
+          content: this.description || "<&&>",
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房",
+          content: this.keywords || "<&&>",
         },
       ],
     };

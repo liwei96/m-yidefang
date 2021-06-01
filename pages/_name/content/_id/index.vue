@@ -639,13 +639,13 @@
               平台优惠发放时间：待开发商或总代理公司补贴发放到位后尽快发放。
             </p>
             <p>
-              核算方式：由开发商或代理公司判定为易得房平台客户即可享受这个优惠。
+              核算方式：由开发商或代理公司判定为<&&>平台客户即可享受这个优惠。
             </p>
             <p>
-              结算方式：提供已实名的支付宝账户给与您对接的易得房咨询师，规定时间内会将优惠费用打至该账户。
+              结算方式：提供已实名的支付宝账户给与您对接的<&&>咨询师，规定时间内会将优惠费用打至该账户。
             </p>
-            <p>详细活动方案请致易得房电客服电话：4007186686</p>
-            <p>注：活动最终解释权归易得房所有</p>
+            <p>详细活动方案请致<&&>电客服电话：4007186686</p>
+            <p>注：活动最终解释权归<&&>所有</p>
           </div>
         </div>
       </div>
@@ -660,7 +660,7 @@
               即日起，凡是通过本线上营销中心成交的本项目，即送苹果12 pro
               max一台，平台合计1000台手机送完为止。具体活动详情来电咨询
             </p>
-            <p>注：活动最终解释权归易得房所有</p>
+            <p>注：活动最终解释权归<&&>所有</p>
           </div>
         </div>
       </div>
@@ -681,7 +681,7 @@
 </template>
 <script>
 import topView from "@/components/header.vue";
-import tan from "@/components/tan.vue";
+import tan from "@/components/tans.vue";
 import nav from "@/components/nav.vue";
 import { NoticeBar } from "vant";
 import { delcomm, likecomm, collect, put } from "@/api/api";
@@ -699,6 +699,7 @@ export default {
       let host = context.store.state.host;
       let id = context.params.id;
       let token = context.store.state.cookie.token || "";
+      let userId = context.store.state.userId || context.store.state.cookie.userId;
       let jkl = context.params.name;
       let other = context.query.other;
       if (other) {
@@ -732,6 +733,7 @@ export default {
               id: id,
               token: token,
               other: other,
+              userId: userId
             },
           })
           .then((resp) => {
@@ -781,11 +783,11 @@ export default {
       meta: [
         {
           name: "description",
-          content: this.description || "易得房",
+          content: this.description || "<&&>",
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房",
+          content: this.keywords || "<&&>",
         },
       ],
     };
@@ -1340,15 +1342,19 @@ export default {
             if (res.data.code == 200) {
               if (that.collect == 0) {
                 that.toast("收藏成功");
+                sessionStorage.setItem('shouid'+this.$route.params.id,1)
                 that.collect = 1;
               } else {
                 that.toast("取消成功");
                 that.collect = 0;
+                sessionStorage.removeItem('shouid'+this.$route.params.id)
               }
             }
           }
         );
       } else {
+        let url = this.$route.path;
+        sessionStorage.setItem("path", url);
         this.$router.push("/" + this.jkl + "/login");
       }
     },
@@ -1386,11 +1392,14 @@ export default {
     },
   },
   mounted() {
+    if (this.$cookies.get('token')&&sessionStorage.getItem('shouid'+this.$route.params.id)){
+      this.collect = 1
+    }
     window.addEventListener("scroll", this.setnav);
     if (this.host == 0) {
       this.txt = "家园";
     } else {
-      this.txt = "易得房";
+      this.txt = "<&&>";
     }
     sessionStorage.setItem("proid", this.$route.params.id);
     let that = this;

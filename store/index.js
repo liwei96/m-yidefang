@@ -19,7 +19,8 @@ const store = () => new Vuex.Store({
     uuid: '',
     host: 0,
     hostname: '',
-    other: ''
+    other: '',
+    userId: ''
   },
   mutations: {
     setip(state, data) {
@@ -30,6 +31,9 @@ const store = () => new Vuex.Store({
     },
     settoken(state, payload) {
       state.cookie.token = payload
+    },
+    setuserid(state, payload) {
+      state.userId = payload
     },
     setcall(state, payload) {
       state.call = payload.call
@@ -296,6 +300,9 @@ const store = () => new Vuex.Store({
     },
     setoken(context, data) {
       context.commit('settoken', data)
+    },
+    seuserid(context, data) {
+      context.commit('setuserid', data)
     },
     setuuid(context, data) {
       context.commit('setuuid', data)

@@ -552,15 +552,15 @@ export default {
   },
   head() {
     return {
-      title: this.title || "易得房-" + this.cityname + "-楼盘查询",
+      title: this.title || "<&&>-" + this.cityname + "-楼盘查询",
       meta: [
         {
           name: "description",
-          content: this.description || "易得房",
+          content: this.description || "<&&>",
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房",
+          content: this.keywords || "<&&>",
         },
       ],
     };

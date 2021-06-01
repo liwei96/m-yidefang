@@ -48,16 +48,16 @@ export default {
   },
   head() {
     return {
-      title: this.title || "易得房-关注家园客服",
+      title: this.title || "<&&>-关注家园客服",
       meta: [
         {
           name: "description",
           content: this.description ||
-            "易得房"
+            "<&&>"
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房"
+          content: this.keywords || "<&&>"
         }
       ]
     };
@@ -66,7 +66,7 @@ export default {
     return {
       imgs: "http://testmobile.edefang.net/_nuxt/img/fllow1.4a70a3c.jpg",
       jkl: "",
-      txt:'易得房'
+      txt:'<&&>'
     };
   },
   components: {

@@ -457,15 +457,15 @@ export default {
   },
   head() {
     return {
-      title: this.title || "易得房-" + this.cityname,
+      title: this.title || "<&&>-" + this.cityname,
       meta: [
         {
           name: "description",
-          content: this.description || "易得房",
+          content: this.description || "<&&>",
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房",
+          content: this.keywords || "<&&>",
         },
       ],
     };
@@ -533,7 +533,7 @@ export default {
     if (this.host == 0) {
       this.txt = "家园";
     } else {
-      this.txt = "易得房";
+      this.txt = "<&&>";
     }
     console.log(this.$store.state);
     // this.cityname = $cookies.get('cityname')

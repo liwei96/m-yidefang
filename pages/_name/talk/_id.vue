@@ -3,7 +3,7 @@
     <div class="talk">
       <header>
         <img class="back" src="~/assets/goback.png" alt="" @click="back" />
-        {{ typetxt }}{{ staffname }}为您服务
+        {{ staffname }}为您服务
         <div class="status doen" @click="golist" v-if="listtype">
           <img src="~/assets/talk-list.png" alt="" />
           <p v-if="totalnum"></p>
@@ -215,15 +215,15 @@ export default {
   },
   head() {
     return {
-      title: "易得房",
+      title: "<&&>",
       meta: [
         {
           name: "description",
-          content: "易得房"
+          content: "<&&>"
         },
         {
           name: "Keywords",
-          content:  "易得房"
+          content:  "<&&>"
         }
       ]
     };
@@ -600,8 +600,8 @@ export default {
       this.typetxt = '家园咨询师'
       this.xymsg = '家园用户协议'
     }else {
-      this.typetxt = '易得房咨询师'
-      this.xymsg = '易得房用户协议'
+      this.typetxt = '<&&>咨询师'
+      this.xymsg = '<&&>用户协议'
     }
     sessionStorage.setItem("type", true);
     let url = window.location.href;

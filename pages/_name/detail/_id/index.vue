@@ -204,15 +204,15 @@ export default {
   },
   head() {
     return {
-      title: this.title || "易得房-" + this.building.name + "-楼盘详情页",
+      title: this.title || "<&&>-" + this.building.name + "-楼盘详情页",
       meta: [
         {
           name: "description",
-          content: this.description || "易得房",
+          content: this.description || "<&&>",
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房",
+          content: this.keywords || "<&&>",
         },
       ],
     };

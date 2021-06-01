@@ -47,16 +47,16 @@ import '@/static/css/foot.css'
 export default {
   head() {
     return {
-      title: "易得房-雷达图评分规则",
+      title: "<&&>-雷达图评分规则",
       meta: [
         {
           name: "description",
           content:
-            "易得房"
+            "<&&>"
         },
         {
           name: "Keywords",
-          content: "易得房"
+          content: "<&&>"
         }
       ]
     };

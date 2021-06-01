@@ -52,16 +52,16 @@ export default {
   },
   head() {
     return {
-      title: "易得房-"+this.question.question+'-回答问题',
+      title: "<&&>-"+this.question.question+'-回答问题',
       meta: [
         {
           name: "description",
           content:
-            "易得房"
+            "<&&>"
         },
         {
           name: "Keywords",
-          content: "易得房"
+          content: "<&&>"
         }
       ]
     };

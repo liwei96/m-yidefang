@@ -61,7 +61,7 @@
             <p>地图找房</p>
           </nuxt-link>
         </li>
-        <li>
+        <li v-if="false">
           <nuxt-link :to="'/' + jkl + '/join'">
             <img src="~/assets/home-jia.png" alt />
             <p>城市加盟</p>
@@ -72,20 +72,20 @@
     <div class="con">
       <ul class="col cll">
         <li>
-          <nuxt-link :to="'/' + jkl + '/about'">
-            <div>
+            <div @click="gozhao">
               <img class="pp" src="~/assets/home-about.png" alt />
-              <p>关于{{txt}}</p>
+              <p>诚聘英才</p>
               <img class="more" src="~/assets/home-more.png" alt />
             </div>
-          </nuxt-link>
         </li>
         <!-- <li @click="show = true"> -->
-        <li @click="gozhao">
+          <a :href="'tel:'+tel">
+        <li>
           <img class="pp" src="~/assets/home-tel.png" alt />
-          <p>诚聘英才</p>
+          <p>联系我们</p>
           <img class="more" src="~/assets/home-more.png" alt />
         </li>
+        </a>
         <li>
           <div @click="jian">
             <img class="pp" src="~/assets/home-comment.png" alt />
@@ -94,7 +94,7 @@
           </div>
         </li>
       </ul>
-      <ul class="col">
+      <ul class="col" v-if="false">
         <li>
           <nuxt-link :to="'/' + jkl + '/statement'">
             <div>
@@ -154,9 +154,9 @@
     </van-popup>
     <div class="footer">
       <p>
-        杭州亚汉网络科技有限公司版权所有 &nbsp;&nbsp;&nbsp;电话：400-718-6686
+        &nbsp;&nbsp;&nbsp;电话：400-718-6686
       </p>
-      <p>网络经营许可证：<a href="http://www.beian.gov.cn/portal/index.do">浙ICP备19015909号-1</a></p>
+      <!-- <p>网络经营许可证：<a href="http://www.beian.gov.cn/portal/index.do">浙ICP备19015909号-1</a></p> -->
     </div>
   </div>
 </template>
@@ -226,15 +226,15 @@ export default {
   },
   head() {
     return {
-      title: this.title || "易得房-个人主页",
+      title: this.title || "<&&>-个人主页",
       meta: [
         {
           name: "description",
-          content: this.description || "易得房",
+          content: this.description || "<&&>",
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房",
+          content: this.keywords || "<&&>",
         },
       ],
     };
@@ -328,7 +328,7 @@ export default {
       this.cardnum = 1;
     }
     document.getElementById('foott').style.display = 'none'
-      this.txt = '易得房'
+      this.txt = '<&&>'
   },
   beforeDestroy() {
     document.getElementById('foott').style.display = 'block'
@@ -536,6 +536,8 @@ export default {
   font-size: 0.75rem;
   text-align: center;
   margin-top: 2.25rem;
+  position: absolute;
+  bottom: 0;
   p {
     margin-bottom: 0.625rem;
   }

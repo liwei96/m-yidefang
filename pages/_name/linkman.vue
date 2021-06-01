@@ -22,16 +22,16 @@ export default {
   },
   head() {
     return {
-      title: "易得房-我的联系人",
+      title: "<&&>-我的联系人",
       meta: [
         {
           name: "description",
           content:
-            "易得房"
+            "<&&>"
         },
         {
           name: "Keywords",
-          content: "易得房"
+          content: "<&&>"
         }
       ]
     };

@@ -145,16 +145,16 @@ export default {
   },
   head() {
     return {
-      title: "易得房-"+this.building.name+'-周边详情',
+      title: "<&&>-"+this.building.name+'-周边详情',
       meta: [
         {
           name: "description",
           content:
-            "易得房"
+            "<&&>"
         },
         {
           name: "Keywords",
-          content: "易得房"
+          content: "<&&>"
         }
       ]
     };

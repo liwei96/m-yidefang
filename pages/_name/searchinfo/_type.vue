@@ -93,16 +93,16 @@ export default {
   },
   head() {
     return {
-      title: this.title || "易得房-文章搜索",
+      title: this.title || "<&&>-文章搜索",
       meta: [
         {
           name: "description",
           content: this.description || 
-            "易得房"
+            "<&&>"
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房"
+          content: this.keywords || "<&&>"
         }
       ]
     };

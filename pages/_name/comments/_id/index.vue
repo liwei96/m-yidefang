@@ -114,15 +114,15 @@ export default {
   },
   head() {
     return {
-      title: "易得房-点评列表",
+      title: "<&&>-点评列表",
       meta: [
         {
           name: "description",
-          content: "易得房",
+          content: "<&&>",
         },
         {
           name: "Keywords",
-          content: "易得房",
+          content: "<&&>",
         },
       ],
     };

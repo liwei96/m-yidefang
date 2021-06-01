@@ -264,15 +264,15 @@ export default {
   },
   head() {
     return {
-      title: this.title || "易得房-楼盘相册",
+      title: this.title || "<&&>-楼盘相册",
       meta: [
         {
           name: "description",
-          content: this.description || "易得房",
+          content: this.description || "<&&>",
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房",
+          content: this.keywords || "<&&>",
         },
       ],
     };
@@ -471,7 +471,7 @@ export default {
     if (this.host == 0) {
       this.txt = "家园";
     } else {
-      this.txt = "易得房";
+      this.txt = "<&&>";
     }
     let that = this;
     that.baoming = $cookies.get("phone");

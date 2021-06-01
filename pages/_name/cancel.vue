@@ -40,16 +40,16 @@ export default {
   },
   head() {
     return {
-      title: "易得房-个人优惠券",
+      title: "<&&>-个人优惠券",
       meta: [
         {
           name: "description",
           content:
-            "易得房"
+            "<&&>"
         },
         {
           name: "Keywords",
-          content: "易得房"
+          content: "<&&>"
         }
       ]
     };
@@ -58,7 +58,7 @@ export default {
     return {
       time: "",
       have:false,
-      txt:'易得房'
+      txt:'<&&>'
     };
   },
   mounted() {
@@ -71,9 +71,9 @@ export default {
       this.have = true
     }
     if(this.host == 0) {
-      this.txt = '易得房'
+      this.txt = '<&&>'
     }else {
-      this.txt = '易得房'
+      this.txt = '<&&>'
     }
   },
 };

@@ -2,7 +2,7 @@
   <div>
     <Nuxt class="allbox" />
     <footer v-if="home" id="foott">
-      <ul>
+      <ul v-if="false">
         <li>
           <nuxt-link :to="'/' + jkl + '/about'">关于我们</nuxt-link>
         </li>
@@ -10,8 +10,8 @@
         <li><nuxt-link :to="'/' + jkl + '/join'">城市加盟</nuxt-link></li>
         <li><nuxt-link :to="'/' + jkl + '/privacy'">隐私政策</nuxt-link></li>
       </ul>
-      <p>杭州易得房科技有限公司版权所有 &nbsp;&nbsp;电话：400-718-6686</p>
-      <p>
+      <p>&nbsp;&nbsp;电话：400-718-6686</p>
+      <p v-if="false">
         <img src="~/assets/logobom.png" alt="" />
         网络经营许可证：
         <a href="http://www.beian.gov.cn/portal/index.do"
@@ -112,7 +112,8 @@ html {
 }
 footer {
   height: 6.25rem;
-  background-color: #e9eef5;
+  // background-color: #e9eef5;
+  background: rgba(0, 0, 0, 0);
   color: #6c88a6;
   font-size: 0.75rem;
   margin-bottom: 50px;

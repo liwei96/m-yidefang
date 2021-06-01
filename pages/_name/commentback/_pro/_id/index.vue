@@ -54,16 +54,16 @@ export default {
   },
   head() {
     return {
-      title: "易得房-点评回复",
+      title: "<&&>-点评回复",
       meta: [
         {
           name: "description",
           content:
-            "易得房"
+            "<&&>"
         },
         {
           name: "Keywords",
-          content: "易得房"
+          content: "<&&>"
         }
       ]
     };

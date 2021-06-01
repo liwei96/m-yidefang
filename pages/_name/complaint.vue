@@ -46,16 +46,16 @@ export default {
   },
   head() {
     return {
-      title: this.title || "易得房",
+      title: this.title || "<&&>",
       meta: [
         {
           name: "description",
           content: this.description || 
-            "易得房"
+            "<&&>"
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房"
+          content: this.keywords || "<&&>"
         }
       ]
     };

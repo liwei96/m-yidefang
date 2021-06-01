@@ -257,16 +257,16 @@ export default {
   },
   head() {
     return {
-      title: "易得房-楼盘城市",
+      title: "<&&>-楼盘城市",
       meta: [
         {
           name: "description",
           content:
-            "易得房"
+            "<&&>"
         },
         {
           name: "Keywords",
-          content: "易得房"
+          content: "<&&>"
         }
       ]
     };

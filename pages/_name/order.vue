@@ -67,7 +67,7 @@
           <input class="txt" type="text" placeholder="请输入手机号" v-model="tel" />
           <p class="xiyi">
             <input type="checkbox" v-model="check" />我已阅读并同意
-            <nuxt-link :to="'/wuxi/protocol'">《易得房用户协议》</nuxt-link>
+            <nuxt-link :to="'/wuxi/protocol'">《<&&>用户协议》</nuxt-link>
           </p>
           <button @click="sendmsg">确定</button>
         </div>
@@ -118,16 +118,16 @@ export default {
   },
   head() {
     return {
-      title: this.title || "易得房-预约看房",
+      title: this.title || "<&&>-预约看房",
       meta: [
         {
           name: "description",
           content: this.description || 
-            "易得房"
+            "<&&>"
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房"
+          content: this.keywords || "<&&>"
         }
       ]
     };

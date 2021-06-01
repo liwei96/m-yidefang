@@ -204,15 +204,15 @@ export default {
   },
   head() {
     return {
-      title: this.title || "易得房-" + this.answer.question,
+      title: this.title || "<&&>-" + this.answer.question,
       meta: [
         {
           name: "description",
-          content: this.description || "易得房",
+          content: this.description || "<&&>",
         },
         {
           name: "Keywords",
-          content: this.keywords || "易得房",
+          content: this.keywords || "<&&>",
         },
       ],
     };
@@ -234,7 +234,7 @@ export default {
       id: "0",
       img: require("~/assets/noclick.png"),
       img1: require("~/assets/checked.png"),
-      txt: '易得房',
+      txt: '<&&>',
       bid: 0
     };
   },
@@ -284,7 +284,7 @@ export default {
     if(this.host == 0) {
       this.txt = '家园'
     }else {
-      this.txt = '易得房'
+      this.txt = '<&&>'
     }
   }
 };
