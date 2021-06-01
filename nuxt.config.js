@@ -165,16 +165,24 @@ export default {
         "^/front": "/front" // 去掉接口地址中的api字符串
       }
     },
-    "/edefang": {
+    "/edefang/": {
       target: "http://api.edefang.net/", // 重新映射的新地址 
       changeOrigin: true, // 是否跨域
       pathRewrite: {
-        "^/edefang": "/edefang" // 去掉接口地址中的api字符串
+        "^/edefang/": "/edefang/" // 去掉接口地址中的api字符串
+      }
+    },
+    "/edefang_new": {
+      target: "http://39.98.227.114:8989/", // 重新映射的新地址 
+      changeOrigin: true, // 是否跨域
+      pathRewrite: {
+        "^/edefang_new": "/edefang_new" // 去掉接口地址中的api字符串
       }
     }
   },
   axios: {
     proxy: true,
+    credentials: true
   },
   /*
    ** Build configuration

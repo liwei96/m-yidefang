@@ -1,7 +1,7 @@
 <template>
   <div id="content">
     <top-view :jkl="jkl" :totalnum="totalnum"></top-view>
-    <div class="topnavlist" v-if="navtype">
+    <!-- <div class="topnavlist" v-if="navtype">
       <p :class="nav == 0 ? 'active' : ''" @click="gonav(0)">
         户型<span></span>
       </p>
@@ -14,13 +14,13 @@
       <p :class="nav == 3 ? 'active' : ''" @click="gonav(3)">
         配套<span></span>
       </p>
-    </div>
+    </div> -->
     <div class="topimg">
       <div class="swiper-topimg" @click="goimg">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, key) in imgs" :key="key">
             <img
-              :src="item.small"
+              :src="item.small || item.smallImg"
               :alt="abstract.name"
               :title="abstract.name"
             />
@@ -31,20 +31,7 @@
       <!-- <span class="imgnum">共{{basic.img_num}}张</span> -->
       <!-- <div class="zhe" @click="goimg"></div> -->
       <p class="imgnum">共{{ imgnum }}张</p>
-      <img
-        src="~/assets/content-heart.png"
-        alt=""
-        class="top-heard"
-        v-if="collect == 0"
-        @click="shou"
-      />
-      <img
-        src="~/assets/content-hearted.png"
-        alt=""
-        class="top-heard"
-        v-if="collect == 1"
-        @click="shou"
-      />
+
       <div class="taps">
         <p
           v-for="(item, key) in imgmsg"
@@ -61,30 +48,42 @@
         <div class="top-left">
           <h2>{{ abstract.name }}</h2>
           <p>
-            <span class="active">{{ abstract.status }}</span>
+            <span class="active">{{ abstract.sale_state }}</span>
             <span>{{ abstract.type }}</span>
-            <span v-for="(item, key) in abstract.features" :key="key">{{
-              item
+            <span v-if="abstract.railways.length">{{
+              abstract.railways[0]
             }}</span>
+            <template v-for="(item, key) in abstract.features">
+              <span :key="key" v-if="key <= 1">{{ item }}</span>
+            </template>
           </p>
         </div>
-        <div class="top-right" @click="pk">
-          <img src="~/assets/content-pk.gif" alt="" />
-          加入对比
+        <div class="top-right">
+          <img
+            src="~/assets/proheart.png"
+            alt=""
+            class="top-heard"
+            v-if="collect == 0"
+            @click="shou"
+          />
+          <img
+            src="~/assets/content-hearted.png"
+            alt=""
+            class="top-heard"
+            v-if="collect == 1"
+            @click="shou"
+          />
         </div>
       </div>
-      <div class="intro-fx" @click="pop('预约咨询', 119, '详情页+预约咨询')">
-        <p>预约咨询<img src="~/assets/content-more.png" alt="" /></p>
-      </div>
       <div class="intro-con">
-        <nuxt-link :to="'/' + jkl + '/detail/' + id">
+        <!-- <nuxt-link :to="'/' + jkl + '/detail/' + id">
           <div class="inmore">
             详细信息<img src="~/assets/content-detail.png" alt="" />
           </div>
-        </nuxt-link>
+        </nuxt-link> -->
         <p>
           均价:
-          <span class="price"> {{ abstract.price }}<i>元/m²</i> </span>
+          <span class="price"> {{ abstract.single_price }}<i>元/m²</i> </span>
         </p>
         <p>
           开盘:
@@ -98,107 +97,19 @@
       </div>
       <p class="zhu">注：以上价格为开发商报价，最新价格以实际为准</p>
       <div class="btn">
-        <button @click="pop('查询最底价', 34, '详情页+查询最底价')">
+        <button @click="pop('询底价', 34, '详情页+查询最底价')">
           <img src="~/assets/content-search.png" alt="" />
-          查询最底价
+          询底价
         </button>
-        <button @click="pop('变价通知我', 60, '详情页+变价通知我')">
+        <button @click="pop('查成交', 14, '详情页+变价通知我')">
           <img src="~/assets/content-change.png" alt="" />
-          变价通知我
+          查成交
         </button>
       </div>
-    </div>
-    <div class="tel">
-      <a :href="'tel:' + phone">
-        <img class="telimg" src="~/assets/tel.jpg" alt />
-        <p v-html="phonemsg"></p>
-        <button><img src="~/assets/content-tel.png" />一键拨打</button>
-      </a>
-    </div>
-    <div class="hui">
-      <h3>
-        优惠信息
-        <img src="~/assets/ques.png" alt @click="huo = true" v-if="participate==0"/>
-        <img src="~/assets/ques.png" alt @click="huo1 = true" v-if="participate!=0"/>
-      </h3>
-      <div class="hui-con" v-if="participate==0">
-        <div class="hui-left">
-          <p>
-            售楼处专供易得房客户<span>（{{ time }}截止）</span>
-          </p>
-        </div>
-        <div class="hui-right">
-          <button @click="pop('领取优惠', 94, '详情页+领取优惠')">
-            领取优惠
-          </button>
-          <p>
-            <span>{{ count.sign_num + 100 }}人</span>已领取
-          </p>
-        </div>
-      </div>
-      <div class="phone-huo" v-if="participate!=0">
-        <img src="~/assets/phone-huo.jpg" alt="">
-        <p>{{participate}}人已领</p>
-        <button @click="pop('易得房专享购房送手机', 121, '详情页+易得房专享购房送手机')">立即抢</button>
-      </div>
-      <div class="hui-con two">
-        <div class="hui-left">
-          <p>
-            免费专车1对1服务限时劵<span
-              >（剩余{{ count.get_num + 102 }}张）</span
-            >
-          </p>
-        </div>
-        <div class="hui-right">
-          <button @click="pop('免费专车看房', 86, '详情页+免费专车看房')">
-            免费领取
-          </button>
-          <p>
-            <span>{{ count.get_num + 112 }}人</span>已领取
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="te" v-if="specials.data">
-      <h3>
-        <img src="~/assets/index-hot.jpg" alt="" />
-        今日特价房
-        <span>{{ hour }}小时前更新</span>
-        <!-- <img src="~/assets/tit.png" alt class="te-tit" /> -->
-      </h3>
-      <ul class="tabs">
-        <li v-for="(item, key) in specials.data" :key="key">
-          <div class="left">
-            <p class="msg">
-              房号-{{
-                item.number.split("-")[item.number.split("-").length - 1]
-              }}&nbsp;&nbsp; 面积-{{ parseInt(item.area) }}m²
-            </p>
-            <div class="pri">
-              <p class="tepri">
-                特价<span>{{ (parseInt(item.total) / 10000).toFixed(1) }}</span
-                >万
-              </p>
-              <p class="oldpri">原价<span>{{ (parseInt(item.original_total) / 10000).toFixed(1) }}</span>万</p>
-            </div>
-          </div>
-          <p class="right" @click="pop('抢特价房', 114, '详情页+抢特价房')">
-            抢特价房
-          </p>
-        </li>
-      </ul>
-      <div class="zhe" @click="showmores" v-if="morebtns">
-        <img src="~/assets/huo-down.png" alt />
-      </div>
-      <div class="bom">
-        <notice-bar
-          color="#807D7D"
-          background="rgba(0,0,0,0)"
-          left-icon="volume-o"
-          :text="specials.dynamic"
-        />
-        <button @click="pop('咨询特价房', 93, '详情页+咨询特价房')">
-          咨询特价房
+      <div class="topbom">
+        <img src="~/assets/topbomimg.png" alt="" />
+        <button @click="pop('询优惠', 37, '详情页+询优惠')">
+          询优惠
         </button>
       </div>
     </div>
@@ -219,10 +130,10 @@
             v-for="(item, key) in house_types"
             :key="key"
           >
-            <nuxt-link :to="'/' + jkl + '/hu/'+abstract.id+'/' + item.id">
+            <nuxt-link :to="'/' + jkl + '/hu/' + abstract.id + '/' + item.id">
               <div class="hu-top">
                 <img
-                  :src="item.img"
+                  :src="item.small"
                   :alt="abstract.name + item.title + '户型图'"
                   :title="abstract.name + item.title + '户型图'"
                 />
@@ -231,7 +142,7 @@
             <div class="hu-bom">
               <p class="name">
                 {{ item.title }}
-                <span>{{ item.status }}</span>
+                <span>{{ item.state }}</span>
               </p>
               <p class="type">
                 <span class="t1">建面 {{ item.area }}m²</span>
@@ -245,55 +156,113 @@
           </div>
         </div>
       </div>
-      <button @click="pop('领取全部户型资料', 56, '详情页+领取全部户型资料')">
-        领取全部户型资料
-      </button>
-    </div>
-    <div class="dynamic">
-      <h3>
-        最新动态
-        <img src="~/assets/content-tt.png" alt="" class="tt" />
-        <nuxt-link :to="'/' + jkl + '/promsg/' + id + '/0'">
-          <span>
-            全部动态
-            <img src="~/assets/j-more.png" alt />
-          </span>
-        </nuxt-link>
-      </h3>
-      <ul>
-        <li v-for="(item, key) in dynamics" :key="key">
-          <p>{{ item.content }}</p>
-          <span>{{ item.time }}</span>
-          <div class="dynamicimgs" v-if="item.img">
-            <img
-              :src="item.img"
-              :alt="abstract.name + '实时动态'"
-              :title="abstract.name + '实时动态'"
-            />
-          </div>
-        </li>
-      </ul>
-      <div class="btn">
-        <input
-          type="text"
-          placeholder="输入手机号订阅最新动态"
-          v-model="dongtel"
-        />
-        <button @click="apply">立即订阅</button>
+      <div class="bombtn">
+        <button @click="pop('帮我找户型', 59, '详情页+帮我找户型')">
+          <img src="~/assets/huhelp.png" alt="" />
+          帮我找户型
+        </button>
+        <a :href="'tel:'+phone">
+        <button>
+          <img src="~/assets/hulisten.png" alt="" />
+          听户型讲解
+        </button>
+        </a>
       </div>
     </div>
-    <div class="newprice" v-show="deal_prices.length">
-      <h3 v-show="deal_prices.length">
+    <div class="ziliao">
+      <h3>楼盘概况</h3>
+      <div id="topmap"></div>
+      <!-- <div class="tab">
+        <p :class="tabnum == 1 ? 'active' : ''" @click="tabnum = 1">投资分析</p>
+        <p @click="tabnum = 2" :class="tabnum == 2 ? 'active' : ''">宜居分析</p>
+      </div> -->
+      <div class="zi-box">
+        <h4><img src="~/assets/xiangyou.png" alt="" />项目优势</h4>
+        <p>
+          {{ abstract.introduce }}
+        </p>
+      </div>
+      <div class="zi-box">
+        <h4><img src="~/assets/jufen.png" alt="" />宜居分析</h4>
+        <p>
+          {{ analysis.livable.join(";") }}
+        </p>
+      </div>
+      <!-- <div class="liao-msg">
+        <template v-for="(item, key) in analysis">
+          <p :key="key" v-if="item.type == tabnum">{{ item.content }}</p>
+        </template>
+      </div> -->
+      <div
+        class="zhe"
+        @click="pop('限时免费解锁报告', 41, '详情页+限时免费解锁报告')"
+      >
+        <img src="~/assets/content-suo.png" alt="" />
+      </div>
+      <button @click="pop('限时免费解锁报告', 41, '详情页+限时免费解锁报告')">
+        限时免费解锁报告
+      </button>
+    </div>
+    <div class="zixun">
+      <h3><span>VIP</span>服务</h3>
+      <p class="xun-icon">
+        <span> <img src="~/assets/save.png" alt />专业服务 </span>
+        <span> <img src="~/assets/icon-path.png" alt />区域解读 </span>
+        <span> <img src="~/assets/icon-pin.png" alt />户型分析 </span>
+      </p>
+      <div class="peo" v-for="(item, key) in staffs" :key="key">
+        <img class="peoimg" :src="item.image" alt />
+        <div class="peo-msg">
+          <h6 v-if="key == 0">
+            金牌顾问
+            <span>{{ item.name }}</span>
+          </h6>
+          <h6 v-if="key == 1">
+            项目经理
+            <span>{{ item.name }}</span>
+          </h6>
+          <h6 v-if="key == 2">
+            项目总监
+            <span>{{ item.name }}</span>
+          </h6>
+          <div class="bombox" v-if="key == 0">
+            <span class="left">服务</span>
+            <p>
+              <span class="num">1</span>户型介绍<span class="num">2</span
+              >近期活动介绍
+            </p>
+          </div>
+          <div class="bombox" v-if="key == 1">
+            <span class="left">服务</span>
+            <p>
+              <span class="num">1</span>优惠折扣<span class="num">2</span
+              >剩余房源介绍
+            </p>
+          </div>
+          <div class="bombox" v-if="key == 2">
+            <span class="left">服务</span>
+            <p><span class="num">1</span>申请总监级购房优惠</p>
+          </div>
+        </div>
+        <a :href="'tel:' + phone" v-if="key == 0">
+          <button>一键通话</button>
+        </a>
+        <a :href="'tel:' + phone" v-if="key == 1">
+          <button v-if="key == 1">免费咨询</button>
+        </a>
+        <a :href="'tel:' + phone" v-if="key == 2">
+          <button v-if="key == 2">询特价房</button>
+        </a>
+      </div>
+    </div>
+    <div class="newprice" v-show="deal_prices">
+      <h3>
         最新成交价
         <p>6小时前更新</p>
       </h3>
-      <div
-        id="chart"
-        style="width: 100%; height: 180px"
-        v-show="deal_prices.length"
-      ></div>
-      <p v-show="deal_prices.length">2021年</p>
-      <div class="tab" v-show="deal_prices.length">
+      <div id="chart" style="width: 100%; height: 180px"></div>
+      <p>2021年</p>
+      <div class="tab">
         <table cellspacing="0" cellpadding="0">
           <tbody>
             <tr class="thead">
@@ -332,90 +301,22 @@
           </van-swipe>
         </notice-bar>
       </div>
-      <button
-        @click="pop('查询最新成交价', 81, '详情页+查询最新成交价')"
-        v-show="deal_prices.length"
-      >
+      <button @click="pop('查成交', 81, '详情页+查成交')">
         查询最新成交价
       </button>
     </div>
-    <div class="ziliao">
-      <h3>楼盘分析资料</h3>
-      <div class="tab">
-        <p :class="tabnum == 1 ? 'active' : ''" @click="tabnum = 1">投资分析</p>
-        <p @click="tabnum = 2" :class="tabnum == 2 ? 'active' : ''">宜居分析</p>
-      </div>
-      <div class="liao-msg">
-        <template v-for="(item, key) in analysis">
-          <p :key="key" v-if="item.type == tabnum">{{ item.content }}</p>
-        </template>
-      </div>
-      <div
-        class="zhe"
-        @click="pop('领取完整分析报告', 96, '详情页+领取完整分析报告')"
-      >
-        <img src="~/assets/content-suo.png" alt="" />
-      </div>
-      <button @click="pop('领取完整分析报告', 96, '详情页+领取完整分析报告')">
-        领取完整分析报告
-      </button>
-    </div>
-    <div class="zixun">
-      <h3>
-        新房咨询师<span @click="gojoin"
-          >申请入驻<img src="~/assets/content-join.png" alt=""
-        /></span>
-      </h3>
-      <p class="xun-icon">
-        <span> <img src="~/assets/save.png" alt />专业服务 </span>
-        <span> <img src="~/assets/icon-path.png" alt />区域解读 </span>
-        <span> <img src="~/assets/icon-pin.png" alt />户型分析 </span>
-      </p>
-      <div class="peo" v-for="(item, key) in staffs" :key="key">
-        <img class="peoimg" :src="item.head_img" alt />
-        <div class="peo-msg">
-          <h6>
-            {{ item.name }}
-            <span>满意度5分</span>
-          </h6>
-          <p v-if="key == 0">了解房源特色，专业挑好房</p>
-          <p v-if="key == 1">为客户提供专业的购房建议</p>
-        </div>
-        <img
-          class="peoicon"
-          src="~/assets/message.png"
-          alt
-          @click="pop('咨询服务', 48, '详情页+咨询服务')"
-        />
-        <a :href="'tel:' + phone">
-          <img class="peoicon" src="~/assets/tel.png" alt />
-        </a>
-      </div>
-    </div>
     <div class="zhou">
-      <h4>
-        周边配套
-        <!-- <nuxt-link :to="'/' + jkl + '/rim/' + id">
-          <span>
-            详细配套
-            <img src="~/assets/go.png" alt />
-          </span>
-        </nuxt-link> -->
-      </h4>
-      <p class="txt">位置：<span>{{abstract.address}}</span></p>
+      <h4>周边配套</h4>
       <p class="txt">
+        位置：<span>{{ abstract.address }}</span>
+      </p>
+      <p class="txt" @click="gotalk">
         配套：<span
           class="talk"
-          @click="
-            pop('获取周边5公里详细配套', 69, '详情页+获取周边5公里详细配套')
-          "
           >咨询具体位置和周边设施情况</span
         ><img
           src="~/assets/content-map-talk.png"
           alt=""
-          @click="
-            pop('获取周边5公里详细配套', 69, '详情页+获取周边5公里详细配套')
-          "
         />
       </p>
       <div class="swiper-map">
@@ -488,7 +389,7 @@
       <div id="map" @click="gomap"></div>
       <div id="panel" style="display: none"></div>
 
-      <div class="map-msg">
+      <div class="map-msg" v-if="false">
         <ul class="map-msg-con">
           <li>
             <h6>武林广场</h6>
@@ -509,108 +410,109 @@
           附近没有{{ mapname }}，您可以看看其他信息
         </p>
       </div>
-      <button
-        class="btnicon"
-        @click="
-          pop('获取周边5公里详细配套', 69, '详情页+获取周边5公里详细配套')
-        "
-      >
-        获取周边5公里详细配套
-      </button>
+      <div class="mapbtn">
+        <img src="~/assets/mapread.png" alt="" />
+        <div class="mapmsg">
+          <p class="msgtit">区域解读</p>
+          <p class="msgtxt">获取学区、医院、周边配套信息</p>
+        </div>
+        <p
+          class="btn"
+          @click="
+            pop('帮我分析', 68, '详情页+帮我分析')
+          "
+        >
+          帮我分析
+        </p>
+      </div>
     </div>
-    <div class="dian">
+    <div class="dynamic">
       <h3>
-        楼盘点评
-        <nuxt-link :to="'/' + jkl + '/comments/' + id" v-if="comments.length">
+        最新消息
+        <img src="~/assets/content-tt.png" alt="" class="tt" />
+        <nuxt-link :to="'/' + jkl + '/promsg/' + id + '/0'">
           <span>
-            更多点评
-            <img src="~/assets/go.png" alt />
+            全部动态
+            <img src="~/assets/j-more.png" alt />
           </span>
         </nuxt-link>
       </h3>
-      <ul v-if="comments.length">
-        <li v-for="(item, key) in comments" :key="key">
-          <div class="dian-top">
-            <img src="~/assets/jiapeo.png" alt class="peo" />
-            <div class="top-con">
-              <h6>
-                {{ item.mobile }}
-                <span v-if="item.mine" @click="del(item.id, key)">删除</span>
-              </h6>
-
-              <p>{{ item.time }}</p>
-            </div>
-            <div
-              :class="item.my_like == 1 ? 'top-right active' : 'top-right'"
-              @click="like(item.id, key)"
-            >
-              <img :src="item.my_like == 1 ? img1 : img" alt />
-              赞({{ item.like_num }})
-            </div>
-          </div>
-          <nuxt-link :to="'/' + jkl + '/commentdetail/' + id + '/' + item.id">
-            <div class="dian-bom">{{ item.content }}</div>
-          </nuxt-link>
+      <ul>
+        <li v-for="(item, key) in dynamics" :key="key">
+          <p>{{ item.content }}</p>
+          <span>{{ item.time }}</span>
         </li>
       </ul>
-      <p class="tishi" v-if="!comments.length">暂无点评，快来点评吧</p>
-      <button @click="dianping">我要点评</button>
+      <div class="dynamicimg">
+        <!-- <p class="lefttxt">加推楼盘早知道</p> -->
+        <div class="dynamicbtn">
+          <div class="input">
+            <input type="text" placeholder="输入手机号码" v-model="dongtel" />
+          </div>
+          <button @click="apply(63)">开启提醒</button>
+        </div>
+      </div>
+      <!-- <div class="btn">
+        <input
+          type="text"
+          placeholder="输入手机号订阅最新动态"
+          v-model="dongtel"
+        />
+        <button @click="apply">立即订阅</button>
+      </div> -->
     </div>
-    <div class="wen">
+    <div class="detailmsg">
       <h3>
-        楼盘问答
-        <nuxt-link :to="'/' + jkl + '/questions/' + id" v-if="questions.length">
+        楼盘详情
+        <nuxt-link :to="'/' + jkl + '/detail/' + id">
           <span>
-            全部问答
-            <img src="~/assets/go.png" alt />
+            详细信息
+            <img src="~/assets/j-more.png" alt />
           </span>
         </nuxt-link>
       </h3>
-      <ul v-if="questions.length">
-        <template v-for="(item, key) in questions">
-          <nuxt-link :to="'/' + jkl + '/answer/' + item.id+'/'+abstract.id" :key="key">
-            <li>
-              <p class="con">
-                <span>问</span>
-                {{ item.question }}
-              </p>
-              <p class="num">共1个专业问答</p>
-            </li>
-          </nuxt-link>
-        </template>
-      </ul>
-      <p class="tishi" v-if="!questions.length">暂无问答，快来提问吧</p>
-      <button @click="tiwen">我要提问</button>
-    </div>
-    <div class="my-infos" v-if="infos.length > 0">
-      <h4>
-        相关资讯<nuxt-link :to="'/' + jkl + '/promsg/' + id + '/1'"
-          ><span>更多资讯 <img src="~/assets/go.png" alt /></span
-        ></nuxt-link>
-      </h4>
       <ul>
-        <nuxt-link
-          v-for="(item, key) in infos"
-          :key="item.id"
-          :to="'/' + jkl + '/info/' + item.id"
-        >
-          <li v-if="key <= 2">{{ item.title }}</li>
-        </nuxt-link>
+        <li>
+          <div class="col">
+            <span>户型：</span>{{ abstract.house_types.join(",") }}
+          </div>
+          <div class="col"><span>类型：</span>{{ abstract.type }}</div>
+        </li>
+        <li>
+          <div class="col"><span>开盘：</span>{{ abstract.open_time }}</div>
+          <div class="col"><span>交房：</span>{{ abstract.give_time }}</div>
+        </li>
+        <li>
+          <div class="col"><span>层高：</span>{{ abstract.floor_height }}</div>
+          <div class="col"><span>产权：</span>{{ abstract.year }}</div>
+        </li>
+        <li>
+          <div class="col"><span>装修：</span>{{ abstract.decorate }}</div>
+          <div class="col"><span>车位：</span>{{ abstract.parking_num }}</div>
+        </li>
       </ul>
+      <div class="detailimg">
+        <span
+          @click="
+            pop('楼盘详情在线听', 96, '详情页+楼盘详情在线听')
+          "
+          >听分析</span
+        >
+      </div>
     </div>
     <div class="other">
       <h3>为你推荐</h3>
       <template v-for="(item, key) in recommends">
         <nuxt-link :to="'/' + jkl + '/content/' + item.id" :key="key">
           <div class="pro">
-            <img :src="item.img" :alt="item.name" :title="item.name" />
+            <img :src="item.image" :alt="item.name" :title="item.name" />
             <div class="pro-msg">
               <h5>
                 {{ item.name }}
-                <span>{{ item.status }}</span>
+                <span>{{ item.state }}</span>
               </h5>
               <p class="pro-price">
-                <span>{{ item.single_price }}</span>
+                <span>{{ item.price }}</span>
                 <i>元/m²</i>
               </p>
               <p class="attr">
@@ -620,13 +522,13 @@
                 | {{ item.area }}m²
               </p>
               <p class="pro-icon">
-                <span class="pro-icon-zhuang">{{ item.decorate.substr(0,2) }}</span>
-                <span
-                  class="pro-icon-type"
-                  v-for="(val, k) in item.features"
-                  :key="k"
-                  >{{ val }}</span
-                >
+                <span class="pro-icon-zhuang">{{
+                  item.decorate.substr(0, 2)
+                }}</span>
+                <span class="pro-icon-type" v-if="item.railway">{{
+                  item.railway
+                }}</span>
+                <span class="pro-icon-type">{{ item.feature }}</span>
               </p>
             </div>
           </div>
@@ -755,7 +657,8 @@
           <img @click="huo1 = false" src="~/assets/w-del.png" alt />
           <div>
             <p>
-              即日起，凡是通过本线上营销中心成交的本项目，即送苹果12 pro max一台，平台合计1000台手机送完为止。具体活动详情来电咨询
+              即日起，凡是通过本线上营销中心成交的本项目，即送苹果12 pro
+              max一台，平台合计1000台手机送完为止。具体活动详情来电咨询
             </p>
             <p>注：活动最终解释权归易得房所有</p>
           </div>
@@ -806,9 +709,25 @@ export default {
         }
       }
       let kid = context.query.kid;
-      let [res] = await Promise.all([
+      let [res1] = await Promise.all([
+        // context.$axios
+        //   .get("/edefang/building/mobile", {
+        //     params: {
+        //       id: id,
+        //       token: token,
+        //       other: other,
+        //     },
+        //   })
+        //   .then((resp) => {
+        //     let data = resp.data.data;
+        //     // console.log(data)
+
+        //     return data;
+        //   }),
         context.$axios
-          .get("/edefang/building/mobile", {
+          .request({
+            method: "get",
+            url: "/edefang_new/building",
             params: {
               id: id,
               token: token,
@@ -817,49 +736,39 @@ export default {
           })
           .then((resp) => {
             let data = resp.data.data;
-            // console.log(data)
             data.prices = [];
-            for (let val in data.deal_prices) {
+            for (let val in data.transactionPrices) {
               data.prices[val] = [
-                data.deal_prices[val].time.substr(5),
-                data.deal_prices[val].price,
+                data.transactionPrices[val].time.substr(5),
+                data.transactionPrices[val].price,
               ];
             }
             return data;
           }),
       ]);
       return {
-        effects: res.img ? res.img.img.effect : [],
-        examples: res.img ? res.img.img.example : [],
-        traffics: res.img ? res.img.img.traffic : [],
-        imgnum: res.img ? res.img.count : 0,
-        abstract: res.abstract,
-        phone: res.common.phone,
-        scores: res.scores,
-        house_types: res.house,
-        dynamics: res.dynamics,
-        staffs: res.staffs,
-        analysis: res.analysis,
-        participate: res.participate,
-        deal_prices: res.deal_prices,
-        prices: res.prices,
-        comments: res.comments,
-        questions: res.questions,
-        recommends: res.recommends,
+        effects: res1.image ? res1.image.effect : [],
+        examples: res1.image ? res1.image.example : [],
+        imgnum: res1.image ? res1.image.count : 0,
+        abstract: res1.building,
+        phone: res1.phone,
+        house_types: res1.house_type,
+        dynamics: res1.dynamics,
+        staffs: res1.staffs,
+        analysis: res1.analysis,
+        deal_prices: res1.transactionPrices,
+        prices: res1.prices,
+        recommends: res1.recommends,
         jkl: jkl,
         id: id,
-        specials: res.discount,
-        count: res.virtual_num,
-        collect: res.collect,
-        cityname: res.current_city.name,
+        collect: res1.collect,
+        cityname: res1.current_city.name,
         othercode: other,
         kidcode: kid,
-        title: res.common.header.title,
-        description: res.common.header.description,
-        keywords: res.common.header.keywords,
+        title: res1.header.title,
+        description: res1.header.description,
+        keywords: res1.header.keywords,
         host: host,
-        infos: res.relevant,
-        relevant: res.relevant,
       };
     } catch (err) {
       console.log("errConsole========:", err);
@@ -924,7 +833,6 @@ export default {
       traffics: [],
       imgnum: 0,
       id: 0,
-      specials: {},
       hour: 0,
       huo: false,
       img: require("~/assets/noclick.png"),
@@ -1002,6 +910,23 @@ export default {
       } else {
         this.navtype = false;
       }
+    },
+    gotalk() {
+      let urlid = sessionStorage.getItem("proid");
+      let id = sessionStorage.getItem(urlid);
+      if (id) {
+        sessionStorage.setItem("staffid", id);
+        let n = parseInt(sessionStorage.getItem(id));
+        let total = parseInt(sessionStorage.getItem("total"));
+        total = total - n;
+        if (total != 0) {
+          sessionStorage.setItem("total", total);
+        } else {
+          sessionStorage.removeItem("total");
+        }
+        sessionStorage.removeItem(id);
+      }
+      this.$router.push("/" + this.jkl + "/talk/" + urlid);
     },
     apply() {
       var phone = this.dongtel;
@@ -1237,6 +1162,47 @@ export default {
               $(".map-msg-con").html(ht);
             });
           });
+        }
+      });
+    },
+    topmap() {
+      let that = this;
+      let baidu = [that.abstract.longitude, that.abstract.latitude];
+      let pro = that.abstract.name;
+      let add = that.abstract.address;
+      AMap.convertFrom(baidu, "baidu", function (status, result) {
+        if (result.info === "ok") {
+          var lnglats = result.locations; // Array.<LngLat>
+          that.pois = [lnglats[0].lng, lnglats[0].lat];
+          var map = new AMap.Map("topmap", {
+            zoom: 14, //初始化地图层级
+            center: that.pois, //初始化地图中心点
+            zoomEnable: true,
+            dragEnable: true,
+          });
+          let content = `<div
+          style="width:86px;height: 18px;box-shadow:0px 0px 5px 0px rgba(6,0,1,0.1);border-radius:18px;position: relative;background: #fff;z-index:10">
+          <div style="float: left;width:100%">
+            <h5 style="color: #121212;font-size: 10px;margin:0;text-align:center">${pro}</h5>
+          </div>
+          <div
+            style="position: absolute;border:8px solid transparent;border-top-color: #fff;bottom:-16px;left:50%;margin-left: -8px;">
+          </div>
+        </div>`;
+          let marker = new AMap.Marker({
+            content: content,
+            position: that.pois,
+            offset: new AMap.Pixel(-43, -24),
+          });
+          let con =
+            '<div style="width: 24px;height: 24px;border-radius: 50%;background:rgba(71,161,255,0.3);position: relative;"><div style="width: 6px;height: 6px;border-radius: 50%;background:rgba(71,161,255,1);position: absolute;top:50%;left:50%;margin-top: -3px;margin-left: -3px;"></div></div>';
+          let mark = new AMap.Marker({
+            content: con,
+            position: that.pois,
+            offset: new AMap.Pixel(-12, -12),
+          });
+          mark.setMap(map);
+          marker.setMap(map);
         }
       });
     },
@@ -1547,7 +1513,7 @@ export default {
       slidesOffsetBefore: 14,
     });
     var swiper08 = new Swiper(".swiper-map", {
-      slidesPerView: 5.5,
+      slidesPerView: 4.6,
       spaceBetween: 10,
       slidesOffsetAfter: 12,
       slidesOffsetBefore: 14,
@@ -1556,6 +1522,7 @@ export default {
     this.$nextTick(() => {
       this.drawline();
       this.mmap();
+      this.topmap();
       // document.getElementById("hh").style.borderBottom = "0";
     });
   },
@@ -1734,7 +1701,7 @@ export default {
   -ms-z-index: 5;
   -o-z-index: 5;
   z-index: 5;
-  padding: 1.375rem 0.9375rem 1.25rem 0.9375rem;
+  padding: 1.375rem 0.9375rem 0.9375rem 0.9375rem;
   .intro-top {
     display: flex;
     justify-content: space-between;
@@ -1767,8 +1734,8 @@ export default {
       font-size: 0.75rem;
       padding-top: 0.375rem;
       img {
-        width: 1rem;
-        height: 1rem;
+        width: 1.5rem;
+        height: 1.5rem;
         margin-right: 0.125rem;
       }
     }
@@ -1871,304 +1838,57 @@ export default {
     display: flex;
     justify-content: space-between;
     button {
-      width: 9.5625rem;
-      height: 2.25rem;
-      border-radius: 0.125rem;
+      width: 9.5rem;
+      height: 2.8125rem;
+      border-radius: 0.375rem;
       text-align: center;
-      line-height: 2.25rem;
+      line-height: 2.8125rem;
       border: 0;
       background-color: #f8efdc;
       color: #b68826;
-      font-size: 0.9375rem;
+      font-size: 1rem;
       font-weight: bold;
       border-radius: 0.375rem;
       img {
-        width: 1.125rem;
-        margin-bottom: -0.25rem;
+        width: 1rem;
+        margin-bottom: -0.125rem;
         margin-right: 0.25rem;
       }
     }
   }
-}
-.tel {
-  padding: 0 4%;
-  margin-bottom: 0.75rem;
-  position: relative;
-  .telimg {
-    border-radius: 0.75rem;
-    width: 100%;
-  }
-  p {
-    color: #fcd19e;
-    font-size: 1.125rem;
-    position: absolute;
-    top: 0.6875rem;
-    font-weight: bold;
-    left: 1.6rem;
-    /deep/em {
-      font-style: normal;
-      font-size: 1rem;
-    }
-  }
-  button {
-    width: 5.375rem;
-    height: 1.9375rem;
-    border-radius: 0.9375rem;
-    background-color: #fcd19e;
+  .topbom {
+    height: 2.8125rem;
+    border-radius: 0.375rem;
+    border: 0.0625rem solid #f73e53;
     display: flex;
-    justify-content: center;
     align-items: center;
-    border: 0;
-    outline: none;
-    color: #4c4a41;
-    font-size: 0.8125rem;
-    position: absolute;
-    right: 1.5625rem;
-    top: 1rem;
+    padding-left: 0.9375rem;
+    padding-right: 0.78125rem;
+    margin-top: 0.9375rem;
     img {
-      width: 1rem;
-      margin-right: 0.0625rem;
-    }
-  }
-}
-.line {
-  width: 100%;
-  height: 0.625rem;
-  background-color: #f7f7f7;
-}
-.te {
-  position: relative;
-  padding: 0 0.9375rem;
-  margin: 0 0.9375rem;
-  border-radius: 0.75rem;
-  background-color: #fff;
-  margin-top: 0.625rem;
-  .te-tit {
-    width: 5rem;
-    right: 0.6875rem;
-    top: 1.0625rem;
-  }
-  h3 {
-    color: #19191a;
-    font-size: 1.0625rem;
-    margin-bottom: 0.875rem;
-    padding-top: 1rem;
-    font-weight: bold;
-    padding-bottom: 0.8125rem;
-    border-bottom: 0.03125rem solid #ededed;
-    span {
-      color: #969699;
-      font-size: 0.625rem;
-      font-weight: 400;
-      font-weight: 400;
-    }
-    img {
-      width: 1.125rem;
-      margin-bottom: -0.125rem;
-    }
-  }
-  ul {
-    height: 11.125rem;
-    overflow: hidden;
-    li {
-      display: flex;
-      align-items: center;
-      margin-bottom: 0.8125rem;
-      .left {
-        .msg {
-          color: #333333;
-          font-size: 0.9375rem;
-          margin-bottom: 0.1875rem;
-        }
-        .pri {
-          display: flex;
-          .tepri {
-            color: #ff6040;
-            font-size: 0.75rem;
-            margin-right: 0.25rem;
-            span {
-              font-size: 1.25rem;
-              font-weight: bold;
-            }
-          }
-          .oldpri {
-            color: #949494;
-            font-size: 0.75rem;
-            margin-top: 0.375rem;
-            span {
-              text-decoration: line-through;
-            }
-          }
-        }
-      }
-      .right {
-        width: 4.6875rem;
-        height: 1.625rem;
-        background: linear-gradient(270deg, #ff4b2d, #ffb753);
-        border-radius: 0.8125rem;
-        text-align: center;
-        line-height: 1.625rem;
-        color: #fff;
-        font-size: 0.75rem;
-        margin-left: auto;
-        margin-left: auto;
-      }
-    }
-  }
-  .zhe {
-    position: absolute;
-    width: 92%;
-    height: 3.125rem;
-    z-index: 1;
-    background: linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 1),
-      rgba(255, 255, 255, 0)
-    );
-    bottom: 6.25rem;
-    left: 4%;
-    text-align: center;
-    line-height: 3.125rem;
-    img {
-      width: 1.5rem;
-    }
-  }
-  .bom {
-    width: 100%;
-    /deep/.van-notice-bar {
-      padding: 0;
-      z-index: 0;
+      width: 8.75rem;
+      height: 0.9375rem;
     }
     button {
-      width: 100%;
-      height: 2.5rem;
-      border-right: 0.25rem;
-      background: #f8efdc;
-      border: 0;
+      width: 3.75rem;
+      height: 1.625rem;
+      border-radius: 0.8125rem;
       text-align: center;
-      line-height: 2.5rem;
-      font-size: 0.9375rem;
-      color: #b68826;
-      font-weight: bold;
-      border-right: 0.25rem;
-      margin-top: 0.375rem;
-      margin-bottom: 1.25rem;
-      border-radius: 0.375rem;
-    }
-  }
-}
-.hui {
-  padding: 1.125rem 4% 1.25rem 4%;
-  background-color: #fff;
-  margin: 0 0.9375rem;
-  border-radius: 0.75rem;
-  h3 {
-    color: #1f1f1f;
-    font-size: 1.0625rem;
-    line-height: 1.375rem;
-    img {
-      width: 0.9375rem;
-      margin-bottom: -0.125rem;
-    }
-  }
-  .hui-con {
-    width: 100%;
-    height: 4.375rem;
-    border-radius: 0.0625rem;
-    background: url("~assets/b1.png") no-repeat;
-    background-size: 100%;
-    margin-top: 1.0625rem;
-    position: relative;
-    .hui-left {
-      p {
-        color: #e58e54;
-        font-size: 0.75rem;
-        position: absolute;
-        bottom: 0.7rem;
-        left: 8px;
-      }
-      span {
-        color: #211c18;
-        font-size: 0.625rem;
-      }
-    }
-    .hui-right {
-      position: absolute;
-      top: 0.875rem;
-      right: 0.9375rem;
-      button {
-        width: 4.375rem;
-        height: 1.625rem;
-        text-align: center;
-        line-height: 1.625rem;
-        color: #fff;
-        font-size: 0.75rem;
-        border: 0;
-        background: linear-gradient(270deg, #ff4b2d, #ffb753);
-        border-radius: 0.8125rem;
-      }
-      p {
-        color: #ff7519;
-        font-size: 0.75rem;
-        margin-top: 0.1875rem;
-      }
-    }
-  }
-  .two {
-    background: url("~assets/b2.png") no-repeat;
-    background-size: 100%;
-    margin-top: 1.25rem;
-    .hui-left {
-      p {
-        color: #3a80ba;
-      }
-    }
-    .hui-right {
-      button {
-        background: linear-gradient(270deg, #348aff, #6accff);
-      }
-      p {
-        color: #40a2f4;
-        font-size: 0.75rem;
-      }
-    }
-  }
-  .phone-huo {
-    position: relative;
-    margin-top: .875rem;
-    img {
-      width: 100%;
-    }
-    p {
-      position: absolute;
-      font-size: .75rem;
+      line-height: 1.625rem;
+      background: #f73e53;
       color: #fff;
-      right: 1.25rem;
-      bottom: .625rem;
-    }
-    button {
-      width: 4rem;
-      height: 1.5rem;
-      border-radius: .75rem;
-      background-color: #fff;
-      text-align: center;
-      line-height: 1.5rem;
+      font-size: 0.75rem;
       border: 0;
       outline: none;
-      position: absolute;
-      right: .9375rem;
-      top: 1.4375rem;
-      color: #153870;
-      font-size: .75rem;
+      margin-left: auto;
     }
   }
 }
 .hus {
-  padding-bottom: 1.25rem;
+  padding-bottom: 0.625rem;
   margin: 0 0.9375rem;
   border-radius: 0.75rem;
   background-color: #fff;
-  margin-top: 0.625rem;
   h5 {
     color: #19191a;
     font-size: 1.0625rem;
@@ -2275,19 +1995,26 @@ export default {
       }
     }
   }
-  button {
-    width: 19.6875rem;
-    height: 2.5rem;
-    border-radius: 0.375rem;
-    background-color: #f8efdc;
-    color: #b68826;
+  .bombtn {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9375rem;
-    font-weight: bold;
-    border: 0;
-    margin-left: 0.9375rem;
+    button {
+      width: 9.5rem;
+      height: 2.8125rem;
+      border-radius: 0.375rem;
+      background-color: #f8efdc;
+      color: #b68826;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: bold;
+      border: 0;
+      margin-left: 0.9375rem;
+      img {
+        width: 1rem;
+        margin-right: 0.125rem;
+      }
+    }
   }
 }
 .imgbox {
@@ -2317,10 +2044,7 @@ export default {
     padding: 1.0625rem 0 0.9375rem 0;
     position: relative;
     .tt {
-      position: absolute;
       width: 2rem;
-      top: 0.9375rem;
-      left: 4.25rem;
     }
     span {
       color: #646466;
@@ -2344,20 +2068,13 @@ export default {
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
         overflow: hidden;
+        margin-bottom: 0.625rem;
       }
       span {
         color: #969799;
         font-size: 0.75rem;
         margin-top: 0.375rem;
         display: block;
-      }
-      .dynamicimgs {
-        margin-top: 0.4375rem;
-        img {
-          width: 6.6875rem;
-          height: 4.375rem;
-          border-radius: 0.375rem;
-        }
       }
     }
     li:last-child {
@@ -2366,7 +2083,6 @@ export default {
   }
   .btn {
     padding-top: 0.9375rem;
-    border-top: 0.03125rem solid #ededed;
     display: flex;
     input {
       width: 12.8125rem;
@@ -2391,30 +2107,120 @@ export default {
       margin-left: auto;
     }
   }
+  .dynamicimg {
+    width: 100%;
+    height: 3.625rem;
+    background: url(~assets/content-dynamic.png);
+    background-size: 100%;
+    position: relative;
+    .lefttxt {
+      position: absolute;
+      color: #df9755;
+      font-size: 0.75rem;
+      left: 0.625rem;
+      bottom: 0.75rem;
+    }
+    .dynamicbtn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.625rem;
+      border-radius: 1.0625rem;
+      overflow: hidden;
+      display: flex;
+      height: 2.125rem;
+      .input {
+        width: 7.8125rem;
+        display: flex;
+        align-items: center;
+        background: #fff;
+        input {
+          border: 0;
+          outline: none;
+          margin-left: 0.875rem;
+        }
+      }
+      button {
+        width: 4.375rem;
+        text-align: center;
+        line-height: 2.125rem;
+        background: #d1a23d;
+        color: #fff;
+        font-size: 0.8125rem;
+        border: 0;
+        outline: none;
+      }
+    }
+  }
+}
+.detailmsg {
+  margin: 0 0.9375rem;
+  margin-top: 0.625rem;
+  padding: 0 0.9375rem;
+  border-radius: 0.75rem;
+  background-color: #fff;
+  padding-bottom: 0.9375rem;
+  h3 {
+    color: #121212;
+    font-size: 1.0625rem;
+    padding: 1.0625rem 0 0.9375rem 0;
+    position: relative;
+    span {
+      color: #646466;
+      font-size: 0.875rem;
+      float: right;
+      font-weight: 400;
+      img {
+        width: 0.875rem;
+      }
+    }
+  }
+  ul {
+    margin-bottom: 1.5rem;
+    li {
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+      .col {
+        width: 50%;
+        float: left;
+        color: #3d3d3d;
+        font-size: 0.875rem;
+        span {
+          color: #808080;
+        }
+      }
+    }
+  }
+  .detailimg {
+    background: url(~assets/detailimg.png);
+    background-size: 100%;
+    height: 3.625rem;
+    border-radius: 0.75rem;
+    position: relative;
+    span {
+      color: #d1a23d;
+      font-size: 0.8125rem;
+      position: absolute;
+      right: 1.625rem;
+      top: 1.25rem;
+    }
+  }
 }
 .zixun {
-  padding: 1.0625rem 0.9375rem 1.125rem 0.9375rem;
+  padding: 1.0625rem 0.9375rem 1.5rem 0.9375rem;
   margin: 0 0.9375rem;
   background-color: #fff;
   border-radius: 0.75rem;
   margin-top: 0.625rem;
   h3 {
-    color: #17181a;
-    margin-bottom: 0.6875rem;
-    font-size: 1.0625rem;
+    color: #1f1f1f;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
     span {
-      float: right;
-      color: #628bb9;
-      font-size: 0.8125rem;
-      font-weight: normal;
-      img {
-        width: 0.875rem;
-        margin-bottom: -0.0625rem;
-      }
+      color: #d1a23d;
     }
   }
   .xun-icon {
-    margin-bottom: 1.6875rem;
+    margin-bottom: 1.125rem;
     span {
       color: #8f8f8f;
       font-size: 0.8125rem;
@@ -2430,8 +2236,8 @@ export default {
     display: flex;
     margin-bottom: 1.375rem;
     .peoimg {
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 2.25rem;
+      height: 2.25rem;
       border-radius: 50%;
     }
     .peo-msg {
@@ -2441,23 +2247,45 @@ export default {
       margin-right: 1.125rem;
       h6 {
         color: #323233;
-        font-size: 1rem;
-        font-weight: 400;
-        margin-bottom: 0.3125rem;
+        font-size: 0.875rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
         span {
-          display: inline-block;
-          padding: 0.03125rem 0.25rem 0.0625rem 0.25rem;
-          color: #fff;
-          background-color: #ff7519;
-          font-size: 0.625rem;
-          margin-left: 0.25rem;
+          color: #1f1f1f;
+          font-size: 0.8125rem;
+          margin-left: 0.625rem;
           font-weight: 400;
-          border-radius: 0.1875rem;
         }
       }
-      p {
-        color: #7d7d80;
-        font-size: 0.75rem;
+      .bombox {
+        display: flex;
+        height: 1.25rem;
+        width: 11.4rem;
+        .left {
+          display: block;
+          width: 1.5625rem;
+          background: #ff7519;
+          color: #ffffff;
+          font-size: 0.6875rem;
+          border-radius: 0.25rem 0 0 0.25rem;
+          text-align: center;
+          line-height: 1.25rem;
+        }
+        p {
+          padding-left: 0.25rem;
+          border-radius: 0 0.25rem 0.25rem 0;
+          border: 0.0625rem solid #ff7519;
+          color: #646466;
+          font-size: 0.6875rem;
+          flex: 1;
+          .num {
+            color: #ff7519;
+            margin-right: 0.125rem;
+          }
+          .num:nth-of-type(2) {
+            margin-left: 0.5rem;
+          }
+        }
       }
     }
     .psm {
@@ -2465,6 +2293,18 @@ export default {
     }
     a {
       justify-content: flex-end;
+    }
+    button {
+      width: 4.125rem;
+      height: 1.75rem;
+      border-radius: 0.25rem;
+      background: #d1a23d;
+      text-align: center;
+      border: 0;
+      line-height: 1.75rem;
+      color: #fff;
+      font-size: 0.75rem;
+      margin-left: auto;
     }
     .peoicon {
       width: 2.5rem;
@@ -2476,11 +2316,39 @@ export default {
     }
   }
   .peo:nth-of-type(2) {
+    .peo-msg {
+      .bombox {
+        .left {
+          background: #5dbdff;
+        }
+        p {
+          border: 0.0625rem solid #5dbdff;
+          .num {
+            color: #5dbdff;
+          }
+        }
+      }
+    }
+  }
+  .peo:nth-of-type(3) {
     margin-bottom: 0;
+    .peo-msg {
+      .bombox {
+        .left {
+          background: #2fc66e;
+        }
+        p {
+          border: 0.0625rem solid #2fc66e;
+          .num {
+            color: #2fc66e;
+          }
+        }
+      }
+    }
   }
 }
 .ziliao {
-  padding: 1.125rem 4% 1.25rem 4%;
+  padding: 1.125rem 4% 0.9375rem 4%;
   margin: 0 0.9375rem;
   margin-top: 0.625rem;
   background-color: #fff;
@@ -2511,19 +2379,31 @@ export default {
       color: #fff;
     }
   }
-  .liao-msg {
-    // height: 7.5rem;
+  #topmap {
+    width: 100%;
+    height: 8.125rem;
     border-radius: 0.375rem;
-    background-color: #f7f7f7;
-    padding: 0 0.875rem;
-    margin-bottom: 1.25rem;
-    padding-bottom: 0.8rem;
+    margin-bottom: 0.8125rem;
+  }
+  .zi-box {
+    margin-bottom: 1.375rem;
+    h4 {
+      color: #121212;
+      font-size: 0.9375rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      img {
+        width: 0.875rem;
+        height: 0.875rem;
+        margin-right: 0.375rem;
+      }
+    }
     p {
-      color: #4b4b4d;
+      color: #323233;
       font-size: 0.875rem;
-      line-height: 1.25rem;
-      padding-top: 0.9375rem;
-      height: 2.4375rem;
+      line-height: 1.3125rem;
+      height: 2.5rem;
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
@@ -2532,11 +2412,11 @@ export default {
   }
   .zhe {
     position: absolute;
-    bottom: 4.6875rem;
+    bottom: 3.75rem;
     left: 0;
     width: 100%;
     height: 4.0625rem;
-    background: linear-gradient(0deg, #ffffff 50%, rgba(255, 255, 255, 0));
+    background: linear-gradient(0deg, #ffffff 40%, rgba(255, 255, 255, 0));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2546,13 +2426,13 @@ export default {
   }
   button {
     width: 100%;
-    height: 2.5rem;
+    height: 2.8125rem;
     border-radius: 0.375rem;
     background-color: #f8efdc;
     text-align: center;
-    line-height: 2.5rem;
+    line-height: 2.8125rem;
     color: #b68826;
-    font-size: 0.9375rem;
+    font-size: 1rem;
     font-weight: bold;
     border: 0;
     outline: none;
@@ -2678,6 +2558,7 @@ export default {
   background-color: #fff;
   margin-top: 0.625rem;
   border-radius: 0.75rem;
+  padding-bottom: 1rem;
   h4 {
     padding: 0 4%;
     padding-top: 1.125rem;
@@ -2717,22 +2598,18 @@ export default {
     padding-top: 0.375rem;
     margin-bottom: 0.3125rem;
     .tegood {
-      color: #4d4d4d;
-      font-size: 1rem;
+      color: #4b4b4d;
+      font-size: 0.8125rem;
+      width: 4.125rem;
+      height: 1.75rem;
+      border-radius: 0.875rem;
+      text-align: center;
+      line-height: 1.75rem;
+      background: #f5f5f5;
     }
     .active {
       color: #b68826;
-      position: relative;
-      i {
-        width: 1.5625rem;
-        height: 0.125rem;
-        border-radius: 0.0625rem;
-        background-color: #b68826;
-        position: absolute;
-        display: block;
-        bottom: -0.375rem;
-        left: 0;
-      }
+      background: #f8efdc;
     }
   }
   .map-msg {
@@ -2795,6 +2672,39 @@ export default {
       text-align: center;
       line-height: 10.6875rem;
       font-size: 1rem;
+    }
+  }
+  .mapbtn {
+    display: flex;
+    align-items: center;
+    padding: 0 0.9375rem;
+    img {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      margin-right: 0.625rem;
+    }
+    .mapmsg {
+      .msgtit {
+        color: #0f161a;
+        font-size: 1rem;
+        margin-bottom: 0.2rem;
+      }
+      .msgtxt {
+        color: #616466;
+        font-size: 0.75rem;
+      }
+    }
+    .btn {
+      width: 4.25rem;
+      height: 1.75rem;
+      border-radius: 0.875rem;
+      text-align: center;
+      line-height: 1.75rem;
+      background: #d1a23d;
+      color: #fff;
+      font-size: 0.75rem;
+      margin-left: auto;
     }
   }
   button {

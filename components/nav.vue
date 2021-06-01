@@ -8,14 +8,14 @@
       <p v-if="totalnum <= 0 || !totalnum">在线咨询</p>
       <p v-if="totalnum > 0" class="org">有新消息</p>
     </div>
-    <button @click="show(82, '预约看房')">
+    <button @click="show(82, '免费看房')">
       <img src="~/assets/nav-yue.png" />预约看房
     </button>
     <a :href="'tel:' + phone">
-      <img class="navtel" src="~/assets/navtel.gif" alt="">
-      <!-- <button class="nav-tel">
+      <!-- <img class="navtel" src="~/assets/navtel.gif" alt=""> -->
+      <button class="nav-tel">
         <img src="~/assets/nav-tel.png" />电话咨询
-      </button> -->
+      </button>
     </a>
   </div>
 </template>
@@ -125,7 +125,7 @@ export default {
 .nav {
   position: fixed;
   width: 92%;
-  height: 4rem;
+  height: 4.25rem;
   background-color: #fff;
   padding: 0 4%;
   bottom: 0;
@@ -139,7 +139,7 @@ export default {
     margin-left: 0.625rem;
     text-align: center;
     img {
-      width: 1.5rem;
+      width: 2rem;
     }
     span {
       display: block;
@@ -184,11 +184,11 @@ export default {
   }
   button {
     width: 8rem;
-    height: 2.75rem;
+    height: 3rem;
     border-radius: .375rem;
     background: linear-gradient(90deg, #F7D67E, #FEE9AD);
     text-align: center;
-    line-height: 2.75rem;
+    line-height: 3rem;
     color: #8B6232;
     font-size: 1rem;
     border: 0;
