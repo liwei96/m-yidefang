@@ -257,16 +257,16 @@ export default {
   },
   head() {
     return {
-      title: "<&&>-楼盘城市",
+      title: "-楼盘城市",
       meta: [
         {
           name: "description",
           content:
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: "<&&>"
+          content: ""
         }
       ]
     };

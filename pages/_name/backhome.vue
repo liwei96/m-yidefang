@@ -648,7 +648,7 @@ export default {
       if(this.host == 0) {
         this.pingname = '家园'
       }else {
-        this.pingname = '<&&>'
+        this.pingname = ''
       }
     }
     $('#foott').css('display', 'none')

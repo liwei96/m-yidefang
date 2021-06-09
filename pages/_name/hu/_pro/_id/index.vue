@@ -96,7 +96,7 @@
       <div class="hui-con">
         <div class="hui-left">
           <p>
-            售楼处专供<&&>客户<span>（{{ hui.dead_line }}截止）</span>
+            售楼处专供客户<span>（{{ hui.dead_line }}截止）</span>
           </p>
         </div>
         <div class="hui-right">
@@ -225,13 +225,13 @@
               平台优惠发放时间：待开发商或总代理公司补贴发放到位后尽快发放。
             </p>
             <p>
-              核算方式：由开发商或代理公司判定为<&&>平台客户即可享受这个优惠。
+              核算方式：由开发商或代理公司判定为平台客户即可享受这个优惠。
             </p>
             <p>
-              结算方式：提供已实名的支付宝账户给与您对接的<&&>咨询师，规定时间内会将优惠费用打至该账户。
+              结算方式：提供已实名的支付宝账户给与您对接的咨询师，规定时间内会将优惠费用打至该账户。
             </p>
-            <p>详细活动方案请致<&&>电客服电话：4007186686</p>
-            <p>注：活动最终解释权归<&&>所有</p>
+            <p>详细活动方案请致电客服电话：4007186686</p>
+            <p>注：活动最终解释权归所有</p>
           </div>
         </div>
       </div>
@@ -295,15 +295,15 @@ export default {
   head() {
     return {
       title:
-        this.title || "<&&>-" + this.now.name + "-户型详情-" + this.now.title,
+        this.title || "-" + this.now.name + "-户型详情-" + this.now.title,
       meta: [
         {
           name: "description",
-          content: this.description || "<&&>",
+          content: this.description || "",
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>",
+          content: this.keywords || "",
         },
       ],
     };
@@ -354,7 +354,7 @@ export default {
     if (this.host == 0) {
       this.txt = "家园";
     } else {
-      this.txt = "<&&>";
+      this.txt = "";
     }
   },
 };

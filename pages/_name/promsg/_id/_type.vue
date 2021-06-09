@@ -223,15 +223,15 @@ export default {
   },
   head() {
     return {
-      title: this.title || "<&&>-楼盘动态详情-" + this.info.name,
+      title: this.title || "-楼盘动态详情-" + this.info.name,
       meta: [
         {
           name: "description",
-          content: this.description || "<&&>",
+          content: this.description || "",
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>",
+          content: this.keywords || "",
         },
       ],
     };

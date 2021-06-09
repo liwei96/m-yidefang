@@ -226,15 +226,15 @@ export default {
   },
   head() {
     return {
-      title: this.title || "<&&>-个人主页",
+      title: this.title || "-个人主页",
       meta: [
         {
           name: "description",
-          content: this.description || "<&&>",
+          content: this.description || "",
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>",
+          content: this.keywords || "",
         },
       ],
     };
@@ -328,7 +328,7 @@ export default {
       this.cardnum = 1;
     }
     document.getElementById('foott').style.display = 'none'
-      this.txt = '<&&>'
+      this.txt = ''
   },
   beforeDestroy() {
     document.getElementById('foott').style.display = 'block'

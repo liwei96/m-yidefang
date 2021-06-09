@@ -48,16 +48,16 @@ export default {
   },
   head() {
     return {
-      title: this.title || "<&&>-关注家园客服",
+      title: this.title || "-关注家园客服",
       meta: [
         {
           name: "description",
           content: this.description ||
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>"
+          content: this.keywords || ""
         }
       ]
     };
@@ -66,7 +66,7 @@ export default {
     return {
       imgs: "http://testmobile.edefang.net/_nuxt/img/fllow1.4a70a3c.jpg",
       jkl: "",
-      txt:'<&&>'
+      txt:''
     };
   },
   components: {

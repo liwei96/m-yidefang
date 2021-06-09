@@ -108,9 +108,7 @@
       </div>
       <div class="topbom">
         <img src="~/assets/topbomimg.png" alt="" />
-        <button @click="pop('询优惠', 37, '详情页+询优惠')">
-          询优惠
-        </button>
+        <button @click="pop('询优惠', 37, '详情页+询优惠')">询优惠</button>
       </div>
     </div>
     <div class="hus" v-show="house_types.length">
@@ -161,11 +159,11 @@
           <img src="~/assets/huhelp.png" alt="" />
           帮我找户型
         </button>
-        <a :href="'tel:'+phone">
-        <button>
-          <img src="~/assets/hulisten.png" alt="" />
-          听户型讲解
-        </button>
+        <a :href="'tel:' + phone">
+          <button>
+            <img src="~/assets/hulisten.png" alt="" />
+            听户型讲解
+          </button>
         </a>
       </div>
     </div>
@@ -185,7 +183,7 @@
       <div class="zi-box">
         <h4><img src="~/assets/jufen.png" alt="" />宜居分析</h4>
         <p>
-          {{ analysis.livable.join(";") }}
+          {{ analysis.livable?analysis.livable.join(";"):'' }}
         </p>
       </div>
       <!-- <div class="liao-msg">
@@ -311,13 +309,8 @@
         位置：<span>{{ abstract.address }}</span>
       </p>
       <p class="txt" @click="gotalk">
-        配套：<span
-          class="talk"
-          >咨询具体位置和周边设施情况</span
-        ><img
-          src="~/assets/content-map-talk.png"
-          alt=""
-        />
+        配套：<span class="talk">咨询具体位置和周边设施情况</span
+        ><img src="~/assets/content-map-talk.png" alt="" />
       </p>
       <div class="swiper-map">
         <div class="swiper-wrapper">
@@ -416,12 +409,7 @@
           <p class="msgtit">区域解读</p>
           <p class="msgtxt">获取学区、医院、周边配套信息</p>
         </div>
-        <p
-          class="btn"
-          @click="
-            pop('帮我分析', 68, '详情页+帮我分析')
-          "
-        >
+        <p class="btn" @click="pop('帮我分析', 68, '详情页+帮我分析')">
           帮我分析
         </p>
       </div>
@@ -474,7 +462,7 @@
       <ul>
         <li>
           <div class="col">
-            <span>户型：</span>{{ abstract.house_types.join(",") }}
+            <span>户型：</span>{{ abstract.house_types?abstract.house_types.join(","):'' }}
           </div>
           <div class="col"><span>类型：</span>{{ abstract.type }}</div>
         </li>
@@ -492,10 +480,7 @@
         </li>
       </ul>
       <div class="detailimg">
-        <span
-          @click="
-            pop('楼盘详情在线听', 96, '详情页+楼盘详情在线听')
-          "
+        <span @click="pop('楼盘详情在线听', 96, '详情页+楼盘详情在线听')"
           >听分析</span
         >
       </div>
@@ -561,6 +546,12 @@
         </div>
       </div> -->
     </div>
+    <a :href="'tel:' + phone">
+      <div class="righttel">
+        <img src="~/assets/righttel.png" alt />
+        免费拨打
+      </div>
+    </a>
     <nav-view
       :phone="phone"
       @fot="chang($event)"
@@ -638,14 +629,12 @@
             <p>
               平台优惠发放时间：待开发商或总代理公司补贴发放到位后尽快发放。
             </p>
+            <p>核算方式：由开发商或代理公司判定为平台客户即可享受这个优惠。</p>
             <p>
-              核算方式：由开发商或代理公司判定为<&&>平台客户即可享受这个优惠。
+              结算方式：提供已实名的支付宝账户给与您对接的咨询师，规定时间内会将优惠费用打至该账户。
             </p>
-            <p>
-              结算方式：提供已实名的支付宝账户给与您对接的<&&>咨询师，规定时间内会将优惠费用打至该账户。
-            </p>
-            <p>详细活动方案请致<&&>电客服电话：4007186686</p>
-            <p>注：活动最终解释权归<&&>所有</p>
+            <p>详细活动方案请致电客服电话：4007186686</p>
+            <p>注：活动最终解释权归所有</p>
           </div>
         </div>
       </div>
@@ -660,7 +649,7 @@
               即日起，凡是通过本线上营销中心成交的本项目，即送苹果12 pro
               max一台，平台合计1000台手机送完为止。具体活动详情来电咨询
             </p>
-            <p>注：活动最终解释权归<&&>所有</p>
+            <p>注：活动最终解释权归所有</p>
           </div>
         </div>
       </div>
@@ -699,7 +688,8 @@ export default {
       let host = context.store.state.host;
       let id = context.params.id;
       let token = context.store.state.cookie.token || "";
-      let userId = context.store.state.userId || context.store.state.cookie.userId;
+      let userId =
+        context.store.state.userId || context.store.state.cookie.userId;
       let jkl = context.params.name;
       let other = context.query.other;
       if (other) {
@@ -733,7 +723,7 @@ export default {
               id: id,
               token: token,
               other: other,
-              userId: userId
+              userId: userId,
             },
           })
           .then((resp) => {
@@ -783,11 +773,11 @@ export default {
       meta: [
         {
           name: "description",
-          content: this.description || "<&&>",
+          content: this.description || "",
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>",
+          content: this.keywords || "",
         },
       ],
     };
@@ -1342,12 +1332,12 @@ export default {
             if (res.data.code == 200) {
               if (that.collect == 0) {
                 that.toast("收藏成功");
-                sessionStorage.setItem('shouid'+this.$route.params.id,1)
+                sessionStorage.setItem("shouid" + this.$route.params.id, 1);
                 that.collect = 1;
               } else {
                 that.toast("取消成功");
                 that.collect = 0;
-                sessionStorage.removeItem('shouid'+this.$route.params.id)
+                sessionStorage.removeItem("shouid" + this.$route.params.id);
               }
             }
           }
@@ -1392,14 +1382,17 @@ export default {
     },
   },
   mounted() {
-    if (this.$cookies.get('token')&&sessionStorage.getItem('shouid'+this.$route.params.id)){
-      this.collect = 1
+    if (
+      this.$cookies.get("token") &&
+      sessionStorage.getItem("shouid" + this.$route.params.id)
+    ) {
+      this.collect = 1;
     }
     window.addEventListener("scroll", this.setnav);
     if (this.host == 0) {
       this.txt = "家园";
     } else {
-      this.txt = "<&&>";
+      this.txt = "";
     }
     sessionStorage.setItem("proid", this.$route.params.id);
     let that = this;
@@ -2817,6 +2810,26 @@ export default {
     .pro {
       margin-bottom: 0;
     }
+  }
+}
+.righttel {
+  position: fixed;
+  width: 7.5rem;
+  height: 2.5rem;
+  background-color: #fff;
+  box-shadow: 0px 0px 0.5625rem 0px rgba(0, 0, 0, 0.15);
+  border-radius: 1.25rem;
+  text-align: center;
+  line-height: 2.5rem;
+  color: #b68826;
+  font-size: 0.875rem;
+  font-weight: bold;
+  right: 4%;
+  bottom: 9.375rem;
+  z-index: 550;
+  img {
+    width: 1rem;
+    margin-bottom: -0.25rem;
   }
 }
 .luck {

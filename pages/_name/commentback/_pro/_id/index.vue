@@ -54,16 +54,16 @@ export default {
   },
   head() {
     return {
-      title: "<&&>-点评回复",
+      title: "-点评回复",
       meta: [
         {
           name: "description",
           content:
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: "<&&>"
+          content: ""
         }
       ]
     };

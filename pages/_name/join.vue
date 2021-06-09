@@ -31,7 +31,7 @@
           >{{txt}}新房隶属杭州亚汉网络科技有限公司旗下，成立于2016年，拥有三大自营平台。2019年7月开拓了嘉兴加盟城市，全国城市加盟布局正式开始实行。目前加盟城市有：杭州、嘉兴、无锡、湖州、贵阳、</i
         >
         <i v-if="!type"
-          >{{txt}}新房隶属杭州<&&>科技有限公司旗下，成立于2016年，拥有三大自营平台。2019年7月开拓了嘉兴加盟城市，全国城市加盟布局正式开始实行。目前加盟城市有：杭州、嘉兴、无锡、湖州、贵阳、重庆、成都
+          >{{txt}}新房隶属杭州科技有限公司旗下，成立于2016年，拥有三大自营平台。2019年7月开拓了嘉兴加盟城市，全国城市加盟布局正式开始实行。目前加盟城市有：杭州、嘉兴、无锡、湖州、贵阳、重庆、成都
           。公司注重技术开发，最大程度的节省获客时间，最大程度简化与优化客户维护流程，用技术手段无限提高客户的利用率，给购房者带来更加便捷
           真实 及时 全面的房产信息平台</i
         >
@@ -396,16 +396,16 @@ export default {
   },
   head() {
     return {
-      title: this.title || "<&&>-城市加盟",
+      title: this.title || "-城市加盟",
       meta: [
         {
           name: "description",
           content: this.description || 
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>"
+          content: this.keywords || ""
         }
       ]
     };
@@ -487,7 +487,7 @@ export default {
     if(this.host == 0) {
       this.txt = '家园'
     }else {
-      this.txt = '<&&>'
+      this.txt = ''
     }
     var swiper08 = new Swiper(".swiper-advantage", {
       slidesPerView: 1.48,

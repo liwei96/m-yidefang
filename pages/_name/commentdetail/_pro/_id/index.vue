@@ -194,16 +194,16 @@ export default {
   },
   head() {
     return {
-      title: "<&&>-点评详情",
+      title: "-点评详情",
       meta: [
         {
           name: "description",
           content:
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: "<&&>"
+          content: ""
         }
       ]
     };

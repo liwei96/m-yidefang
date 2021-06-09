@@ -90,16 +90,16 @@ export default {
   },
   head() {
     return {
-      title: "<&&>-楼盘点评",
+      title: "-楼盘点评",
       meta: [
         {
           name: "description",
           content:
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: "<&&>"
+          content: ""
         }
       ]
     };

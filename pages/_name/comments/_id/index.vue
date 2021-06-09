@@ -114,15 +114,15 @@ export default {
   },
   head() {
     return {
-      title: "<&&>-点评列表",
+      title: "-点评列表",
       meta: [
         {
           name: "description",
-          content: "<&&>",
+          content: "",
         },
         {
           name: "Keywords",
-          content: "<&&>",
+          content: "",
         },
       ],
     };

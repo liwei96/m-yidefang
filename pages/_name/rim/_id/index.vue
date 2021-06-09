@@ -145,16 +145,16 @@ export default {
   },
   head() {
     return {
-      title: "<&&>-"+this.building.name+'-周边详情',
+      title: "-"+this.building.name+'-周边详情',
       meta: [
         {
           name: "description",
           content:
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: "<&&>"
+          content: ""
         }
       ]
     };

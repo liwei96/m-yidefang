@@ -46,16 +46,16 @@ export default {
   },
   head() {
     return {
-      title: this.title || "<&&>-关注公众号",
+      title: this.title || "-关注公众号",
       meta: [
         {
           name: "description",
           content: this.description ||
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>"
+          content: this.keywords || ""
         }
       ]
     };

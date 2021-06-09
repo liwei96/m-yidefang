@@ -10,7 +10,7 @@
           <input type="tel" placeholder="请输入手机号" v-model="baoming" />
           <!-- <p class="xiyi">
           <input type="checkbox" v-model="checks" />我已阅读并同意
-          <a @click="goo">《<&&>用户协议》</a>
+          <a @click="goo">《用户协议》</a>
         </p> -->
           <button @click="send">{{ btnstr }}</button>
           <!-- <p class="bomm">获取后会有置业顾问致电联系您并提供服务</p> -->

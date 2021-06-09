@@ -40,16 +40,16 @@ export default {
   },
   head() {
     return {
-      title: "<&&>-个人优惠券",
+      title: "-个人优惠券",
       meta: [
         {
           name: "description",
           content:
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: "<&&>"
+          content: ""
         }
       ]
     };
@@ -58,7 +58,7 @@ export default {
     return {
       time: "",
       have:false,
-      txt:'<&&>'
+      txt:''
     };
   },
   mounted() {
@@ -71,9 +71,9 @@ export default {
       this.have = true
     }
     if(this.host == 0) {
-      this.txt = '<&&>'
+      this.txt = ''
     }else {
-      this.txt = '<&&>'
+      this.txt = ''
     }
   },
 };

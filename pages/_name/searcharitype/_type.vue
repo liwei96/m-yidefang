@@ -132,15 +132,15 @@ export default {
   },
   head() {
     return {
-      title: this.title || "<&&>-文章搜索",
+      title: this.title || "-文章搜索",
       meta: [
         {
           name: "description",
-          content: this.description || "<&&>",
+          content: this.description || "",
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>",
+          content: this.keywords || "",
         },
       ],
     };

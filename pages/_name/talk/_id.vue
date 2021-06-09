@@ -215,15 +215,15 @@ export default {
   },
   head() {
     return {
-      title: "<&&>",
+      title: "",
       meta: [
         {
           name: "description",
-          content: "<&&>"
+          content: ""
         },
         {
           name: "Keywords",
-          content:  "<&&>"
+          content:  ""
         }
       ]
     };
@@ -600,8 +600,8 @@ export default {
       this.typetxt = '家园咨询师'
       this.xymsg = '家园用户协议'
     }else {
-      this.typetxt = '<&&>咨询师'
-      this.xymsg = '<&&>用户协议'
+      this.typetxt = '咨询师'
+      this.xymsg = '用户协议'
     }
     sessionStorage.setItem("type", true);
     let url = window.location.href;

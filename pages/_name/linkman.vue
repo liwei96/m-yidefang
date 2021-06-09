@@ -22,16 +22,16 @@ export default {
   },
   head() {
     return {
-      title: "<&&>-我的联系人",
+      title: "-我的联系人",
       meta: [
         {
           name: "description",
           content:
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: "<&&>"
+          content: ""
         }
       ]
     };

@@ -356,7 +356,7 @@ export default {
     if(this.host == 0) {
       this.txt = '家园'
     }else {
-      this.txt = '<&&>'
+      this.txt = ''
     }
     // this.rotateFn(220, "免单10元");
     this.num = this.msg.remained;

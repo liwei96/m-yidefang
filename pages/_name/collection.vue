@@ -92,16 +92,16 @@ export default {
   },
   head() {
     return {
-      title: this.title || "<&&>-我的收藏",
+      title: this.title || "-我的收藏",
       meta: [
         {
           name: "description",
           content: this.description || 
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>"
+          content: this.keywords || ""
         }
       ]
     };

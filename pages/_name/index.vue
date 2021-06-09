@@ -49,10 +49,10 @@
             <p>地图找房</p>
           </li>
           <li>
-            <nuxt-link :to="'/' + jkl + '/join'">
+            <nuxt-link :to="'/' + jkl + '/top/0'">
               <img src="~/assets/normal-join.png" alt />
             </nuxt-link>
-            <p>平台合作</p>
+            <p>刚需楼盘</p>
           </li>
         </ul>
         <ul class="b2">
@@ -80,9 +80,11 @@
             </nuxt-link>
             <p>新盘动态</p>
           </li>
-          <li @click="zhaopin">
-            <img src="~/assets/index-zhao.png" alt />
-            <p>招聘英才</p>
+          <li>
+            <nuxt-link :to="'/' + jkl + '/questions'">
+            <img src="~/assets/normal-question.png" alt />
+             </nuxt-link>
+            <p>楼盘问问</p>
           </li>
         </ul>
         <div class="line"></div>
@@ -97,7 +99,7 @@
             >
               <swipe-item v-for="(item, key) in tops" :key="key">
                 <nuxt-link :to="'/' + jkl + '/info/' + item.id">{{
-                  item.title
+                  item.name
                 }}</nuxt-link>
               </swipe-item>
             </swipe>
@@ -123,7 +125,7 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, key) in discounts" :key="key">
             <nuxt-link :to="'/' + jkl + '/content/' + item.id">
-              <img :src="item.img" :alt="item.name" :title="item.name" />
+              <img :src="item.image" :alt="item.name" :title="item.name" />
               <div class="strict-bom">
                 <h6>{{ item.name }}</h6>
                 <div class="te-bbom">
@@ -162,11 +164,11 @@
             <p class="time">更新于{{ time }}</p>
             <ul>
               <nuxt-link
-                v-for="item in rigid_demands"
+                v-for="(item,key) in rigid_demands"
                 :key="item.id"
                 :to="'/' + jkl + '/content/' + item.id"
               >
-                <li>
+                <li v-if="key<3">
                   <p></p>
                   {{ item.name }}
                 </li>
@@ -360,7 +362,7 @@
       <template v-for="(item, key) in recommends">
         <nuxt-link :key="key" :to="'/' + jkl + '/content/' + item.id">
           <div class="pro">
-            <img :src="item.img" :alt="item.name" :title="item.name" />
+            <img :src="item.image" :alt="item.name" :title="item.name" />
             <div class="pro-msg">
               <h5>
                 {{ item.name }}
@@ -382,9 +384,13 @@
                 <span class="pro-icon-zhuang">{{ item.decorate }}</span>
                 <span
                   class="pro-icon-type"
-                  v-for="(val, k) in item.feature"
-                  :key="k"
-                  >{{ val }}</span
+                  v-if="item.feature"
+                  >{{ item.feature }}</span
+                >
+                <span
+                  class="pro-icon-type"
+                  v-if="item.railway"
+                  >{{ item.railway }}</span
                 >
               </p>
             </div>
@@ -415,7 +421,7 @@ export default {
       let city = context.store.state.city;
       let host = context.store.state.host;
       let jkl = context.params.name;
-      let [res] = await Promise.all([
+      let [res,res1] = await Promise.all([
         context.$axios
           .get("/edefang/mobile", {
             params: {
@@ -428,24 +434,40 @@ export default {
             // console.log(host);
             return data;
           }),
+          context.$axios
+          .get("/edefang_new", {
+            params: {
+              city: city,
+            },
+          })
+          .then((resp) => {
+            let data = resp.data.data;
+            console.log(data)
+            return data;
+          }),
       ]);
       return {
-        tops: res.tops,
-        stricts: res.stricts,
-        finishes: res.finishes,
-        articles: res.guides,
-        recommends: res.recommend,
-        discounts: res.hot_deals,
-        dynamics: res.dynamics,
+        // tops: res.tops,
+        tops: res1.news,
+        // stricts: res.stricts,
+        // finishes: res.finishes,
+        // articles: res.guides,
+        articles: res1.project_articles,
+        // recommends: res.recommend,
+        recommends: res1.footRecommend,
+        // discounts: res.hot_deals,
+        discounts: res1.hots,
+        // dynamics: res.dynamics,
+        dynamics: res1.dynamics,
         jkl: jkl,
-        cityname: res.current_city.name,
-        city: res.current_city.id,
-        title: res.common.header.title,
-        description: res.common.header.description,
-        keywords: res.common.header.keywords,
+        cityname: res1.city.name,
+        city: res1.city.id,
+        title: res1.header.title,
+        description: res1.header.description,
+        keywords: res1.header.keywords,
         host: host,
         banner: res.banner,
-        rigid_demands: res.characteristics.rigid_demands,
+        rigid_demands: res1.rigid_demands,
         improvements: res.characteristics.improvements,
         investments: res.characteristics.investments,
         existing_houses: res.characteristics.existing_houses,
@@ -457,15 +479,15 @@ export default {
   },
   head() {
     return {
-      title: this.title || "<&&>-" + this.cityname,
+      title: this.title || "-" + this.cityname,
       meta: [
         {
           name: "description",
-          content: this.description || "<&&>",
+          content: this.description || "",
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>",
+          content: this.keywords || "",
         },
       ],
     };
@@ -533,7 +555,7 @@ export default {
     if (this.host == 0) {
       this.txt = "家园";
     } else {
-      this.txt = "<&&>";
+      this.txt = "";
     }
     console.log(this.$store.state);
     // this.cityname = $cookies.get('cityname')
@@ -1106,7 +1128,7 @@ header {
             left: 50%;
             transform: translateX(-50%);
             top: 1rem;
-            width: 3.125rem;
+            width: 3.3rem;
           }
         }
       }

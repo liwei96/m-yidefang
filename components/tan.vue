@@ -8,7 +8,7 @@
         <input type="tel" placeholder="请输入手机号" v-model="baoming" />
         <p class="xiyi">
           <input type="checkbox" v-model="checks" />我已阅读并同意
-          <a @click="goo">《<&&>用户协议》</a>
+          <a @click="goo">《用户协议》</a>
         </p>
         <button @click="send">{{ btnstr }}</button>
         <p class="bomm">获取后会有置业顾问致电联系您并提供服务</p>
@@ -152,7 +152,7 @@ export default {
     } else if (type == "抢特价房") {
       this.str = "享受底价购房，特价房源不错过";
       this.btnstr = "立即抢购";
-    } else if (type == "<&&>专享购房送手机") {
+    } else if (type == "专享购房送手机") {
       this.str =
         "本平台成交项目即送苹果12 pro max一台，平台合计1000台手机送完为止";
       this.btnstr = "立即去抢";

@@ -62,7 +62,7 @@
           <input class="txt" type="text" placeholder="请输入手机号" v-model="tel" />
           <p class="xiyi">
             <input type="checkbox" v-model="check" />我已阅读并同意
-            <nuxt-link :to="'/wuxi/protocol'">《<&&>用户协议》</nuxt-link>
+            <nuxt-link :to="'/wuxi/protocol'">《用户协议》</nuxt-link>
           </p>
           <button @click="sendmsg">确定</button>
         </div>
@@ -128,16 +128,16 @@ export default {
   },
   head() {
     return {
-      title: this.title || "<&&>-帮我找房",
+      title: this.title || "-帮我找房",
       meta: [
         {
           name: "description",
           content: this.description || 
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>"
+          content: this.keywords || ""
         }
       ]
     };

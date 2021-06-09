@@ -52,16 +52,16 @@ export default {
   },
   head() {
     return {
-      title: "<&&>-"+this.question.question+'-回答问题',
+      title: "-"+this.question.question+'-回答问题',
       meta: [
         {
           name: "description",
           content:
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: "<&&>"
+          content: ""
         }
       ]
     };

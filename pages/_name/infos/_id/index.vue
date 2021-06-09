@@ -121,15 +121,15 @@ export default {
   },
   head() {
     return {
-      title: this.title || "<&&>-咨询列表",
+      title: this.title || "-咨询列表",
       meta: [
         {
           name: "description",
-          content: this.description || "<&&>",
+          content: this.description || "",
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>",
+          content: this.keywords || "",
         },
       ],
     };

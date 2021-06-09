@@ -35,16 +35,16 @@ export default {
   },
   head() {
     return {
-      title: "<&&>-提交问题页",
+      title: "-提交问题页",
       meta: [
         {
           name: "description",
           content:
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: "<&&>"
+          content: ""
         }
       ]
     };
@@ -80,7 +80,7 @@ export default {
     if(this.host == 0) {
       this.txt = '家园'
     }else {
-      this.txt = '<&&>'
+      this.txt = ''
     }
   },
   watch: {

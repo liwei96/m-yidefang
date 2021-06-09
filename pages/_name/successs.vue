@@ -132,16 +132,16 @@ export default {
   },
   head() {
     return {
-      title: this.title || "<&&>-成交案例",
+      title: this.title || "-成交案例",
       meta: [
         {
           name: "description",
           content:this.description ||
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>"
+          content: this.keywords || ""
         }
       ]
     };

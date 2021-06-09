@@ -77,16 +77,16 @@ export default {
   },
   head() {
     return {
-      title: this.title || "<&&>-个人设置",
+      title: this.title || "-个人设置",
       meta: [
         {
           name: "description",
           content: this.description ||
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>"
+          content: this.keywords || ""
         }
       ]
     };

@@ -7,7 +7,7 @@
         src="~/assets/logo3.png"
         alt
         @click="home"
-        v-if="host == '<&&>'"
+        v-if="host == ''"
       />
       <img
         class="logo"
@@ -1029,7 +1029,7 @@ export default {
       huinum: 10,
       huinum1: 11,
       city: 1,
-      host: "<&&>",
+      host: "",
       usernum: "",
       looknum: "",
       rate: "",
@@ -1832,7 +1832,7 @@ export default {
       //   let url = window.location.href+'&id='+this.$route.params.id;
       // window.location.href =
       //   "http://testim.jy1980.com/hangzhou/talk?reconnect=" + this.url+'&uuid='+this.$route.query.uuid;
-      //   if(this.host == '<&&>') {
+      //   if(this.host == '') {
       //     window.location.href =
       //     "http://mobile.edefang.net/hangzhou/talk?reconnect=" + this.url+'&uuid='+this.$route.query.uuid+'&proid='+this.$route.params.id;
       //   }else {
@@ -2147,7 +2147,7 @@ export default {
     },
     home() {
       let city = this.basic.pin;
-      if (this.host == "<&&>") {
+      if (this.host == "") {
         if (localStorage.getItem("uuid")) {
           let uuid = localStorage.getItem("uuid");
           if (sessionStorage.getItem("kid")) {
@@ -2386,7 +2386,7 @@ export default {
     if (window.location.href.indexOf("jy1980.com") != -1) {
       this.host = "家园";
     } else {
-      this.host = "<&&>";
+      this.host = "";
     }
     if (!localStorage.getItem("uuid")) {
       var timestamp = Date.parse(new Date());

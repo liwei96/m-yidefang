@@ -30,16 +30,16 @@ export default {
   },
   head() {
     return {
-      title: "<&&>-登录",
+      title: "-登录",
       meta: [
         {
           name: "description",
           content:
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: "<&&>"
+          content: ""
         }
       ]
     };

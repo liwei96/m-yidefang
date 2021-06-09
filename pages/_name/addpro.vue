@@ -110,16 +110,16 @@ export default {
   },
   head() {
     return {
-      title: this.title || "<&&>-PK添加楼盘",
+      title: this.title || "-PK添加楼盘",
       meta: [
         {
           name: "description",
           content: this.description || 
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>"
+          content: this.keywords || ""
         }
       ]
     };

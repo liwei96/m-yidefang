@@ -55,16 +55,16 @@ export default {
   },
   head() {
     return {
-      title: this.title || "<&&>-免责协议",
+      title: this.title || "-免责协议",
       meta: [
         {
           name: "description",
           content: this.description || 
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>"
+          content: this.keywords || ""
         }
       ]
     };
@@ -78,7 +78,7 @@ export default {
     if(this.host == 0) {
       this.txt = '家园'
     }else {
-      this.txt = '<&&>'
+      this.txt = ''
     }
   }
 };

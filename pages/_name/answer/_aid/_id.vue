@@ -204,15 +204,15 @@ export default {
   },
   head() {
     return {
-      title: this.title || "<&&>-" + this.answer.question,
+      title: this.title || "-" + this.answer.question,
       meta: [
         {
           name: "description",
-          content: this.description || "<&&>",
+          content: this.description || "",
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>",
+          content: this.keywords || "",
         },
       ],
     };
@@ -234,7 +234,7 @@ export default {
       id: "0",
       img: require("~/assets/noclick.png"),
       img1: require("~/assets/checked.png"),
-      txt: '<&&>',
+      txt: '',
       bid: 0
     };
   },
@@ -284,7 +284,7 @@ export default {
     if(this.host == 0) {
       this.txt = '家园'
     }else {
-      this.txt = '<&&>'
+      this.txt = ''
     }
   }
 };

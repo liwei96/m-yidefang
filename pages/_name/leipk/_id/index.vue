@@ -242,16 +242,16 @@ export default {
   },
   head() {
     return {
-      title: this.title || "<&&>-雷达图PK-"+this.list[0].name+'PK'+this.list[1].name,
+      title: this.title || "-雷达图PK-"+this.list[0].name+'PK'+this.list[1].name,
       meta: [
         {
           name: "description",
           content: this.description || 
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>"
+          content: this.keywords || ""
         }
       ]
     };

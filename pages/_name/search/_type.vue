@@ -552,15 +552,15 @@ export default {
   },
   head() {
     return {
-      title: this.title || "<&&>-" + this.cityname + "-楼盘查询",
+      title: this.title || "-" + this.cityname + "-楼盘查询",
       meta: [
         {
           name: "description",
-          content: this.description || "<&&>",
+          content: this.description || "",
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>",
+          content: this.keywords || "",
         },
       ],
     };

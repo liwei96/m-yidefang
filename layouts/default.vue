@@ -10,7 +10,7 @@
         <li><nuxt-link :to="'/' + jkl + '/join'">城市加盟</nuxt-link></li>
         <li><nuxt-link :to="'/' + jkl + '/privacy'">隐私政策</nuxt-link></li>
       </ul>
-      <p>&nbsp;&nbsp;电话：400-718-6686</p>
+      <p>&nbsp;&nbsp;电话：4006881980</p>
       <p v-if="false">
         <img src="~/assets/logobom.png" alt="" />
         网络经营许可证：

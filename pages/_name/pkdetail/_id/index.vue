@@ -314,16 +314,16 @@ export default {
   },
   head() {
     return {
-      title: this.title || "<&&>-PK详情-"+this.one.name+'PK'+this.two.name,
+      title: this.title || "-PK详情-"+this.one.name+'PK'+this.two.name,
       meta: [
         {
           name: "description",
           content: this.description || 
-            "<&&>"
+            ""
         },
         {
           name: "Keywords",
-          content: this.keywords || "<&&>"
+          content: this.keywords || ""
         }
       ]
     };
