@@ -72,6 +72,7 @@ export default {
     lucktype: {
       type: Number,
     },
+    city: {}
   },
   data() {
     return {
@@ -122,7 +123,7 @@ export default {
       let id = this.id;
       let typenum = this.typenum;
       let ip = ip_arr["ip"];
-      let city = $cookies.get("city");
+      let city = this.city || $cookies.get("city");
       let kid = $cookies.get("kid");
       let other = $cookies.get("other");
       let txt = this.txt;
@@ -345,6 +346,10 @@ export default {
       this.str =
         "本平台成交项目即送苹果12 pro max一台，平台合计1000台手机送完为止";
       this.btnstr = "立即去抢";
+    } else if (type == "申请开放") {
+      this.str =
+        "向我们申请开放该城市，让我们一起点亮并守护您选择的城市";
+      this.btnstr = "立即申请";
     }
     console.log(this.name);
   },
