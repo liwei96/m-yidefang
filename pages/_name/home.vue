@@ -256,7 +256,6 @@ export default {
   },
   methods: {
     gozhao(){
-     
         window.location.href="http://recruit.jy1980.com?type=1&city="+localStorage.getItem('city')
     },
     back() {
