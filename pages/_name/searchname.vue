@@ -312,9 +312,9 @@ header {
       margin-right: 0.75rem;
       margin-bottom: 0.75rem;
     }
-    span:nth-of-type(3n) {
-      margin-right: 0;
-    }
+    // span:nth-of-type(3n) {
+    //   margin-right: 0;
+    // }
   }
 }
 .view {
