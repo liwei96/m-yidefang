@@ -19,7 +19,8 @@ const store = () => new Vuex.Store({
     uuid: '',
     host: 0,
     hostname: '',
-    other: ''
+    other: '',
+    userid: 0
   },
   mutations: {
     setip(state, data) {
@@ -63,6 +64,9 @@ const store = () => new Vuex.Store({
     },
     setother(state, type) {
       state.other = type
+    },
+    setuserid(state, type) {
+      state.userid = type
     }
   },
   actions: {
@@ -86,6 +90,7 @@ const store = () => new Vuex.Store({
         commit('setcookie', {
           'cookie': obj
         })
+        commit('setuserid', obj.userid)
       }
       // if (app.store.state.cookie.uuid) {
 
@@ -302,6 +307,9 @@ const store = () => new Vuex.Store({
     },
     setws(context, data) {
       context.commit('setws', data)
+    },
+    setuserid(context, data) {
+      context.commit('setuserid', data)
     }
   },
 })

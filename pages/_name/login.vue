@@ -126,7 +126,9 @@ export default {
             // localStorage.setItem('token',res.data.token)
             $cookies.set("phone", that.tel);
             $cookies.set("token", res.data.token);
+            $cookies.set("userid", res.data.userId);
             this.$store.dispatch("setoken", res.data.token);
+            this.$store.dispatch("setuserid", res.data.userId);
             // localStorage.setItem('phone',that.tel)
             let tel = that.tel.substr(0, 3) + "****" + that.tel.substr(7);
             $cookies.set("username", tel);

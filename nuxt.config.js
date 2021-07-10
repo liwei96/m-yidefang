@@ -173,7 +173,7 @@ export default {
       }
     },
     "/edefang_first_new": {
-      target: "http://39.98.227.114:8989/", // 重新映射的新地址 
+      target: "http://java.edefang.net/", // 重新映射的新地址 
       changeOrigin: true, // 是否跨域
       pathRewrite: {
         "^/edefang_first_new": "/edefang_first_new" // 去掉接口地址中的api字符串
@@ -184,6 +184,13 @@ export default {
       changeOrigin: true, // 是否跨域
       pathRewrite: {
         "^/cities": "/cities" // 去掉接口地址中的api字符串
+      }
+    },
+    "/edefang_new_mobile": {
+      target: "http://java.edefang.net/", // 重新映射的新地址 
+      changeOrigin: true, // 是否跨域
+      pathRewrite: {
+        "^/edefang_new_mobile": "/edefang_new_mobile" // 去掉接口地址中的api字符串
       }
     }
   },

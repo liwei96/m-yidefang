@@ -20,7 +20,7 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, key) in imgs" :key="key">
             <img
-              :src="item.small"
+              :src="item.smallImg"
               :alt="abstract.name"
               :title="abstract.name"
             />
@@ -61,11 +61,12 @@
         <div class="top-left">
           <h2>{{ abstract.name }}</h2>
           <p>
-            <span class="active">{{ abstract.status }}</span>
+            <span class="active">{{ abstract.sale_state }}</span>
             <span>{{ abstract.type }}</span>
-            <span v-for="(item, key) in abstract.features" :key="key">{{
-              item
+            <span v-if="abstract.railways.length">{{
+              abstract.railways[0]
             }}</span>
+            <span v-else>{{abstract.features[0]}}</span>
           </p>
         </div>
         <div class="top-right" @click="pk">
@@ -84,7 +85,7 @@
         </nuxt-link>
         <p>
           均价:
-          <span class="price"> {{ abstract.price }}<i>元/m²</i> </span>
+          <span class="price"> {{ abstract.single_price }}<i>元/m²</i> </span>
         </p>
         <p>
           开盘:
@@ -118,10 +119,10 @@
     <div class="hui">
       <h3>
         优惠信息
-        <img src="~/assets/ques.png" alt @click="huo = true" v-if="participate==0"/>
-        <img src="~/assets/ques.png" alt @click="huo1 = true" v-if="participate!=0"/>
+        <img src="~/assets/ques.png" alt @click="huo = true" v-if="!participate"/>
+        <img src="~/assets/ques.png" alt @click="huo1 = true" v-if="participate"/>
       </h3>
-      <div class="hui-con" v-if="participate==0">
+      <div class="hui-con" v-if="!participate">
         <div class="hui-left">
           <p>
             售楼处专供易得房客户<span>（{{ time }}截止）</span>
@@ -132,11 +133,11 @@
             领取优惠
           </button>
           <p>
-            <span>{{ count.sign_num + 100 }}人</span>已领取
+            <span>{{ num1 }}人</span>已领取
           </p>
         </div>
       </div>
-      <div class="phone-huo" v-if="participate!=0">
+      <div class="phone-huo" v-if="participate">
         <img src="~/assets/phone-huo.jpg" alt="">
         <p>{{participate}}人已领</p>
         <button @click="pop('易得房专享购房送手机', 121, '详情页+易得房专享购房送手机')">立即抢</button>
@@ -145,7 +146,7 @@
         <div class="hui-left">
           <p>
             免费专车1对1服务限时劵<span
-              >（剩余{{ count.get_num + 102 }}张）</span
+              >（剩余{{ num2 }}张）</span
             >
           </p>
         </div>
@@ -154,20 +155,20 @@
             免费领取
           </button>
           <p>
-            <span>{{ count.get_num + 112 }}人</span>已领取
+            <span>{{ num3 }}人</span>已领取
           </p>
         </div>
       </div>
     </div>
-    <div class="te" v-if="specials.data">
+    <div class="te" v-if="specials.rooms">
       <h3>
         <img src="~/assets/index-hot.jpg" alt="" />
         今日特价房
-        <span>{{ hour }}小时前更新</span>
+        <span>{{ begintime }}更新</span>
         <!-- <img src="~/assets/tit.png" alt class="te-tit" /> -->
       </h3>
       <ul class="tabs">
-        <li v-for="(item, key) in specials.data" :key="key">
+        <li v-for="(item, key) in specials.rooms" :key="key">
           <div class="left">
             <p class="msg">
               房号-{{
@@ -195,7 +196,7 @@
           color="#807D7D"
           background="rgba(0,0,0,0)"
           left-icon="volume-o"
-          :text="specials.dynamic"
+          :text="specials.content"
         />
         <button @click="pop('咨询特价房', 93, '详情页+咨询特价房')">
           咨询特价房
@@ -222,7 +223,7 @@
             <nuxt-link :to="'/' + jkl + '/hu/'+abstract.id+'/' + item.id">
               <div class="hu-top">
                 <img
-                  :src="item.img"
+                  :src="item.small"
                   :alt="abstract.name + item.title + '户型图'"
                   :title="abstract.name + item.title + '户型图'"
                 />
@@ -231,7 +232,7 @@
             <div class="hu-bom">
               <p class="name">
                 {{ item.title }}
-                <span>{{ item.status }}</span>
+                <span>{{ item.state }}</span>
               </p>
               <p class="type">
                 <span class="t1">建面 {{ item.area }}m²</span>
@@ -264,9 +265,9 @@
         <li v-for="(item, key) in dynamics" :key="key">
           <p>{{ item.content }}</p>
           <span>{{ item.time }}</span>
-          <div class="dynamicimgs" v-if="item.img">
+          <div class="dynamicimgs">
             <img
-              :src="item.img"
+              :src="allimgs[key].smallImg"
               :alt="abstract.name + '实时动态'"
               :title="abstract.name + '实时动态'"
             />
@@ -345,9 +346,14 @@
         <p :class="tabnum == 1 ? 'active' : ''" @click="tabnum = 1">投资分析</p>
         <p @click="tabnum = 2" :class="tabnum == 2 ? 'active' : ''">宜居分析</p>
       </div>
-      <div class="liao-msg">
-        <template v-for="(item, key) in analysis">
-          <p :key="key" v-if="item.type == tabnum">{{ item.content }}</p>
+      <div class="liao-msg" v-if="tabnum == 1">
+        <template v-for="(item, key) in analysis.investment">
+          <p :key="key" >{{ item }}</p>
+        </template>
+      </div>
+      <div class="liao-msg" v-if="tabnum == 2">
+        <template v-for="(item, key) in analysis.livable">
+          <p :key="key" >{{ item }}</p>
         </template>
       </div>
       <div
@@ -372,7 +378,7 @@
         <span> <img src="~/assets/icon-pin.png" alt />户型分析 </span>
       </p>
       <div class="peo" v-for="(item, key) in staffs" :key="key">
-        <img class="peoimg" :src="item.head_img" alt />
+        <img class="peoimg" :src="item.image" alt />
         <div class="peo-msg">
           <h6>
             {{ item.name }}
@@ -545,7 +551,7 @@
               @click="like(item.id, key)"
             >
               <img :src="item.my_like == 1 ? img1 : img" alt />
-              赞({{ item.like_num }})
+              赞({{ item.like_count }})
             </div>
           </div>
           <nuxt-link :to="'/' + jkl + '/commentdetail/' + id + '/' + item.id">
@@ -603,14 +609,14 @@
       <template v-for="(item, key) in recommends">
         <nuxt-link :to="'/' + jkl + '/content/' + item.id" :key="key">
           <div class="pro">
-            <img :src="item.img" :alt="item.name" :title="item.name" />
+            <img :src="item.image" :alt="item.name" :title="item.name" />
             <div class="pro-msg">
               <h5>
                 {{ item.name }}
-                <span>{{ item.status }}</span>
+                <span>{{ item.state }}</span>
               </h5>
               <p class="pro-price">
-                <span>{{ item.single_price }}</span>
+                <span>{{ item.price }}</span>
                 <i>元/m²</i>
               </p>
               <p class="attr">
@@ -621,12 +627,8 @@
               </p>
               <p class="pro-icon">
                 <span class="pro-icon-zhuang">{{ item.decorate.substr(0,2) }}</span>
-                <span
-                  class="pro-icon-type"
-                  v-for="(val, k) in item.features"
-                  :key="k"
-                  >{{ val }}</span
-                >
+                <span class="pro-icon-type" v-if="item.railway">{{ item.railway }}</span>
+                <span class="pro-icon-type" v-if="item.feature">{{ item.feature }}</span>
               </p>
             </div>
           </div>
@@ -798,6 +800,7 @@ export default {
       let token = context.store.state.cookie.token || "";
       let jkl = context.params.name;
       let other = context.query.other;
+      let userid = context.store.state.userid
       if (other) {
         context.store.state.other = other;
       } else {
@@ -806,60 +809,73 @@ export default {
         }
       }
       let kid = context.query.kid;
-      let [res] = await Promise.all([
-        context.$axios
-          .get("/edefang/building/mobile", {
+      let [res1] = await Promise.all([
+          context.$axios
+          .get("/edefang_new_mobile/building", {
             params: {
               id: id,
-              token: token,
               other: other,
+              userId:userid
             },
           })
           .then((resp) => {
             let data = resp.data.data;
-            // console.log(data)
             data.prices = [];
-            for (let val in data.deal_prices) {
-              data.prices[val] = [
-                data.deal_prices[val].time.substr(5),
-                data.deal_prices[val].price,
-              ];
+            if (data.transactionPrices) {
+              for (let val in data.transactionPrices) {
+                data.prices[val] = [
+                  data.transactionPrices[val].time.substr(5),
+                  data.transactionPrices[val].price,
+                ];
+              }
+            }else{
+              data.transactionPrices = []
             }
+            if (data.special_price_rooms) {
+              data.begintime = data.special_price_rooms.rooms[0].begin
+            }else{
+              data.special_price_rooms = {
+                rooms:false
+              }
+            }
+            data.allimgs = data.image.effect.concat(data.image.example)
+            // console.log(data)
             return data;
           }),
       ]);
       return {
-        effects: res.img ? res.img.img.effect : [],
-        examples: res.img ? res.img.img.example : [],
-        traffics: res.img ? res.img.img.traffic : [],
-        imgnum: res.img ? res.img.count : 0,
-        abstract: res.abstract,
-        phone: res.common.phone,
-        scores: res.scores,
-        house_types: res.house,
-        dynamics: res.dynamics,
-        staffs: res.staffs,
-        analysis: res.analysis,
-        participate: res.participate,
-        deal_prices: res.deal_prices,
-        prices: res.prices,
-        comments: res.comments,
-        questions: res.questions,
-        recommends: res.recommends,
+        begintime:res1.begintime,
+        effects: res1.image ? res1.image.effect : [],
+        examples: res1.image ? res1.image.example : [],
+        // traffics: res.img ? res.img.img.traffic : [],
+        imgnum: res1.image ? res1.image.count : 0,
+        abstract: res1.building,
+        phone: res1.phone,
+        // scores: res.scores,
+        house_types: res1.house_type,
+        dynamics: res1.dynamics,
+        staffs: res1.staffs,
+        analysis: res1.analysis,
+        participate: res1.participate,
+        deal_prices: res1.transactionPrices,
+        prices: res1.prices,
+        comments: res1.comments,
+        questions: res1.questions,
+        recommends: res1.recommends,
         jkl: jkl,
         id: id,
-        specials: res.discount,
-        count: res.virtual_num,
-        collect: res.collect,
-        cityname: res.current_city.name,
+        specials: res1.special_price_rooms,
+        // count: res.virtual_num,
+        collect: res1.collect,
+        cityname: res1.current_city.name,
         othercode: other,
         kidcode: kid,
-        title: res.common.header.title,
-        description: res.common.header.description,
-        keywords: res.common.header.keywords,
+        title: res1.header.title,
+        description: res1.header.description,
+        keywords: res1.header.keywords,
         host: host,
-        infos: res.relevant,
-        relevant: res.relevant,
+        infos: res1.articles,
+        allimgs: res1.allimgs
       };
     } catch (err) {
       console.log("errConsole========:", err);
@@ -883,6 +899,7 @@ export default {
   },
   data() {
     return {
+      allimgs: [],
       huo1: false,
       nav: 0,
       show: false,
@@ -913,7 +930,7 @@ export default {
       imgs: [],
       imgmsg: ["效果图", "样板房"],
       imgmsgnum: 0,
-      morebtns: true,
+      morebtns: false,
       navs: ["优惠", "分析", "户型", "动态", "配套", "点评", "问答"],
       navnum: 0,
       src: require("~/assets/lun02.jpg"),
@@ -948,6 +965,9 @@ export default {
       num: "",
       dongtel: "",
       navtype: false,
+      num1: 221,
+      num2: 256,
+      num3: 209
     };
   },
   methods: {
@@ -1111,10 +1131,10 @@ export default {
             // this.$router.go(0);
             if (this.comments[key].my_like == 1) {
               this.comments[key].my_like = 0;
-              this.comments[key].like_num = this.comments[key].like_num - 1;
+              this.comments[key].like_count = this.comments[key].like_count - 1;
             } else {
               this.comments[key].my_like = 1;
-              this.comments[key].like_num = this.comments[key].like_num + 1;
+              this.comments[key].like_count = this.comments[key].like_count + 1;
             }
           } else {
             let url = this.$route.path;
@@ -1420,6 +1440,10 @@ export default {
     },
   },
   mounted() {
+    
+    this.num1 = Math.floor(Math.random() * 100) + 200;
+    this.num2 = Math.floor(Math.random() * 100) + 200;
+    this.num3 = Math.floor(Math.random() * 100) + 200;
     window.addEventListener("scroll", this.setnav);
     if (this.host == 0) {
       this.txt = "家园";
@@ -1968,7 +1992,7 @@ export default {
     }
   }
   ul {
-    height: 11.125rem;
+    height: auto;
     overflow: hidden;
     li {
       display: flex;
