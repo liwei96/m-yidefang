@@ -428,7 +428,7 @@ export default {
           })
           .then((resp) => {
             let data = resp.data.data;
-            // console.log(data)
+            // console.log(resp)
             return data;
           }),
       ]);
